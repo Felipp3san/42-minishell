@@ -1,0 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ui.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/23 12:13:30 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/09/23 12:21:25 by fde-alme         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+#include "libft.h"
+
+void	print_banner()
+{
+	ft_printf(CYAN
+	"  ___  __ _____ _   _ _____  _____ _    _ ______ _      _      \n"
+	" |   \\/  |_   _| \\ | |_   _|/ ____| |  | |  ____| |    | |     \n"
+	" |  \\  / | | | |  \\| | | | | (___ | |__| | |__  | |    | |     \n"
+	" |  |\\/| | | | | . ` | | |  \\___ \\|  __  |  __| | |    | |     \n"
+	" |  |  | |_| |_| |\\  |_| |_ ____) | |  | | |____| |____| |____ \n"
+	" | _|  |_|_____|_| \\_|_____|_____/|_|  |_|______|______|______|\n"
+	RESET);
+	ft_printf("\n");
+	ft_printf(BOLD GREEN "        minishell v1.0\n" RESET);
+	ft_printf(YELLOW "    by Felippe Santana - 42 Porto\n" RESET);
+	ft_printf(MAGENTA "   \"Because bash was too mainstream.\"\n" RESET);
+	ft_printf("\n");
+	ft_printf("Welcome! Type " BOLD "'help'" RESET " to begin.\n\n");
+}
