@@ -34,10 +34,6 @@ WHITE = \033[0;97m
 SRCS		= $(wildcard $(SRC_DIR)/*.c)
 OBJS		= $(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 
-print:
-	@echo $(SRCS)
-	@echo $(OBJS)
-
 # Rules
 all: $(NAME)
 

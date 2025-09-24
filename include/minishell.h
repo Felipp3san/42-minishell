@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:31:58 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/23 18:05:26 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/09/24 15:39:56 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,26 @@
 
 typedef struct s_shell
 {
-	char **tokens;
+	char	**tokens;
 	size_t	token_count;
-	char *current_dir;
-	int last_exit_status;
-} t_shell;
+	char	*current_dir;
+	int		last_exit_status;
+}	t_shell;
+
+typedef enum e_state
+{
+	NORMAL,
+	SINGLE,
+	DOUBLE
+}	t_state;
+
+typedef struct s_tokenizer
+{
+	char	*buffer;
+	char	*token;
+	size_t	buf_len;
+	t_state	state;
+}	t_tokenizer;
 
 typedef enum e_status
 {
@@ -30,13 +45,6 @@ typedef enum e_status
 	ERR_SIGACTION = -2,
 	ERR_MALLOC = -3
 }	t_status;
-
-typedef enum e_state
-{
-	NORMAL,
-	SINGLE,
-	DOUBLE
-}	t_state;
 
 typedef enum e_bool
 {
@@ -61,15 +69,22 @@ void	print_banner();
 // handlers.c
 void	sigint_handler(int sig);
 
-// tokenizer.c
-int	tokenizer(char const *str, t_shell *shell);
-void	print_tokens(char **tokens);
+// tokens.c
 void	free_tokens(t_shell *shell);
+int		tokens_append(t_shell *shell, char *str);
+int		tokens_init(t_shell *shell);
+void	tokens_print(char **tokens);
+
+// tokenizer.c
+int		tokenizer(char const *str, t_shell *shell);
 
 // buffer.c
-int	buffer_append(char **buffer, size_t *buf_len, char ch);
-int	buffer_flush(char **buffer, size_t *buf_len, t_shell *shell);
-int	buffer_init(char **buffer);
-void reset_buffer(char **buffer, size_t *buf_len);
+void	buffer_reset(t_tokenizer *tok);
+int		buffer_init(t_tokenizer *tok);
+int		buffer_flush(t_tokenizer *tok, char **out);
+int		buffer_append(t_tokenizer *tok, char ch);
+
+// utils.c
+void	free_exit(t_shell *shell);
 
 #endif

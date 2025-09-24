@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:25:23 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/23 18:00:43 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/09/24 15:31:16 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "minishell.h"
 #include <errno.h>
 #include <signal.h>
+#include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 
@@ -52,9 +53,9 @@ void	input_loop(t_shell	*shell)
 		{
 			add_history(input);
 			tokenizer(input, shell);
-			print_tokens(shell->tokens);
+			tokens_print(shell->tokens);
 		}
-		free_tokens(shell);
+		free_tokens(shell); 
 		free(input);
 	}
 }
