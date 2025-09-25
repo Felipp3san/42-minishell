@@ -6,57 +6,67 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:03:25 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/25 13:11:38 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/09/25 18:27:03 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
 #include <stdlib.h>
+#include "buffer.h"
 #include "libft.h"
+#include "types.h"
 
-void	buffer_reset(t_tokenizer *tok)
+int	buffer_init(t_buffer *buffer)
 {
-	if (!tok->buffer)
-		return ;
-	tok->buffer[0] = '\0';
-	tok->buf_len = 0;
-}
-
-int	buffer_init(t_tokenizer *tok)
-{
-	tok->buffer = (char *) malloc(sizeof(char));
-	if (!tok->buffer)
+	buffer->data = (char *) malloc(sizeof(char));
+	if (!buffer->data)
 		return (ERR_MALLOC);
-	tok->buffer[0] = '\0';
+	buffer->data[0] = '\0';
+	buffer->len = 0;
+	buffer->size = 0;
 	return (SUCCESS);
 }
 
-int	buffer_flush(t_tokenizer *tok)
-{
-	if (tok->buf_len == 0)
-	{
-		tok->output = NULL;
-		return (SUCCESS);
-	}
-	tok->output = ft_strdup(tok->buffer);
-	if (!tok->output)
-		return (ERR_MALLOC);
-	buffer_reset(tok);
-	return (SUCCESS);
-}
-
-int	buffer_append(t_tokenizer *tok, char ch)
+int	realloc_buffer(t_buffer *buffer)
 {
 	char	*new_buffer;
 
-	new_buffer = (char *) malloc(tok->buf_len + 2);
+	new_buffer = (char *) malloc(buffer->size + 2);
 	if (!new_buffer)
 		return (ERR_MALLOC);
-	ft_memcpy(new_buffer, tok->buffer, tok->buf_len);
-	new_buffer[tok->buf_len] = ch;
-	new_buffer[tok->buf_len + 1] = '\0';
-	free(tok->buffer);
-	tok->buffer = new_buffer;
-	tok->buf_len++;
+	ft_memcpy(new_buffer, buffer->data, buffer->size);
+	free(buffer->data);
+	buffer->data = new_buffer;
+	buffer->size++;
 	return (SUCCESS);
+}
+
+int	buffer_append(t_buffer *buffer, char ch)
+{
+	if (buffer->len >= buffer->size)
+	{
+		if (realloc_buffer(buffer) != SUCCESS)
+			return (ERR_MALLOC);
+	}
+	buffer->data[buffer->len++] = ch;
+	buffer->data[buffer->len] = '\0';
+	return (SUCCESS);
+}
+
+int	buffer_flush(t_buffer *buffer, char **output)
+{
+	if (buffer->len == 0)
+		return (SUCCESS);
+	*output = ft_strdup(buffer->data);
+	if (!*output)
+		return (ERR_MALLOC);
+	buffer_reset(buffer);
+	return (SUCCESS);
+}
+
+void	buffer_reset(t_buffer *buffer)
+{
+	if (!buffer->data)
+		return ;
+	buffer->data[0] = '\0';
+	buffer->len = 0;
 }

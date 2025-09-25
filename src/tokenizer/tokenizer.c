@@ -6,40 +6,35 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:37:46 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/25 12:07:34 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/09/25 18:33:23 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include <stdlib.h>
+#include "token.h"
+#include "buffer.h"
+#include "types.h"
 
-void	tokenizer_init(t_tokenizer *tok)
+t_status	add_token(t_token *tok, t_buffer *buffer)
 {
-	tok->buffer = NULL;
-	tok->output = NULL;
-	tok->buf_len = 0;
-	tok->state = NORMAL;
+	char	*output;
+
+	if (!buffer->data && !*buffer->data)
+		return (SUCCESS);
+	if (buffer_flush(buffer, &output) != SUCCESS)
+		return (ERR_MALLOC);
+	tokens_append(tok, output);
+	return (SUCCESS);
 }
 
-void	add_token(t_shell *shell, t_tokenizer *tok)
+t_token	tokenizer(char const *str)
 {
-	if (buffer_flush(tok) != SUCCESS)
-	{
-		free(tok->buffer);
-		free_exit(shell);
-	}
-	tokens_append(shell, tok->output);
-	tok->output = NULL;
-}
-
-int	tokenizer(char const *str, t_shell *shell)
-{
-	t_tokenizer	tok;
+	t_token		token;
+	t_buffer	buffer;
 
 	tokenizer_init(&tok);
-	if (tokens_init(shell) != SUCCESS)
+	if (buffer_init(&buffer) != SUCCESS)
 		return (ERROR);
-	if (buffer_init(&tok) != SUCCESS)
+	if (tokens_init(shell) != SUCCESS)
 		return (ERROR);
 	while (*str)
 	{
@@ -55,5 +50,6 @@ int	tokenizer(char const *str, t_shell *shell)
 	}
 	add_token(shell, &tok);
 	free(tok.buffer);
+	tok.buffer = NULL;
 	return (SUCCESS);
 }

@@ -1,0 +1,38 @@
+[
+ {
+  "directory": "/home/fde-alme/Documents/minishell/tests",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-Iinclude",
+   "-I../include",
+   "-I../libft/include",
+   "-c",
+   "../src/tokenizer/buffer.c",
+   "-o",
+   "build/tokenizer/buffer.o"
+  ],
+  "file": "../src/tokenizer/buffer.c"
+ },
+ {
+  "directory": "/home/fde-alme/Documents/minishell/tests",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-Iinclude",
+   "-I../include",
+   "-I../libft/include",
+   "-c",
+   "buffer_test.c",
+   "-o",
+   "build/buffer_test.o"
+  ],
+  "file": "buffer_test.c"
+ }
+]

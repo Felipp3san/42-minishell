@@ -7,15 +7,15 @@ CFLAGS		= -Wall -Wextra -Werror -g
 NAME		= minishell
 LIBFT		= libft.a
 
-# Includes & Links
-INCLUDE		= -I$(INCLUDE_DIR) -I$(LIBFT_DIR)/include
-LINK		= -Llibft -lft -lreadline
-
 # Folders
 INCLUDE_DIR 	= include
 SRC_DIR			= src
 BUILD_DIR		= build
 LIBFT_DIR		= libft
+
+# Includes & Links
+INCLUDE		= -I$(INCLUDE_DIR) -I$(LIBFT_DIR)/include
+LINK		= -Llibft -lft -lreadline
 
 # Colors
 DEF_COLOR = \033[0;39m
