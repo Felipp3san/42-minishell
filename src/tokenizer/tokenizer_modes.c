@@ -69,6 +69,11 @@ void	operator_mode(t_shell *shell, t_tokenizer *tok, char ch)
 	{
 		if (tok->buffer && (tok->buffer[0] == ch))
 			buffer_append(tok, ch);
+		else
+		{
+			add_token(shell, tok);
+			buffer_append(tok, ch);
+		}
 	}
 	else
 	{

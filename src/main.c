@@ -48,7 +48,10 @@ void	input_loop(t_shell	*shell)
 	{
 		input = readline("minishell> ");
 		if (!input)
+		{
+			free_exit(shell);
 			break ; // EOF (CTRL + D)
+		}
 		if (*input)
 		{
 			add_history(input);

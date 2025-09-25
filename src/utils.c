@@ -11,8 +11,11 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdlib.h>
 
 void	free_exit(t_shell *shell)
 {
-	(void) shell;
+	free_tokens(shell);
+	if (shell->current_dir)
+		free(shell->current_dir);
 }

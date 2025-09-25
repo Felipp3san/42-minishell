@@ -18,11 +18,14 @@ void	free_tokens(t_shell *shell)
 	size_t i;
 
 	i = 0;
-	while (shell->tokens[i])
-		free(shell->tokens[i++]);
-	free(shell->tokens);
-	shell->tokens = NULL;
-	shell->token_count = 0;
+	if (shell->tokens)
+	{
+		while (shell->tokens[i])
+			free(shell->tokens[i++]);
+		free(shell->tokens);
+		shell->tokens = NULL;
+		shell->token_count = 0;
+	}
 }
 
 int	tokens_init(t_shell *shell)
