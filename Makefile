@@ -12,10 +12,10 @@ INCLUDE		= -I$(INCLUDE_DIR) -I$(LIBFT_DIR)/include
 LINK		= -Llibft -lft -lreadline
 
 # Folders
-INCLUDE_DIR = include
-SRC_DIR		= src
-BUILD_DIR	= build
-LIBFT_DIR	= libft
+INCLUDE_DIR 	= include
+SRC_DIR			= src
+BUILD_DIR		= build
+LIBFT_DIR		= libft
 
 # Colors
 DEF_COLOR = \033[0;39m
@@ -29,10 +29,8 @@ CYAN = \033[0;96m
 WHITE = \033[0;97m
 
 # Files
-# SRCS		= $(SRC_DIR)/pipex.c $(SRC_DIR)/utils.c
-# SRCS_BONUS	= $(SRC_DIR)/pipex_bonus.c $(SRC_DIR)/utils.c
-SRCS		= $(wildcard $(SRC_DIR)/*.c)
-OBJS		= $(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
+SRCS	:= $(shell find $(SRC_DIR) -type f -name "*.c")
+OBJS	:= $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRCS))
 
 # Rules
 all: $(NAME)
@@ -45,14 +43,11 @@ $(LIBFT):
 	@printf "$(CYAN)Compiling libft... $< $(DEF_COLOR)\n"
 	@make -C $(LIBFT_DIR) all
 
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(dir $@)
 	@printf "$(YELLOW)Compiling: $< $(DEF_COLOR)\n"
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
-$(BUILD_DIR):
-	@printf "$(MAGENTA)Build dir not found. Creating...$(DEF_COLOR)\n"
-	@mkdir -p $(BUILD_DIR)
-	
 clean:
 	@rm -rf $(BUILD_DIR)
 	@make -C $(LIBFT_DIR) clean

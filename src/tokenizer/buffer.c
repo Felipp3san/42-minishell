@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:03:25 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/24 15:33:39 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/09/25 13:11:38 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@ int	buffer_init(t_tokenizer *tok)
 	return (SUCCESS);
 }
 
-int	buffer_flush(t_tokenizer *tok, char **out)
+int	buffer_flush(t_tokenizer *tok)
 {
 	if (tok->buf_len == 0)
 	{
-		*out = NULL;
+		tok->output = NULL;
 		return (SUCCESS);
 	}
-	*out = ft_strdup(tok->buffer);
-	if (!*out)
+	tok->output = ft_strdup(tok->buffer);
+	if (!tok->output)
 		return (ERR_MALLOC);
 	buffer_reset(tok);
 	return (SUCCESS);

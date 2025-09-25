@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 12:13:30 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/23 12:21:25 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/09/25 12:00:09 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	print_banner()
 	ft_printf("\n");
 	ft_printf(BOLD GREEN "        minishell v1.0\n" RESET);
 	ft_printf(YELLOW "    by Felippe Santana - 42 Porto\n" RESET);
-	ft_printf(MAGENTA "   \"Because bash was too mainstream.\"\n" RESET);
 	ft_printf("\n");
-	ft_printf("Welcome! Type " BOLD "'help'" RESET " to begin.\n\n");
+	ft_printf("Welcome!\n\n");
 }

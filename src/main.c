@@ -6,15 +6,15 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:25:23 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/24 15:31:16 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/09/25 13:08:51 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
 #include <errno.h>
 #include <signal.h>
-#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 
@@ -67,7 +67,6 @@ int	init_shell(t_shell *shell)
 	cwd = getcwd(NULL, 0);
 	if (cwd == NULL)
 		return (ERROR);
-
 	shell->tokens = NULL;
 	shell->token_count = 0;
 	shell->current_dir = cwd;

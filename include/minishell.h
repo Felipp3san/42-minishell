@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:31:58 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/24 15:39:56 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/09/25 11:59:17 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,14 @@ typedef enum e_state
 {
 	NORMAL,
 	SINGLE,
-	DOUBLE
+	DOUBLE,
+	OPERATOR
 }	t_state;
 
 typedef struct s_tokenizer
 {
 	char	*buffer;
-	char	*token;
+	char	*output;
 	size_t	buf_len;
 	t_state	state;
 }	t_tokenizer;
@@ -77,11 +78,24 @@ void	tokens_print(char **tokens);
 
 // tokenizer.c
 int		tokenizer(char const *str, t_shell *shell);
+void	add_token(t_shell *shell, t_tokenizer *tok);
+
+// tokenizer_utils.c
+t_bool	is_space(char ch);
+t_bool	is_single_quote(char ch);
+t_bool	is_double_quote(char ch);
+t_bool	is_operator(char ch);
+
+// tokenizer_modes.c
+void	normal_mode(t_shell *shell, t_tokenizer *tok, char ch);
+void	single_mode(t_tokenizer *tok, char ch);
+void	double_mode(t_tokenizer *tok, char ch);
+void	operator_mode(t_shell *shell, t_tokenizer *tok, char ch);
 
 // buffer.c
 void	buffer_reset(t_tokenizer *tok);
 int		buffer_init(t_tokenizer *tok);
-int		buffer_flush(t_tokenizer *tok, char **out);
+int		buffer_flush(t_tokenizer *tok);
 int		buffer_append(t_tokenizer *tok, char ch);
 
 // utils.c

@@ -1,1 +1,121 @@
-[]
+[
+ {
+  "directory": "/home/fde-alme/Documents/minishell",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-Iinclude",
+   "-Ilibft/include",
+   "-c",
+   "src/buffer.c",
+   "-o",
+   "build/buffer.o"
+  ],
+  "file": "src/buffer.c"
+ },
+ {
+  "directory": "/home/fde-alme/Documents/minishell",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-Iinclude",
+   "-Ilibft/include",
+   "-c",
+   "src/handlers.c",
+   "-o",
+   "build/handlers.o"
+  ],
+  "file": "src/handlers.c"
+ },
+ {
+  "directory": "/home/fde-alme/Documents/minishell",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-Iinclude",
+   "-Ilibft/include",
+   "-c",
+   "src/main.c",
+   "-o",
+   "build/main.o"
+  ],
+  "file": "src/main.c"
+ },
+ {
+  "directory": "/home/fde-alme/Documents/minishell",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-Iinclude",
+   "-Ilibft/include",
+   "-c",
+   "src/tokenizer.c",
+   "-o",
+   "build/tokenizer.o"
+  ],
+  "file": "src/tokenizer.c"
+ },
+ {
+  "directory": "/home/fde-alme/Documents/minishell",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-Iinclude",
+   "-Ilibft/include",
+   "-c",
+   "src/tokens.c",
+   "-o",
+   "build/tokens.o"
+  ],
+  "file": "src/tokens.c"
+ },
+ {
+  "directory": "/home/fde-alme/Documents/minishell",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-Iinclude",
+   "-Ilibft/include",
+   "-c",
+   "src/ui.c",
+   "-o",
+   "build/ui.o"
+  ],
+  "file": "src/ui.c"
+ },
+ {
+  "directory": "/home/fde-alme/Documents/minishell",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-Iinclude",
+   "-Ilibft/include",
+   "-c",
+   "src/utils.c",
+   "-o",
+   "build/utils.o"
+  ],
+  "file": "src/utils.c"
+ }
+]
