@@ -18,14 +18,14 @@
 typedef struct s_buffer
 {
 	char	*data;
-	size_t	len;
 	size_t	size;
+	size_t	capacity;
 }	t_buffer;
 
-void	buffer_reset(t_buffer *buffer);
 int		buffer_init(t_buffer *buffer);
 int		buffer_flush(t_buffer *buffer, char **output);
-int		realloc_buffer(t_buffer *buffer);
+int		buffer_realloc(t_buffer *buffer);
 int		buffer_append(t_buffer *buffer, char ch);
+void	buffer_free(t_buffer *buffer);
 
 #endif

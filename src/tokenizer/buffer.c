@@ -17,56 +17,61 @@
 
 int	buffer_init(t_buffer *buffer)
 {
-	buffer->data = (char *) malloc(sizeof(char));
+	buffer->data = (char *) malloc(16);
 	if (!buffer->data)
 		return (ERR_MALLOC);
-	buffer->data[0] = '\0';
-	buffer->len = 0;
 	buffer->size = 0;
+	buffer->capacity = 16;
+	buffer->data[0] = '\0';
 	return (SUCCESS);
 }
 
-int	realloc_buffer(t_buffer *buffer)
+int	buffer_realloc(t_buffer *buffer)
 {
 	char	*new_buffer;
 
-	new_buffer = (char *) malloc(buffer->size + 2);
+	new_buffer = (char *) malloc(buffer->capacity + 16);
 	if (!new_buffer)
 		return (ERR_MALLOC);
-	ft_memcpy(new_buffer, buffer->data, buffer->size);
+	ft_memcpy(new_buffer, buffer->data, buffer->size + 1);
 	free(buffer->data);
 	buffer->data = new_buffer;
-	buffer->size++;
+	buffer->capacity += 16;
 	return (SUCCESS);
 }
 
 int	buffer_append(t_buffer *buffer, char ch)
 {
-	if (buffer->len >= buffer->size)
+	if (buffer->size + 1 >= buffer->capacity)
 	{
-		if (realloc_buffer(buffer) != SUCCESS)
+		if (buffer_realloc(buffer) != SUCCESS)
 			return (ERR_MALLOC);
 	}
-	buffer->data[buffer->len++] = ch;
-	buffer->data[buffer->len] = '\0';
+	buffer->data[buffer->size++] = ch;
+	buffer->data[buffer->size] = '\0';
 	return (SUCCESS);
 }
 
 int	buffer_flush(t_buffer *buffer, char **output)
 {
-	if (buffer->len == 0)
+	if (buffer->size == 0)
+	{
+		output = NULL;
 		return (SUCCESS);
+	}
 	*output = ft_strdup(buffer->data);
 	if (!*output)
 		return (ERR_MALLOC);
-	buffer_reset(buffer);
+	buffer->size = 0;
+	buffer->data[0] = '\0';
 	return (SUCCESS);
 }
 
-void	buffer_reset(t_buffer *buffer)
+void	buffer_free(t_buffer *buffer)
 {
-	if (!buffer->data)
-		return ;
-	buffer->data[0] = '\0';
-	buffer->len = 0;
+	if (buffer->data)
+		free(buffer->data);
+	buffer->data = NULL;
+	buffer->size = 0;
+	buffer->capacity = 0;
 }
