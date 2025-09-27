@@ -6,50 +6,77 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:37:46 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/25 18:33:23 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/09/27 22:07:57 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token.h"
-#include "buffer.h"
-#include "types.h"
+#include <stdlib.h>
+#include "tokenizer.h"
 
-t_status	add_token(t_token *tok, t_buffer *buffer)
+void	free_all(t_tokenizer *tok)
 {
-	char	*output;
+	buffer_free(&tok->buffer);
+	tokens_free(tok->tokens);
+	free(tok->tokens);
+}
 
-	if (!buffer->data && !*buffer->data)
-		return (SUCCESS);
-	if (buffer_flush(buffer, &output) != SUCCESS)
+static t_status	init_tokenizer(t_tokenizer *tok)
+{
+	tok->state = NORMAL;
+	tok->tokens = (t_tokens *) malloc(sizeof(t_tokens));
+	if (!tok->tokens)
 		return (ERR_MALLOC);
-	tokens_append(tok, output);
+	if (buffer_init(&tok->buffer) != SUCCESS)
+	{
+		free(tok->tokens);
+		return (ERR_MALLOC);
+	}
+	if (tokens_init(tok->tokens) != SUCCESS)
+	{
+		free(tok->tokens);
+		buffer_free(&tok->buffer);
+		return (ERR_MALLOC);
+	}
 	return (SUCCESS);
 }
 
-t_token	tokenizer(char const *str)
+t_status	add_token(t_tokenizer *tok)
 {
-	t_token		token;
-	t_buffer	buffer;
+	char	*output;
 
-	tokenizer_init(&tok);
-	if (buffer_init(&buffer) != SUCCESS)
-		return (ERROR);
-	if (tokens_init(shell) != SUCCESS)
-		return (ERROR);
+	if (tok->buffer.size == 0)
+		return (SUCCESS);
+	if (buffer_flush(&tok->buffer, &output) != SUCCESS)
+		return (ERR_MALLOC);
+	if (tokens_append(tok->tokens, output) != SUCCESS)
+		return (free(output), ERR_MALLOC);
+	free(output);
+	return (SUCCESS);
+}
+
+t_tokens	*tokenizer(char const *str)
+{
+	t_tokenizer	tok;
+	t_status	err;
+
+	if (init_tokenizer(&tok) != SUCCESS)
+		return (NULL);
 	while (*str)
 	{
 		if (tok.state == NORMAL)
-			normal_mode(shell, &tok, *str);
+			err = normal_mode(&tok, *str);
 		else if (tok.state == SINGLE)
-			single_mode(&tok, *str);
+			err = single_mode(&tok, *str);
 		else if (tok.state == DOUBLE)
-			double_mode(&tok, *str);
+			err = double_mode(&tok, *str);
 		else if (tok.state == OPERATOR)
-			operator_mode(shell, &tok, *str);
+			err = operator_mode(&tok, *str);
+		if (err != SUCCESS)
+			return (free_all(&tok), NULL);
 		str++;
 	}
-	add_token(shell, &tok);
-	free(tok.buffer);
-	tok.buffer = NULL;
-	return (SUCCESS);
+	if (add_token(&tok) != SUCCESS)
+		return (free_all(&tok), NULL);
+	buffer_free(&tok.buffer);
+	return (tok.tokens);
 }

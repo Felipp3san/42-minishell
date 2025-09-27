@@ -23,9 +23,9 @@ typedef struct s_buffer
 }	t_buffer;
 
 int		buffer_init(t_buffer *buffer);
-int		buffer_flush(t_buffer *buffer, char **output);
 int		buffer_realloc(t_buffer *buffer);
 int		buffer_append(t_buffer *buffer, char ch);
+int		buffer_flush(t_buffer *buffer, char **output);
 void	buffer_free(t_buffer *buffer);
 
 #endif

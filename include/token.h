@@ -15,15 +15,16 @@
 
 #include <stddef.h>
 
-typedef	struct s_token
+typedef	struct s_tokens
 {
 	char	**tokens;
-	size_t	count;
-}	t_token;
+	size_t	size;
+	size_t	capacity;
+}	t_tokens;
 
-void	free_tokens(t_token *tok);
-int		tokens_init(t_token *tok);
-int		realloc_tokens(t_token *tok);
-int		tokens_append(t_token *tok, char *str);
+int		tokens_init(t_tokens *tok);
+int		tokens_realloc(t_tokens *tok);
+int		tokens_append(t_tokens *tok, char const *str);
+void	tokens_free(t_tokens *tok);
 
 #endif

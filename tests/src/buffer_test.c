@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 16:58:07 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/25 18:49:39 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/09/27 20:33:44 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void print_buffer(t_buffer *buffer)
 {
 	ft_printf(CYAN"\n---------------------\n"RESET);
 	ft_printf(CYAN"Buffer: \"%s\"\n", buffer->data ? buffer->data : "(null)"RESET);
-	ft_printf(CYAN"Length: %u, Size: %u\n"RESET, buffer->len, buffer->size);
+	ft_printf(CYAN"Length: %u, Size: %u\n"RESET, buffer->capacity, buffer->size);
 	ft_printf(CYAN"---------------------\n"RESET);
 }
 
@@ -69,8 +69,8 @@ int	main(void)
 	/*========== Free buffer ==========*/
 	free(buffer.data);
 	buffer.data = NULL;
-	buffer.len = 0;
 	buffer.size = 0;
+	buffer.capacity = 0;
 
 	ft_printf(GREEN"\nBuffer freed."RESET);
 	print_buffer(&buffer);

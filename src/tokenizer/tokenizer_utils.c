@@ -6,41 +6,29 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 11:41:34 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/25 11:42:54 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/09/27 22:10:47 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "types.h"
 
 t_bool	is_operator(char ch)
 {
-	if (ch == '>' || ch == '<' || ch == '|')
-		return (TRUE);
-	else
-		return (FALSE);
+	return (ch == '>' || ch == '<' || ch == '|');
 }
 
 t_bool	is_space(char ch)
 {
-	if (ch == ' ')
-		return (TRUE);
-	else
-		return (FALSE);
+	return ((ch >= 9 && ch <= 13) || ch == ' ');
 }
 
 t_bool	is_single_quote(char ch)
 {
-	if (ch == '\'')
-		return (TRUE);
-	else
-		return (FALSE);
+	return (ch == '\'');
 }
 
 t_bool	is_double_quote(char ch)
 {
-	if (ch == '\"')
-		return (TRUE);
-	else
-		return (FALSE);
+	return (ch == '\"');
 }
 

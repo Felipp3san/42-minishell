@@ -6,45 +6,42 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:25:23 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/25 18:26:45 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/09/27 20:52:09 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "token.h"
+#include <stdio.h>
 #include <errno.h>
-#include <signal.h>
-#include <stdlib.h>
-#include <unistd.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include "minishell.h"
+#include "signals.h"
+#include "libft.h"
+#include "tokenizer.h"
+#include "ui.h"
 
-int	init_signals()
+void	free_exit(t_shell *shell)
 {
-	struct sigaction	sigint;
-	struct sigaction	sigquit;
+	tokens_free(shell->tokens);
+	if (shell->current_dir)
+		free(shell->current_dir);
+}
 
-	// SIGINT
-	sigint.sa_handler = sigint_handler;
-	sigemptyset(&sigint.sa_mask);
-	sigint.sa_flags = 0;
-
-	// SIGQUIT
-	sigquit.sa_handler = SIG_IGN;
-	sigemptyset(&sigquit.sa_mask);
-	sigquit.sa_flags = 0;
-
-	if (sigaction(SIGINT, &sigint, NULL) == -1)
-		return (ERR_SIGACTION);
-	if (sigaction(SIGQUIT, &sigquit, NULL) == -1)
-		return (ERR_SIGACTION);
-	return (SUCCESS);
+void	print_tokens(t_shell *shell)
+{
+	size_t	i;
+	
+	i = 0;
+	if (shell->tokens->tokens)
+	{
+		while (shell->tokens->tokens[i])
+			ft_printf("%s\n", shell->tokens->tokens[i++]);
+	}
 }
 
 void	minishell_loop(t_shell	*shell)
 {
 	char	*input;
-	t_token	tokens;
 
 	while (1)
 	{
@@ -57,15 +54,12 @@ void	minishell_loop(t_shell	*shell)
 		if (*input)
 		{
 			add_history(input);
-			tokens = tokenizer(input, shell);
-			while (*tokens)
-			{
-				ft_printf("%s\n", *tokens);
-				tokens++;
-			}
-			tokens_print(shell->tokens);
+			shell->tokens = tokenizer(input);
+			if (!shell->tokens)
+				free_exit(shell);
+			print_tokens(shell);
 		}
-		free_tokens(shell); 
+		tokens_free(shell->tokens); 
 		free(input);
 	}
 }
@@ -77,8 +71,6 @@ int	init_shell(t_shell *shell)
 	cwd = getcwd(NULL, 0);
 	if (cwd == NULL)
 		return (ERROR);
-	shell->tokens = NULL;
-	shell->token_count = 0;
 	shell->current_dir = cwd;
 	shell->last_exit_status = errno;
 	return (SUCCESS);
@@ -90,7 +82,7 @@ int	main(void)
 
 	if (init_shell(&shell) != SUCCESS)
 		return (EXIT_FAILURE);
-	if (init_signals() != SUCCESS)
+	if (init_parent_signals() != SUCCESS)
 		return (EXIT_FAILURE);
 	print_banner();
 	minishell_loop(&shell);

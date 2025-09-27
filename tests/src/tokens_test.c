@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 18:34:11 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/25 18:53:07 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/09/27 20:22:41 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "token.h"
 #include "libft.h"
 
-void print_tokens(t_token *tok)
+void print_tokens(t_tokens *tok)
 {
 	size_t	i;
 
@@ -26,13 +26,13 @@ void print_tokens(t_token *tok)
 		ft_printf(CYAN"[%d] - %s\n"RESET, i, tok->tokens[i]);
 		i++;
 	}
-	ft_printf(CYAN"Count: %u\n"RESET, tok->count);
+	ft_printf(CYAN"Count: %u\n"RESET, tok->size);
 	ft_printf(CYAN"---------------------\n"RESET);
 }
 
 int	main(void)
 {
-	t_token	tok;
+	t_tokens	tok;
 
 	/*========== Init test ==========*/
 	if (tokens_init(&tok) != SUCCESS)
@@ -68,7 +68,7 @@ int	main(void)
 	print_tokens(&tok);
 
 	/*========== Free tokens ==========*/
-	free_tokens(&tok);
+	tokens_free(&tok);
 	ft_printf(GREEN"\nTokens freed."RESET);
 	print_tokens(&tok);
 
