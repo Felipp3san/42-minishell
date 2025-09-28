@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.h                                            :+:      :+:    :+:   */
+/*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/25 18:15:59 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/25 18:27:49 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/09/28 00:31:12 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/09/28 00:33:22 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKEN_H
-# define TOKEN_H
+#include "tokens.h"
+#include "libft.h"
 
-#include <stddef.h>
-
-typedef	struct s_tokens
+t_token	*token_create(const char *str, t_quote quote)
 {
-	char	**tokens;
-	size_t	size;
-	size_t	capacity;
-}	t_tokens;
+	t_token	*token;
 
-int		tokens_init(t_tokens *tok);
-int		tokens_realloc(t_tokens *tok);
-int		tokens_append(t_tokens *tok, char const *str);
-void	tokens_free(t_tokens *tok);
-
-#endif
+	token = (t_token *) malloc(sizeof(t_token));
+	if (!token)
+		return (NULL);
+	token->value = ft_strdup(str);
+	token->quote = quote;
+	return (token);
+}

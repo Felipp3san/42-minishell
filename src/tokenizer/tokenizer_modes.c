@@ -6,11 +6,12 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 11:43:15 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/27 22:39:11 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/09/28 01:22:29 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
+#include "tokens.h"
 #include "types.h"
 
 /* 
@@ -21,9 +22,10 @@
 t_status	normal_mode(t_tokenizer *tok, char ch)
 {
 	if (is_space(ch))
-		return (add_token(tok));
+		return (add_token(tok, tok->quote_state));
 	else if (is_operator(ch))
 	{
+		tok->quote_state = NO_QUOTE;
 		tok->state = OPERATOR;
 		return (buffer_append(&tok->buffer, ch));
 	}
@@ -32,7 +34,10 @@ t_status	normal_mode(t_tokenizer *tok, char ch)
 	else if (is_double_quote(ch))
 		tok->state = DOUBLE;
 	else
+	{
+		tok->quote_state = NO_QUOTE;
 		return (buffer_append(&tok->buffer, ch));
+	}
 	return (SUCCESS);
 }
 
@@ -45,7 +50,10 @@ t_status	single_mode(t_tokenizer *tok, char ch)
 	if (is_single_quote(ch))
 		tok->state = NORMAL;
 	else
+	{
+		tok->quote_state = SINGLE_QUOTE;
 		return (buffer_append(&tok->buffer, ch));
+	}
 	return (SUCCESS);
 }
 
@@ -61,7 +69,10 @@ t_status	double_mode(t_tokenizer *tok, char ch)
 		return (SUCCESS);
 	}
 	else
+	{
+		tok->quote_state = DOUBLE_QUOTE;
 		return (buffer_append(&tok->buffer, ch));
+	}
 }
 
 /*
@@ -77,14 +88,14 @@ t_status	operator_mode(t_tokenizer *tok, char ch)
 			return (buffer_append(&tok->buffer, ch));
 		else
 		{
-			if (add_token(tok) != SUCCESS)
+			if (add_token(tok, tok->quote_state) != SUCCESS)
 				return (ERR_MALLOC);
 			return (buffer_append(&tok->buffer, ch));
 		}
 	}
 	else
 	{
-		if (add_token(tok) != SUCCESS)
+		if (add_token(tok,tok->quote_state) != SUCCESS)
 			return (ERR_MALLOC);
 		tok->state = NORMAL;
 		return (normal_mode(tok, ch));

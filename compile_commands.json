@@ -10,11 +10,11 @@
       "-Ilibft/include",
       "-c",
       "-o",
-      "build/signals/signals.o",
-      "src/signals/signals.c"
+      "build/main.o",
+      "src/main.c"
     ],
     "directory": "/home/fde-alme/Documents/minishell",
-    "file": "/home/fde-alme/Documents/minishell/src/signals/signals.c",
-    "output": "/home/fde-alme/Documents/minishell/build/signals/signals.o"
+    "file": "/home/fde-alme/Documents/minishell/src/main.c",
+    "output": "/home/fde-alme/Documents/minishell/build/main.o"
   }
 ]

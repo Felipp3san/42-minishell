@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:31:58 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/27 20:46:31 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/09/27 23:16:47 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 # include <stddef.h>
-# include "token.h"
+# include "tokens.h"
 
 # define PROMPT "\001\033[1;36m\002minishell>\001\033[0m\002 "
 

@@ -31,4 +31,3 @@ t_bool	is_double_quote(char ch)
 {
 	return (ch == '\"');
 }
-

@@ -13,6 +13,6 @@
 #ifndef UI_H
 # define UI_H
 
-void	print_banner();
+void	print_banner(void);
 
 #endif

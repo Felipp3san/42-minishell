@@ -34,12 +34,14 @@ WHITE = \033[0;97m
 BUFFER_SRC     = $(SRC_DIR)/buffer/buffer.c
 BUFFER_TEST    = $(TEST_SRC_DIR)/buffer_test.c
 
-TOKENS_SRC     = $(SRC_DIR)/tokens/tokens.c
+TOKENS_SRC     = $(SRC_DIR)/tokens/tokens.c \
+                 $(SRC_DIR)/tokens/token.c
+
 TOKENS_TEST    = $(TEST_SRC_DIR)/tokens_test.c
 
 TOKENIZER_SRC     = $(SRC_DIR)/tokenizer/tokenizer.c \
-					$(SRC_DIR)/tokenizer/tokenizer_modes.c \
-					$(SRC_DIR)/tokenizer/tokenizer_utils.c
+                    $(SRC_DIR)/tokenizer/tokenizer_modes.c \
+                    $(SRC_DIR)/tokenizer/tokenizer_utils.c
 
 TOKENIZER_TEST    = $(TEST_SRC_DIR)/tokenizer_test.c
 
@@ -49,14 +51,16 @@ BUFFER_OBJ     = $(BUILD_DIR)/buffer/buffer.o
 BUFFER_OBJS    = $(BUILD_DIR)/buffer/buffer.o \
                  $(BUILD_DIR)/buffer_test.o
 
-TOKENS_OBJ      = $(BUILD_DIR)/tokens/tokens.o
+TOKENS_OBJ      = $(BUILD_DIR)/tokens/tokens.o \
+                 $(BUILD_DIR)/tokens/token.o
 
 TOKENS_OBJS    = $(BUILD_DIR)/tokens/tokens.o \
+                 $(BUILD_DIR)/tokens/token.o \
                  $(BUILD_DIR)/tokens_test.o
 
 TOKENIZER_OBJS = $(BUILD_DIR)/tokenizer/tokenizer.o \
-				 $(BUILD_DIR)/tokenizer/tokenizer_modes.o \
-				 $(BUILD_DIR)/tokenizer/tokenizer_utils.o \
+                 $(BUILD_DIR)/tokenizer/tokenizer_modes.o \
+                 $(BUILD_DIR)/tokenizer/tokenizer_utils.o \
                  $(BUILD_DIR)/tokenizer_test.o
 
 # Binary

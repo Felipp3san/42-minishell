@@ -24,16 +24,12 @@ int	init_parent_signals(void)
 	struct sigaction	sigint;
 	struct sigaction	sigquit;
 
-	// SIGINT
 	sigint.sa_handler = sigint_handler;
 	sigemptyset(&sigint.sa_mask);
 	sigint.sa_flags = 0;
-
-	// SIGQUIT
 	sigquit.sa_handler = SIG_IGN;
 	sigemptyset(&sigquit.sa_mask);
 	sigquit.sa_flags = 0;
-
 	if (sigaction(SIGINT, &sigint, NULL) == -1)
 		return (ERR_SIGACTION);
 	if (sigaction(SIGQUIT, &sigquit, NULL) == -1)
@@ -44,7 +40,6 @@ int	init_parent_signals(void)
 static void	sigint_handler(int sig)
 {
 	(void) sig;
-
 	write(STDOUT_FILENO, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);

@@ -6,14 +6,14 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:37:46 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/27 22:07:57 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/09/28 00:50:23 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "tokenizer.h"
 
-void	free_all(t_tokenizer *tok)
+void	free_tokenizer(t_tokenizer *tok)
 {
 	buffer_free(&tok->buffer);
 	tokens_free(tok->tokens);
@@ -23,6 +23,7 @@ void	free_all(t_tokenizer *tok)
 static t_status	init_tokenizer(t_tokenizer *tok)
 {
 	tok->state = NORMAL;
+	tok->quote_state = UNSET;
 	tok->tokens = (t_tokens *) malloc(sizeof(t_tokens));
 	if (!tok->tokens)
 		return (ERR_MALLOC);
@@ -40,16 +41,24 @@ static t_status	init_tokenizer(t_tokenizer *tok)
 	return (SUCCESS);
 }
 
-t_status	add_token(t_tokenizer *tok)
+t_status	add_token(t_tokenizer *tok, t_quote quote)
 {
+	t_token	*token;
 	char	*output;
 
 	if (tok->buffer.size == 0)
 		return (SUCCESS);
 	if (buffer_flush(&tok->buffer, &output) != SUCCESS)
 		return (ERR_MALLOC);
-	if (tokens_append(tok->tokens, output) != SUCCESS)
+	token = token_create(output, quote);
+	if (!token)
 		return (free(output), ERR_MALLOC);
+	if (tokens_append(tok->tokens, token) != SUCCESS)
+	{
+		free(token->value);
+		free(token);
+		return (free(output), ERR_MALLOC);
+	}
 	free(output);
 	return (SUCCESS);
 }
@@ -72,11 +81,11 @@ t_tokens	*tokenizer(char const *str)
 		else if (tok.state == OPERATOR)
 			err = operator_mode(&tok, *str);
 		if (err != SUCCESS)
-			return (free_all(&tok), NULL);
+			return (free_tokenizer(&tok), NULL);
 		str++;
 	}
-	if (add_token(&tok) != SUCCESS)
-		return (free_all(&tok), NULL);
+	if (add_token(&tok, tok.quote_state) != SUCCESS)
+		return (free_tokenizer(&tok), NULL);
 	buffer_free(&tok.buffer);
 	return (tok.tokens);
 }
