@@ -14,6 +14,7 @@
 # define TOKENS_H
 
 # include <stddef.h>
+# include <types.h>
 
 typedef enum	s_quote
 {
@@ -23,26 +24,16 @@ typedef enum	s_quote
 	DOUBLE_QUOTE
 }	t_quote;
 
-typedef struct s_token
+typedef struct	s_token
 {
-	char	*value;
-	t_quote	quote;
+	char			*str;
+	int				type;
+	t_quote			quote;
+	t_bool			preceded_by_space;
 }	t_token;
 
-typedef struct s_tokens
-{
-	t_token	**tokens;
-	size_t	size;
-	size_t	capacity;
-}	t_tokens;
-
 // tokens.c
-int		tokens_init(t_tokens *tok);
-int		tokens_realloc(t_tokens *tok);
-int		tokens_append(t_tokens *tokens, t_token *token);
-void	tokens_free(t_tokens *tok);
-
-// token.c
-t_token	*token_create(const char *str, t_quote quote);
+t_token	*token_new(char *str);
+void	token_free(void *content);
 
 #endif

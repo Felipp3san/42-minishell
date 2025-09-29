@@ -56,7 +56,7 @@ int	main(void)
 	print_tokens(&tok);
 
 	/*========== Append test ==========*/
-	token = token_create("echo", NO_QUOTE);
+	token = token_create("echo", NO_QUOTE, FALSE);
 	if (!token)
 		return (1);
 	if (tokens_append(&tok, token) != SUCCESS)
@@ -66,7 +66,7 @@ int	main(void)
 		return (1);
 	}
 
-	token = token_create("Hello world", DOUBLE_QUOTE);
+	token = token_create("Hello world", DOUBLE_QUOTE, TRUE);
 	if (!token)
 		return (1);
 	if (tokens_append(&tok, token) != SUCCESS)
@@ -76,7 +76,7 @@ int	main(void)
 		return (1);
 	}
 
-	token = token_create(">>", NO_QUOTE);
+	token = token_create(">>", NO_QUOTE, TRUE);
 	if (!token)
 		return (1);
 	if (tokens_append(&tok, token) != SUCCESS)
@@ -85,7 +85,7 @@ int	main(void)
 		return (1);
 	}
 
-	token = token_create("output.txt", SINGLE_QUOTE);
+	token = token_create("output.txt", SINGLE_QUOTE, FALSE);
 	if (!token)
 		return (1);
 	if (tokens_append(&tok, token) != SUCCESS)

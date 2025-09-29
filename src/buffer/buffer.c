@@ -13,58 +13,55 @@
 #include <stdlib.h>
 #include "buffer.h"
 #include "libft.h"
-#include "types.h"
 
-int	buffer_init(t_buffer *buffer)
+t_buffer	*buffer_init(t_buffer *buffer)
 {
 	buffer->data = (char *) malloc(16);
 	if (!buffer->data)
-		return (ERR_MALLOC);
+		return (NULL);
 	buffer->size = 0;
 	buffer->capacity = 16;
 	buffer->data[0] = '\0';
-	return (SUCCESS);
+	return (buffer);
 }
 
-int	buffer_realloc(t_buffer *buffer)
+t_buffer	*buffer_realloc(t_buffer *buffer)
 {
 	char	*new_buffer;
 
 	new_buffer = (char *) malloc(buffer->capacity + 16);
 	if (!new_buffer)
-		return (ERR_MALLOC);
+		return (NULL);
 	ft_memcpy(new_buffer, buffer->data, buffer->size + 1);
 	free(buffer->data);
 	buffer->data = new_buffer;
 	buffer->capacity += 16;
-	return (SUCCESS);
+	return (buffer);
 }
 
-int	buffer_append(t_buffer *buffer, char ch)
+t_buffer	*buffer_append(t_buffer *buffer, char ch)
 {
 	if (buffer->size + 1 >= buffer->capacity)
 	{
-		if (buffer_realloc(buffer) != SUCCESS)
-			return (ERR_MALLOC);
+		if (!buffer_realloc(buffer))
+			return (NULL);
 	}
 	buffer->data[buffer->size++] = ch;
 	buffer->data[buffer->size] = '\0';
-	return (SUCCESS);
+	return (buffer);
 }
 
-int	buffer_flush(t_buffer *buffer, char **output)
+char	*buffer_flush(t_buffer *buffer)
 {
+	char	*output;
 	if (buffer->size == 0)
-	{
-		output = NULL;
-		return (SUCCESS);
-	}
-	*output = ft_strdup(buffer->data);
-	if (!*output)
-		return (ERR_MALLOC);
+		return (NULL);
+	output = ft_strdup(buffer->data);
+	if (!output)
+		return (NULL);
 	buffer->size = 0;
 	buffer->data[0] = '\0';
-	return (SUCCESS);
+	return (output);
 }
 
 void	buffer_free(t_buffer *buffer)

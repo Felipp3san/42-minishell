@@ -12,80 +12,185 @@
 
 #include <stdlib.h>
 #include "tokenizer.h"
+#include "libft.h"
+#include "token.h"
+//#include "minishell.h"
+#include "types.h"
 
-void	free_tokenizer(t_tokenizer *tok)
-{
-	buffer_free(&tok->buffer);
-	tokens_free(tok->tokens);
-	free(tok->tokens);
-}
+//void	free_tokenizer(t_tokenizer *tok)
+//{
+//	buffer_free(&tok->buffer);
+//	tokens_free(tok->tokens);
+//	free(tok->tokens);
+//}
 
-static t_status	init_tokenizer(t_tokenizer *tok)
-{
-	tok->state = NORMAL;
-	tok->quote_state = UNSET;
-	tok->tokens = (t_tokens *) malloc(sizeof(t_tokens));
-	if (!tok->tokens)
-		return (ERR_MALLOC);
-	if (buffer_init(&tok->buffer) != SUCCESS)
-	{
-		free(tok->tokens);
-		return (ERR_MALLOC);
-	}
-	if (tokens_init(tok->tokens) != SUCCESS)
-	{
-		free(tok->tokens);
-		buffer_free(&tok->buffer);
-		return (ERR_MALLOC);
-	}
-	return (SUCCESS);
-}
-
-t_status	add_token(t_tokenizer *tok, t_quote quote)
+t_status	add_token(t_list **tokens, t_buffer *buffer)
 {
 	t_token	*token;
+	t_list	*node;
 	char	*output;
 
-	if (tok->buffer.size == 0)
+	if (buffer->size == 0)
 		return (SUCCESS);
-	if (buffer_flush(&tok->buffer, &output) != SUCCESS)
+	output = buffer_flush(buffer);
+	if (!output)
 		return (ERR_MALLOC);
-	token = token_create(output, quote);
+	token = token_new(output);
 	if (!token)
-		return (free(output), ERR_MALLOC);
-	if (tokens_append(tok->tokens, token) != SUCCESS)
 	{
-		free(token->value);
-		free(token);
-		return (free(output), ERR_MALLOC);
+		free(output);
+		return (ERR_MALLOC);
 	}
-	free(output);
+	node = ft_lstnew((void *) token);
+	if (!node)
+	{
+		free(output);
+		free(token);
+		return (ERR_MALLOC);
+	}
+	ft_lstadd_back(tokens, node);
 	return (SUCCESS);
 }
 
-t_tokens	*tokenizer(char const *str)
+t_bool	has_open_quotes(const char *str)
 {
-	t_tokenizer	tok;
-	t_status	err;
+	char	ch;
+	t_state	mode;
+	t_bool	single_opened;
+	t_bool	double_opened;
 
-	if (init_tokenizer(&tok) != SUCCESS)
-		return (NULL);
+	mode = NORMAL;
+	single_opened = FALSE;
+	double_opened = FALSE;
 	while (*str)
 	{
-		if (tok.state == NORMAL)
-			err = normal_mode(&tok, *str);
-		else if (tok.state == SINGLE)
-			err = single_mode(&tok, *str);
-		else if (tok.state == DOUBLE)
-			err = double_mode(&tok, *str);
-		else if (tok.state == OPERATOR)
-			err = operator_mode(&tok, *str);
-		if (err != SUCCESS)
-			return (free_tokenizer(&tok), NULL);
+		ch = *str;
+		if (is_single_quote(ch) && (mode != DOUBLE))
+		{
+			if (single_opened == TRUE)
+			{
+				mode = NORMAL;
+				single_opened = FALSE;
+			}
+			else
+			{
+				mode = SINGLE;
+				single_opened = TRUE;
+			}
+		}
+		if (is_double_quote(ch) && (mode != SINGLE))
+		{
+			if (double_opened == TRUE)
+			{
+				mode = NORMAL;
+				double_opened = FALSE;
+			}
+			else
+			{
+				mode = DOUBLE;
+				double_opened = TRUE;
+			}
+		}
 		str++;
 	}
-	if (add_token(&tok, tok.quote_state) != SUCCESS)
-		return (free_tokenizer(&tok), NULL);
-	buffer_free(&tok.buffer);
-	return (tok.tokens);
+	return (single_opened || double_opened);
+}
+
+t_status	tokenizer(t_list **tokens, const char *str)
+{
+	t_buffer	buffer;
+	t_state		state;
+	char	ch;
+
+	state = NORMAL;
+	if (has_open_quotes(str))
+		return (ERROR);
+	if (!buffer_init(&buffer))
+		return (ERR_MALLOC);
+	while (*str)
+	{
+		ch = *str;
+		if (state == NORMAL)
+		{
+			if (is_space(ch))
+			{
+				if (add_token(tokens, &buffer) != SUCCESS)
+					return (ERR_MALLOC);
+			}
+			else if (is_single_quote(ch))
+			{
+				state = SINGLE;
+				if (add_token(tokens, &buffer) != SUCCESS)
+					return (ERR_MALLOC);
+			}
+			else if (is_double_quote(ch))
+			{
+				state = DOUBLE;
+				if (add_token(tokens, &buffer) != SUCCESS)
+					return (ERR_MALLOC);
+			}
+			else if (is_operator(ch))
+			{
+				state = OPERATOR;
+				if (add_token(tokens, &buffer) != SUCCESS)
+					return (ERR_MALLOC);
+				if (!buffer_append(&buffer, ch))
+					return (ERR_MALLOC);
+			}
+			else
+			{
+				if (!buffer_append(&buffer, ch))
+					return (ERR_MALLOC);
+			}
+		}
+		else if (state == SINGLE)
+		{
+			if (is_single_quote(ch))
+			{
+				state = NORMAL;
+				if (add_token(tokens, &buffer) != SUCCESS)
+					return (ERR_MALLOC);
+			}
+			else
+			{
+				if (!buffer_append(&buffer, ch))
+					return (ERR_MALLOC);
+			}
+		}
+		else if (state == DOUBLE)
+		{
+			if (is_double_quote(ch))
+			{
+				state = NORMAL;
+				if (add_token(tokens, &buffer) != SUCCESS)
+					return (ERR_MALLOC);
+			}
+			else
+			{
+				if (!buffer_append(&buffer, ch))
+					return (ERR_MALLOC);
+			}
+		}
+		else if (state == OPERATOR)
+		{
+			if (is_operator(ch) && ((ch == buffer.data[0]) && buffer.size < 2))
+			{
+				if (!buffer_append(&buffer, ch))
+					return (ERR_MALLOC);
+			}
+			else
+			{
+				if (add_token(tokens, &buffer) != SUCCESS)
+					return (ERR_MALLOC);
+				state = NORMAL;
+				str--;
+				//normal_mode()
+			}
+		}
+		str++;
+	}
+	if (add_token(tokens, &buffer) != SUCCESS)
+		return (ERR_MALLOC);
+	buffer_free(&buffer);
+	return (SUCCESS);
 }

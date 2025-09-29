@@ -66,7 +66,7 @@ void	minishell_loop(t_shell	*shell)
 		if (*input)
 		{
 			add_history(input);
-			shell->tokens = tokenizer(input);
+			tokenizer(shell, input);
 			if (!shell->tokens)
 			{
 				free_shell(shell, TRUE);

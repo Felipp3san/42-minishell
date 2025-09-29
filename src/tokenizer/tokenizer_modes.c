@@ -10,94 +10,62 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenizer.h"
-#include "tokens.h"
 #include "types.h"
+#include "buffer.h"
+#include "tokenizer.h"
 
-/* 
- * If state is set to NORMAL mode, it should add every char to the buffer until
- * a space is found, if space is found, flush the buffer. If any other mode is 
- * found, just switch state to the new mode.
- * */
-t_status	normal_mode(t_tokenizer *tok, char ch)
+static int	flush_and_set_state(t_list **tokens, t_buffer *buffer, t_state *state, t_state new_state)
+{
+	*state = new_state;
+	return (!add_token(tokens, buffer));
+}
+
+int	normal_mode(t_list **tokens, t_buffer *buffer, t_state *state, char ch)
 {
 	if (is_space(ch))
-		return (add_token(tok, tok->quote_state));
+		return (flush_and_set_state(tokens, buffer, state, NORMAL));
+	else if (is_single_quote(ch))
+		return (flush_and_set_state(tokens, buffer, state, SINGLE));
+	else if (is_double_quote(ch))
+		return (flush_and_set_state(tokens, buffer, state, DOUBLE));
 	else if (is_operator(ch))
 	{
-		tok->quote_state = NO_QUOTE;
-		tok->state = OPERATOR;
-		return (buffer_append(&tok->buffer, ch));
+		return (flush_and_set_state(tokens, buffer, state, OPERATOR));
+		if (!buffer_append(buffer, ch))
+			return (ERR_MALLOC);
 	}
-	else if (is_single_quote(ch))
-		tok->state = SINGLE;
-	else if (is_double_quote(ch))
-		tok->state = DOUBLE;
 	else
-	{
-		tok->quote_state = NO_QUOTE;
-		return (buffer_append(&tok->buffer, ch));
-	}
-	return (SUCCESS);
+		return (!buffer_append(buffer, ch));
 }
 
-/*
- * If state is set to SINGLE mode it should add every char to the buffer until
- * another single quote is found, when it happens, state is set back to NORMAL.
- * */
-t_status	single_mode(t_tokenizer *tok, char ch)
+int	single_mode(t_list **tokens, t_buffer *buffer, t_state *state, char ch)
 {
 	if (is_single_quote(ch))
-		tok->state = NORMAL;
+		return (flush_and_set_state(tokens, buffer, state, NORMAL));
 	else
-	{
-		tok->quote_state = SINGLE_QUOTE;
-		return (buffer_append(&tok->buffer, ch));
-	}
-	return (SUCCESS);
+		return (!buffer_append(buffer, ch));
 }
 
-/*
- * If state is set to DOUBLE mode it should add every char to the buffer until
- * another double quote is found, when it happens, state is set back to NORMAL.
- * */
-t_status	double_mode(t_tokenizer *tok, char ch)
+int	double_mode(t_list **tokens, t_buffer *buffer, t_state *state, char ch)
 {
 	if (is_double_quote(ch))
-	{
-		tok->state = NORMAL;
-		return (SUCCESS);
-	}
+		return (flush_and_set_state(tokens, buffer, state, DOUBLE));
 	else
-	{
-		tok->quote_state = DOUBLE_QUOTE;
-		return (buffer_append(&tok->buffer, ch));
-	}
+		return (!buffer_append(buffer, ch));
 }
 
-/*
- * If state is set to OPERATOR mode, it should look if the next is an operator 
- * of the same type. If not, just flush buff and set the mode back to NORMAL.
- */
-t_status	operator_mode(t_tokenizer *tok, char ch)
+int	operator_mode(t_list **tokens, t_buffer *buffer, t_state *state, char ch)
 {
-	if (is_operator(ch))
+	if (is_operator(ch) && ((ch == buffer->data[0]) && buffer->size < 2))
 	{
-		if ((tok->buffer.size > 0 && tok->buffer.size < 2)
-			&& (tok->buffer.data[0] == ch))
-			return (buffer_append(&tok->buffer, ch));
-		else
-		{
-			if (add_token(tok, tok->quote_state) != SUCCESS)
-				return (ERR_MALLOC);
-			return (buffer_append(&tok->buffer, ch));
-		}
+		if (!buffer_append(buffer, ch))
+			return (ERR_MALLOC);
 	}
 	else
 	{
-		if (add_token(tok,tok->quote_state) != SUCCESS)
+		if (flush_and_set_state(tokens, buffer, state, NORMAL) != SUCCESS)
 			return (ERR_MALLOC);
-		tok->state = NORMAL;
-		return (normal_mode(tok, ch));
+		normal_mode(tokens, buffer, state, ch);
 	}
+	return (SUCCESS);
 }

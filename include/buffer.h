@@ -22,10 +22,10 @@ typedef struct s_buffer
 	size_t	capacity;
 }	t_buffer;
 
-int		buffer_init(t_buffer *buffer);
-int		buffer_realloc(t_buffer *buffer);
-int		buffer_append(t_buffer *buffer, char ch);
-int		buffer_flush(t_buffer *buffer, char **output);
-void	buffer_free(t_buffer *buffer);
+t_buffer	*buffer_init(t_buffer *buffer);
+t_buffer	*buffer_realloc(t_buffer *buffer);
+t_buffer	*buffer_append(t_buffer *buffer, char ch);
+char		*buffer_flush(t_buffer *buffer);
+void		buffer_free(t_buffer *buffer);
 
 #endif

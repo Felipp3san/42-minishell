@@ -34,8 +34,7 @@ WHITE = \033[0;97m
 BUFFER_SRC     = $(SRC_DIR)/buffer/buffer.c
 BUFFER_TEST    = $(TEST_SRC_DIR)/buffer_test.c
 
-TOKENS_SRC     = $(SRC_DIR)/tokens/tokens.c \
-                 $(SRC_DIR)/tokens/token.c
+TOKENS_SRC     = $(SRC_DIR)/token/token.c
 
 TOKENS_TEST    = $(TEST_SRC_DIR)/tokens_test.c
 
@@ -51,24 +50,23 @@ BUFFER_OBJ     = $(BUILD_DIR)/buffer/buffer.o
 BUFFER_OBJS    = $(BUILD_DIR)/buffer/buffer.o \
                  $(BUILD_DIR)/buffer_test.o
 
-TOKENS_OBJ      = $(BUILD_DIR)/tokens/tokens.o \
-                 $(BUILD_DIR)/tokens/token.o
+TOKENS_OBJ      = $(BUILD_DIR)/token/token.o
 
-TOKENS_OBJS    = $(BUILD_DIR)/tokens/tokens.o \
-                 $(BUILD_DIR)/tokens/token.o \
-                 $(BUILD_DIR)/tokens_test.o
+TOKENS_OBJS    = $(BUILD_DIR)/token/token.o \
+                 $(BUILD_DIR)/token_test.o
 
 TOKENIZER_OBJS = $(BUILD_DIR)/tokenizer/tokenizer.o \
-                 $(BUILD_DIR)/tokenizer/tokenizer_modes.o \
                  $(BUILD_DIR)/tokenizer/tokenizer_utils.o \
                  $(BUILD_DIR)/tokenizer_test.o
+                 #$(BUILD_DIR)/tokenizer/tokenizer_modes.o \
 
 # Binary
 BUFFER_BIN        = buffer_test
 TOKENS_BIN        = tokens_test
 TOKENIZER_BIN     = tokenizer_test
 
-all: $(BUFFER_BIN) $(TOKENS_BIN) $(TOKENIZER_BIN)
+# all: $(BUFFER_BIN) $(TOKENS_BIN) $(TOKENIZER_BIN)
+all: $(TOKENIZER_BIN)
 
 $(BUFFER_BIN): $(BUFFER_OBJS) $(LIBFT)
 	@$(CC) $(CFLAGS) $(BUFFER_OBJS) $(LINK) -o $@
