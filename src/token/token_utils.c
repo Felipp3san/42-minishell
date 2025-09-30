@@ -1,36 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.h                                            :+:      :+:    :+:   */
+/*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/25 18:15:59 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/30 15:30:21 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/09/30 15:29:47 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/09/30 15:30:02 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKENS_H
-# define TOKENS_H
+#include "token.h"
 
-# include <stddef.h>
-# include <types.h>
-# include "libft.h"
-
-typedef struct s_list t_tokens;
-
-typedef struct	s_token
+char	*get_token_value(t_token *token)
 {
-	char	*str;
-}	t_token;
+	if (!token || !token->str)
+		return (NULL);
+	return (token->str);
+}
 
-// tokens.c
-t_token		*token_new(char *str);
-t_tokens	*token_append(t_tokens **lst, t_token *token);
-void		token_free(void *content);
-void		tokens_free(t_tokens **lst);
-
-// token_utils.c
-char	*get_token_value(t_token *token);
-
-#endif

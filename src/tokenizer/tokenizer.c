@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:37:46 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/29 17:14:43 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/09/30 14:13:31 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,15 @@ t_status	tokenize(char const *str, t_tokens **out)
 	{
 		tok.ch = *str;
 		if (tok.state == NORMAL)
-			normal_mode(&tok, out);
+			tok.err = normal_mode(&tok, out);
 		else if (tok.state == SINGLE)
-			single_mode(&tok, out);
+			tok.err = single_mode(&tok, out);
 		else if (tok.state == DOUBLE)
-			double_mode(&tok, out);
+			tok.err = double_mode(&tok, out);
 		else if (tok.state == OPERATOR)
-			operator_mode(&tok, out);
+			tok.err = operator_mode(&tok, out);
+		if (tok.err == SUCCESS)
+			return (buffer_free(&tok.buffer), tok.err);
 		str++;
 	}
 	if (add_token(out, &tok.buffer) != SUCCESS)

@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/23 11:31:58 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/30 14:41:02 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/09/30 14:40:25 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/09/30 14:59:33 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "command.h"
 
-# include <stddef.h>
-# include "token.h"
-# include "command.h"
-
-# define PROMPT "\001\033[1;36m\002minishell>\001\033[0m\002 "
-
-typedef struct s_shell
+t_commands	*commands_append(t_commands **lst, t_command *comm)
 {
-	t_tokens	*tokens;
-	t_commands	*commands;
-	char		*current_dir;
-	int			last_exit_status;
-}	t_shell;
+	t_commands	*node;
 
-#endif
+	node = ft_lstnew((void *) comm);
+	if (!node)
+		return (NULL);
+	ft_lstadd_back(lst, node);
+	return (node);
+}
+
+void commands_free(t_commands **lst)
+{
+	ft_lstclear(lst, command_free);
+	lst = NULL;
+}

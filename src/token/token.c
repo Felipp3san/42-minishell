@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.c                                           .:+:      :+:    :+:   */
+/*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 20:14:21 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/28 00:35:21 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/09/30 14:59:26 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,16 @@ t_token	*token_new(char *str)
 	if (!token)
 		return (NULL);
 	token->str = str;
-	token->type = UNSET;
 	return (token);
 }
 
-void token_free(void *content)
+void token_free(void *token)
 {
-	if (!content)
+	if (!token)
 		return ;
-	if (((t_token *) content)->str)
-		free(((t_token *) content)->str);
-	free(content);
+	if (((t_token *) token)->str)
+		free(((t_token *) token)->str);
+	free(token);
 }
 
 void tokens_free(t_tokens **lst)

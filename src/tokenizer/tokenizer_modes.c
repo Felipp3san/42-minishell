@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 11:43:15 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/29 17:16:56 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/09/30 14:06:15 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 #include "buffer.h"
 #include "tokenizer.h"
 
-int	flush_and_set_state(t_tokenizer *tok, t_list **tokens, t_state new_state)
+int	flush_and_set_state(t_tokenizer *tok, t_tokens **tokens, t_state new_state)
 {
 	tok->state = new_state;
 	return (add_token(tokens, &tok->buffer));
 }
 
-int	normal_mode(t_tokenizer *tok, t_list **tokens)
+int	normal_mode(t_tokenizer *tok, t_tokens **tokens)
 {
 	if (is_space(tok->ch))
 		return (flush_and_set_state(tok, tokens, NORMAL));
@@ -43,7 +43,7 @@ int	normal_mode(t_tokenizer *tok, t_list **tokens)
 	return (SUCCESS);
 }
 
-int	single_mode(t_tokenizer *tok, t_list **tokens)
+int	single_mode(t_tokenizer *tok, t_tokens **tokens)
 {
 	if (is_single_quote(tok->ch))
 		return (flush_and_set_state(tok, tokens, NORMAL));
@@ -51,15 +51,13 @@ int	single_mode(t_tokenizer *tok, t_list **tokens)
 	{
 		if (tok->ch == '$')
 			tok->ch = 31;
-		if (tok->ch == 31)
-			tok->ch = '&';
 		if (!buffer_append(&tok->buffer, tok->ch))
 			return (ERR_MALLOC);
 	}
 	return (SUCCESS);
 }
 
-int	double_mode(t_tokenizer *tok, t_list **tokens)
+int	double_mode(t_tokenizer *tok, t_tokens **tokens)
 {
 	if (is_double_quote(tok->ch))
 		return (flush_and_set_state(tok, tokens, DOUBLE));
@@ -71,7 +69,7 @@ int	double_mode(t_tokenizer *tok, t_list **tokens)
 	return (SUCCESS);
 }
 
-int	operator_mode(t_tokenizer *tok, t_list **tokens)
+int	operator_mode(t_tokenizer *tok, t_tokens **tokens)
 {
 	t_buffer	*buffer;
 

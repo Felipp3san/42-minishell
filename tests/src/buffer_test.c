@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 16:58:07 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/27 20:33:44 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/09/30 15:45:01 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ int	main(void)
 	print_buffer(&buffer);
 
 	/*========== Flush/Reset test ==========*/
-	if (buffer_flush(&buffer, &output) != SUCCESS)
+	output = buffer_flush(&buffer);
+	if (!output)
 	{
 		ft_dprintf(STDERR_FILENO, RED"buffer_flush failed.\n"RESET);
 		return (1);

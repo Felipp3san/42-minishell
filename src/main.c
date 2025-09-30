@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:25:23 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/27 23:19:07 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/09/30 14:10:56 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ void	minishell_loop(t_shell	*shell)
 			add_history(input);
 			if (tokenize(input, &shell->tokens) != SUCCESS)
 			{
-				// free_shell(shell);
+				tokens_free(&shell->tokens);
+				free(input);
 				break ;
 			}
 			if (!shell->tokens)
