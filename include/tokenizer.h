@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 19:11:09 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/28 00:49:45 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/09/29 17:14:24 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,28 @@ typedef enum e_state
 	OPERATOR
 }	t_state;
 
+typedef struct s_tokenizer
+{
+	t_buffer	buffer;
+	t_state		state;
+	char		ch;
+}	t_tokenizer;
+
 // tokenizer.c
 t_status	tokenizer(t_list **tokens, char const *str);
 t_status	add_token(t_list **tokens, t_buffer *buffer);
 //void		free_tokenizer(t_tokenizer *tok);
 
 // tokenizer_utils.c
-t_bool		is_space(char ch);
-t_bool		is_single_quote(char ch);
-t_bool		is_double_quote(char ch);
-t_bool		is_operator(char ch);
+t_bool	is_space(char ch);
+t_bool	is_single_quote(char ch);
+t_bool	is_double_quote(char ch);
+t_bool	is_operator(char ch);
 
 // tokenizer_modes.c
-int	normal_mode(t_list **tokens, t_buffer *buffer, t_state *state, char ch);
-int	single_mode(t_list **tokens, t_buffer *buffer, t_state *state, char ch);
-int	double_mode(t_list **tokens, t_buffer *buffer, t_state *state, char ch);
-int	operator_mode(t_list **tokens, t_buffer *buffer, t_state *state, char ch);
+int	normal_mode(t_tokenizer *tok, t_list **tokens);
+int	single_mode(t_tokenizer *tok, t_list **tokens);
+int	double_mode(t_tokenizer *tok, t_list **tokens);
+int	operator_mode(t_tokenizer *tok, t_list **tokens);
 
 #endif

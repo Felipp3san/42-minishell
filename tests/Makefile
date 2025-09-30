@@ -56,9 +56,9 @@ TOKENS_OBJS    = $(BUILD_DIR)/token/token.o \
                  $(BUILD_DIR)/token_test.o
 
 TOKENIZER_OBJS = $(BUILD_DIR)/tokenizer/tokenizer.o \
+                 $(BUILD_DIR)/tokenizer/tokenizer_modes.o \
                  $(BUILD_DIR)/tokenizer/tokenizer_utils.o \
                  $(BUILD_DIR)/tokenizer_test.o
-                 #$(BUILD_DIR)/tokenizer/tokenizer_modes.o \
 
 # Binary
 BUFFER_BIN        = buffer_test

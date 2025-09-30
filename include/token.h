@@ -21,15 +21,15 @@ typedef enum	s_quote
 	UNSET,
 	NO_QUOTE,
 	SINGLE_QUOTE,
-	DOUBLE_QUOTE
+	DOUBLE_QUOTE,
 }	t_quote;
 
 typedef struct	s_token
 {
-	char			*str;
-	int				type;
-	t_quote			quote;
-	t_bool			preceded_by_space;
+	char		*str;
+	int			type;
+	t_quote		quote;
+	t_bool		preceded_by_space;
 }	t_token;
 
 // tokens.c
