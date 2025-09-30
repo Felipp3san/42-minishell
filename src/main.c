@@ -21,22 +21,22 @@
 #include "tokenizer.h"
 #include "ui.h"
 
-void	free_shell(t_shell *shell, t_bool free_cwd)
-{
-	if (!shell)
-		return ;
-	if (shell->tokens)
-	{
-		tokens_free(shell->tokens);
-		free(shell->tokens);
-		shell->tokens = NULL;
-	}
-	if (free_cwd && shell->current_dir)
-	{
-		free(shell->current_dir);
-		shell->current_dir = NULL;
-	}
-}
+//void	free_shell(t_shell *shell, t_bool free_cwd)
+//{
+//	if (!shell)
+//		return ;
+//	if (shell->tokens)
+//	{
+//		tokens_free(shell->tokens);
+//		free(shell->tokens);
+//		shell->tokens = NULL;
+//	}
+//	if (free_cwd && shell->current_dir)
+//	{
+//		free(shell->current_dir);
+//		shell->current_dir = NULL;
+//	}
+//}
 
 int	init_shell(t_shell *shell)
 {
@@ -45,7 +45,7 @@ int	init_shell(t_shell *shell)
 	cwd = getcwd(NULL, 0);
 	if (cwd == NULL)
 		return (ERROR);
-	shell->tokens = NULL;
+	shell->tokens->next = NULL;
 	shell->current_dir = cwd;
 	shell->last_exit_status = errno;
 	return (SUCCESS);
@@ -60,20 +60,26 @@ void	minishell_loop(t_shell	*shell)
 		input = readline(PROMPT);
 		if (!input)
 		{
-			free_shell(shell, TRUE);
+			//free_shell(shell);
 			break ;
 		}
 		if (*input)
 		{
 			add_history(input);
-			tokenizer(shell, input);
+			if (tokenize(input, &shell->tokens) != SUCCESS)
+			{
+				// free_shell(shell);
+				break ;
+			}
 			if (!shell->tokens)
 			{
-				free_shell(shell, TRUE);
+				//free_shell(shell);
 				free(input);
 				break ;
 			}
-			free_shell(shell, FALSE);
+			//if (parser());
+			//if (executor());
+			tokens_free(&shell->tokens);
 			free(input);
 		}
 	}
@@ -89,5 +95,6 @@ int	main(void)
 		return (EXIT_FAILURE);
 	print_banner();
 	minishell_loop(&shell);
+	//free_shell(shell);
 	return (EXIT_SUCCESS);
 }

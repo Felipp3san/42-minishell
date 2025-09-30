@@ -12,14 +12,12 @@
 
 #include <stdlib.h>
 #include "tokenizer.h"
-#include "libft.h"
 #include "token.h"
 #include "types.h"
 
-t_status	add_token(t_list **tokens, t_buffer *buffer)
+t_status	add_token(t_tokens **tokens, t_buffer *buffer)
 {
 	t_token	*token;
-	t_list	*node;
 	char	*output;
 
 	if (buffer->size == 0)
@@ -33,18 +31,15 @@ t_status	add_token(t_list **tokens, t_buffer *buffer)
 		free(output);
 		return (ERR_MALLOC);
 	}
-	node = ft_lstnew((void *) token);
-	if (!node)
+	if (!token_append(tokens, token))
 	{
-		free(output);
-		free(token);
+		token_free(token);
 		return (ERR_MALLOC);
 	}
-	ft_lstadd_back(tokens, node);
 	return (SUCCESS);
 }
 
-t_status	tokenizer(t_list **tokens, const char *str)
+t_status	tokenize(char const *str, t_tokens **out)
 {
 	t_tokenizer	tok;
 
@@ -55,16 +50,16 @@ t_status	tokenizer(t_list **tokens, const char *str)
 	{
 		tok.ch = *str;
 		if (tok.state == NORMAL)
-			normal_mode(&tok, tokens);
+			normal_mode(&tok, out);
 		else if (tok.state == SINGLE)
-			single_mode(&tok, tokens);
+			single_mode(&tok, out);
 		else if (tok.state == DOUBLE)
-			double_mode(&tok, tokens);
+			double_mode(&tok, out);
 		else if (tok.state == OPERATOR)
-			operator_mode(&tok, tokens);
+			operator_mode(&tok, out);
 		str++;
 	}
-	if (add_token(tokens, &tok.buffer) != SUCCESS)
+	if (add_token(out, &tok.buffer) != SUCCESS)
 		return (ERR_MALLOC);
 	buffer_free(&tok.buffer);
 	return (SUCCESS);

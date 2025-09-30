@@ -17,19 +17,19 @@
 #include "libft.h"
 #include "types.h"
 
-void print_tokens(const char *str, t_list *tokens)
+void print_tokens(const char *str, t_tokens *head)
 {
-	t_list	*node;
-	t_token	*token;
+	t_tokens	*node;
+	t_token		token;
 
-	if (!tokens)
+	if (!head)
 		return;
 	ft_printf(CYAN"%s\n"RESET, str);
-	node = tokens;
+	node = head;
 	while (node)
 	{
-		token = (t_token *) node->content;
-		ft_printf(GREEN"%s"RESET, token->str);
+		token = *(t_token *)node->content;
+		ft_printf(GREEN"%s"RESET, token.str);
 		if (node->next != NULL)
 			ft_printf(CYAN" - "RESET);
 		node = node->next;
@@ -38,7 +38,7 @@ void print_tokens(const char *str, t_list *tokens)
 
 int	main(void)
 {
-	t_list		*tokens;
+	t_tokens	*tokens;
 	size_t		i;
 	t_status	err;
 
@@ -127,7 +127,7 @@ int	main(void)
 	i = 0;
 	while (test_strings[i])
 	{
-		err = tokenizer(&tokens, test_strings[i]);
+		err = tokenize(test_strings[i], &tokens);
 		if (err != SUCCESS)
 		{
 			if (err == ERROR)
@@ -143,8 +143,7 @@ int	main(void)
 		}
 		print_tokens(test_strings[i], tokens);
 		ft_printf("\n\n");
-		ft_lstclear(&tokens, token_free);
-		tokens = NULL;
+		tokens_free(&tokens);
 		i++;
 	}
 	return (EXIT_SUCCESS);

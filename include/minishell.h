@@ -14,13 +14,13 @@
 # define MINISHELL_H
 
 # include <stddef.h>
-# include "libft.h"
+# include "token.h"
 
 # define PROMPT "\001\033[1;36m\002minishell>\001\033[0m\002 "
 
 typedef struct s_shell
 {
-	t_list		*tokens;
+	t_tokens	*tokens;
 	char		*current_dir;
 	int			last_exit_status;
 }	t_shell;

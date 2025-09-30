@@ -25,9 +25,9 @@ int	normal_mode(t_tokenizer *tok, t_list **tokens)
 	if (is_space(tok->ch))
 		return (flush_and_set_state(tok, tokens, NORMAL));
 	else if (is_single_quote(tok->ch))
-		return (flush_and_set_state(tok, tokens, SINGLE));
+		tok->state = SINGLE;
 	else if (is_double_quote(tok->ch))
-		return (flush_and_set_state(tok, tokens, DOUBLE));
+		tok->state = DOUBLE;
 	else if (is_operator(tok->ch))
 	{
 		if (flush_and_set_state(tok, tokens, OPERATOR) != SUCCESS)
@@ -49,6 +49,10 @@ int	single_mode(t_tokenizer *tok, t_list **tokens)
 		return (flush_and_set_state(tok, tokens, NORMAL));
 	else
 	{
+		if (tok->ch == '$')
+			tok->ch = 31;
+		if (tok->ch == 31)
+			tok->ch = '&';
 		if (!buffer_append(&tok->buffer, tok->ch))
 			return (ERR_MALLOC);
 	}

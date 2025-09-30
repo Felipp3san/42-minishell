@@ -16,6 +16,8 @@
 # include <stddef.h>
 # include <types.h>
 
+typedef struct s_list t_tokens;
+
 typedef enum	s_quote
 {
 	UNSET,
@@ -26,14 +28,14 @@ typedef enum	s_quote
 
 typedef struct	s_token
 {
-	char		*str;
-	int			type;
-	t_quote		quote;
-	t_bool		preceded_by_space;
+	char	*str;
+	t_quote	type;
 }	t_token;
 
 // tokens.c
-t_token	*token_new(char *str);
-void	token_free(void *content);
+t_token		*token_new(char *str);
+t_tokens	*token_append(t_tokens **lst, t_token *token);
+void		token_free(void *content);
+void		tokens_free(t_tokens **lst);
 
 #endif

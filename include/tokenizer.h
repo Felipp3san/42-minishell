@@ -13,9 +13,10 @@
 #ifndef TOKENIZER_H
 # define TOKENIZER_H
 
-# include "types.h"
+# include "libft.h"
 # include "buffer.h"
-#include "libft.h"
+# include "token.h"
+# include "types.h"
 
 typedef enum e_state
 {
@@ -33,20 +34,20 @@ typedef struct s_tokenizer
 }	t_tokenizer;
 
 // tokenizer.c
-t_status	tokenizer(t_list **tokens, char const *str);
-t_status	add_token(t_list **tokens, t_buffer *buffer);
+t_status	tokenize(char const *str, t_tokens **out);
+t_status	add_token(t_tokens **tokens, t_buffer *buffer);
 //void		free_tokenizer(t_tokenizer *tok);
+
+// tokenizer_modes.c
+int	normal_mode(t_tokenizer *tok, t_tokens **tokens);
+int	single_mode(t_tokenizer *tok, t_tokens **tokens);
+int	double_mode(t_tokenizer *tok, t_tokens **tokens);
+int	operator_mode(t_tokenizer *tok, t_tokens **tokens);
 
 // tokenizer_utils.c
 t_bool	is_space(char ch);
 t_bool	is_single_quote(char ch);
 t_bool	is_double_quote(char ch);
 t_bool	is_operator(char ch);
-
-// tokenizer_modes.c
-int	normal_mode(t_tokenizer *tok, t_list **tokens);
-int	single_mode(t_tokenizer *tok, t_list **tokens);
-int	double_mode(t_tokenizer *tok, t_list **tokens);
-int	operator_mode(t_tokenizer *tok, t_list **tokens);
 
 #endif
