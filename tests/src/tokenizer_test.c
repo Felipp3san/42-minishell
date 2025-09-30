@@ -6,21 +6,19 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 20:52:57 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/30 15:52:23 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/09/30 19:50:28 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include <stdlib.h>
 #include "tokenizer.h"
-#include "token.h"
 #include "libft.h"
 #include "types.h"
 
-void print_tokens(const char *str, t_tokens *head)
+void print_tokens(const char *str, t_list *head)
 {
-	t_tokens	*node;
-	t_token		token;
+	t_list	*node;
 
 	if (!head)
 		return;
@@ -28,8 +26,7 @@ void print_tokens(const char *str, t_tokens *head)
 	node = head;
 	while (node)
 	{
-		token = *(t_token *)node->content;
-		ft_printf(GREEN"%s"RESET, token.str);
+		ft_printf(GREEN"%s"RESET, (char *) node->content);
 		if (node->next != NULL)
 			ft_printf(CYAN" - "RESET);
 		node = node->next;
@@ -38,7 +35,7 @@ void print_tokens(const char *str, t_tokens *head)
 
 int	main(void)
 {
-	t_tokens	*tokens;
+	t_list	*tokens;
 	size_t		i;
 	t_status	err;
 
@@ -143,7 +140,7 @@ int	main(void)
 		}
 		print_tokens(test_strings[i], tokens);
 		ft_printf("\n\n");
-		tokens_free(&tokens);
+		ft_lstclear(&tokens, free);
 		i++;
 	}
 	return (EXIT_SUCCESS);
