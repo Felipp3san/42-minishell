@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:03:25 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/27 22:38:35 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/01 18:59:42 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "buffer.h"
 #include "libft.h"
 
-t_buffer	*buffer_create()
+t_buffer	*buffer_create(void)
 {
 	t_buffer	*buffer;
 
@@ -62,6 +62,7 @@ t_buffer	*buffer_append(t_buffer *buffer, char ch)
 char	*buffer_flush(t_buffer *buffer)
 {
 	char	*output;
+
 	if (buffer->size == 0)
 		return (NULL);
 	output = ft_strdup(buffer->data);

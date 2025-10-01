@@ -13,6 +13,8 @@
 #ifndef UI_H
 # define UI_H
 
+# define PROMPT "\001\033[1;36m\002minishell>\001\033[0m\002 "
+
 void	print_banner(void);
 
 #endif

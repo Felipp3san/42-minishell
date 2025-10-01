@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:42:34 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/23 16:18:04 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/06/11 20:14:07 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ char	**ft_split_quotes(char const *s, char c);
 char	**ft_split(char const *s, char c);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s);
-char	*ft_strndup(const char *s, size_t n);
 char	*get_next_line(int fd);
 char	*ft_itoa(int n);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -65,6 +64,7 @@ int		ft_dprintf(int fd, const char *fstring, ...);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_printf(const char *fstring, ...);
 int		ft_atoi(const char *nptr);
+long	ft_atol(const char *nptr);
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
 int		ft_isalnum(int c);

@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:25:23 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/30 14:10:56 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/01 19:10:25 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,30 @@
 #include "minishell.h"
 #include "signals.h"
 #include "tokenizer.h"
+#include "parser.h"
 #include "ui.h"
+#include "types.h"
 
-//void	free_shell(t_shell *shell, t_bool free_cwd)
-//{
-//	if (!shell)
-//		return ;
-//	if (shell->tokens)
-//	{
-//		tokens_free(shell->tokens);
-//		free(shell->tokens);
-//		shell->tokens = NULL;
-//	}
-//	if (free_cwd && shell->current_dir)
-//	{
-//		free(shell->current_dir);
-//		shell->current_dir = NULL;
-//	}
-//}
+void	free_shell(t_shell *shell)
+{
+	if (!shell)
+		return ;
+	if (shell->tokens)
+	{
+		ft_lstclear(&shell->tokens, free);
+		shell->tokens = NULL;
+	}
+	if (shell->commands)
+	{
+		ft_lstclear(&shell->commands, free_command);
+		shell->commands = NULL;
+	}
+	if (shell->current_dir)
+	{
+		free(shell->current_dir);
+		shell->current_dir = NULL;
+	}
+}
 
 int	init_shell(t_shell *shell)
 {
@@ -45,13 +51,14 @@ int	init_shell(t_shell *shell)
 	cwd = getcwd(NULL, 0);
 	if (cwd == NULL)
 		return (ERROR);
-	shell->tokens->next = NULL;
+	shell->tokens = NULL;
+	shell->commands = NULL;
 	shell->current_dir = cwd;
 	shell->last_exit_status = errno;
 	return (SUCCESS);
 }
 
-void	minishell_loop(t_shell	*shell)
+int	minishell_loop(t_shell	*shell)
 {
 	char	*input;
 
@@ -59,31 +66,24 @@ void	minishell_loop(t_shell	*shell)
 	{
 		input = readline(PROMPT);
 		if (!input)
-		{
-			//free_shell(shell);
 			break ;
-		}
 		if (*input)
 		{
 			add_history(input);
-			if (tokenize(input, &shell->tokens) != SUCCESS)
+			if (!tokenize(input, &shell->tokens))
 			{
-				tokens_free(&shell->tokens);
 				free(input);
-				break ;
+				return (free_shell(shell), ERROR);
 			}
-			if (!shell->tokens)
+			if (!parse(shell->tokens, &shell->commands))
 			{
-				//free_shell(shell);
 				free(input);
-				break ;
+				return (free_shell(shell), ERROR);
 			}
-			//if (parser());
-			//if (executor());
-			tokens_free(&shell->tokens);
 			free(input);
 		}
 	}
+	return (SUCCESS);
 }
 
 int	main(void)
@@ -96,6 +96,6 @@ int	main(void)
 		return (EXIT_FAILURE);
 	print_banner();
 	minishell_loop(&shell);
-	//free_shell(shell);
+	free_shell(&shell);
 	return (EXIT_SUCCESS);
 }

@@ -9,29 +9,29 @@ NAME		= minishell
 LIBFT		= libft.a
 
 # Folders
-INCLUDE_DIR 	= include
-SRC_DIR			= src
-BUILD_DIR		= build
-LIBFT_DIR		= libft
+INCLUDE_DIR = include
+SRC_DIR		= src
+BUILD_DIR	= build
+LIBFT_DIR	= libft
 
 # Includes & Links
 INCLUDE		= -I$(INCLUDE_DIR) -I$(LIBFT_DIR)/include
 LINK		= -Llibft -lft -lreadline
 
 # Colors
-DEF_COLOR = \033[0;39m
-GRAY = \033[0;90m
-RED = \033[0;91m
-GREEN = \033[0;92m
-YELLOW = \033[0;93m
-BLUE = \033[0;94m
-MAGENTA = \033[0;95m
-CYAN = \033[0;96m
-WHITE = \033[0;97m
+DEF_COLOR	= \033[0;39m
+GRAY		= \033[0;90m
+RED			= \033[0;91m
+GREEN		= \033[0;92m
+YELLOW		= \033[0;93m
+BLUE		= \033[0;94m
+MAGENTA		= \033[0;95m
+CYAN		= \033[0;96m
+WHITE		= \033[0;97m
 
 # Files
-SRCS	:= $(shell find $(SRC_DIR) -type f -name "*.c")
-OBJS	:= $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRCS))
+SRCS		:= $(shell find $(SRC_DIR) -type f -name "*.c")
+OBJS		:= $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRCS))
 
 # Rules
 all: $(NAME)

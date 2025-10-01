@@ -48,7 +48,10 @@ SRCS		= $(SRC_DIR)/buffer/buffer.c \
 			  $(SRC_DIR)/tokenizer/tokenizer.c \
 			  $(SRC_DIR)/tokenizer/tokenizer_modes.c \
 			  $(SRC_DIR)/tokenizer/tokenizer_utils.c \
-			  $(SRC_DIR)/parser/parser.c
+			  $(SRC_DIR)/parser/parser.c \
+			  $(SRC_DIR)/parser/parser_create.c \
+			  $(SRC_DIR)/parser/parser_free.c \
+			  $(SRC_DIR)/parser/parser_utils.c \
 
 TEST_SRC	= parser_test
 

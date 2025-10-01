@@ -6,14 +6,11 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:37:46 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/30 19:23:24 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/01 18:40:04 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "tokenizer.h"
-#include "libft.h"
-#include "types.h"
+#include "tokenizer_internal.h"
 
 t_status	add_token(t_buffer *buffer, t_list **out)
 {
@@ -35,14 +32,14 @@ t_status	add_token(t_buffer *buffer, t_list **out)
 	return (SUCCESS);
 }
 
-t_status	tokenize(char const *str, t_list **out)
+t_list	*tokenize(char const *str, t_list **out)
 {
 	t_tokenizer	tok;
 
 	tok.state = NORMAL;
 	tok.buffer = buffer_create();
 	if (!tok.buffer)
-		return (ERR_MALLOC);
+		return (NULL);
 	while (*str)
 	{
 		tok.ch = *str;
@@ -55,11 +52,11 @@ t_status	tokenize(char const *str, t_list **out)
 		else if (tok.state == OPERATOR)
 			tok.err = operator_mode(&tok, out);
 		if (tok.err != SUCCESS)
-			return (buffer_free(tok.buffer), tok.err);
+			return (buffer_free(tok.buffer), NULL);
 		str++;
 	}
 	if (add_token(tok.buffer, out) != SUCCESS)
-		return (buffer_free(tok.buffer), tok.err);
+		return (buffer_free(tok.buffer), NULL);
 	buffer_free(tok.buffer);
-	return (SUCCESS);
+	return (*out);
 }
