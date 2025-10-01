@@ -43,11 +43,11 @@ $(BUILD_DIR):
 	
 clean:
 	@rm -rf $(BUILD_DIR)
-	@printf "$(CYAN)$(subst .a,,$(NAME)) object files cleaned!$(DEF_COLOR)\n"
+	@printf "$(CYAN)$(subst .a,,$(NAME)) build files cleaned!$(DEF_COLOR)\n"
 
 fclean: clean
 	@rm -f $(NAME)
-	@printf "$(CYAN)$(NAME) cleaned!$(DEF_COLOR)\n"
+	@printf "$(CYAN)$(subst .a,,$(NAME)) binaries cleaned!$(DEF_COLOR)\n"
 
 re: fclean all
 	@printf "$(GREEN)Cleaned and rebuilt!$(DEF_COLOR)\n"

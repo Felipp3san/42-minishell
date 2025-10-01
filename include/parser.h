@@ -13,9 +13,31 @@
 #ifndef PARSER_H
 # define PARSER_H
 
-#include "command.h"
-#include "token.h"
+#include "libft.h"
 
-int	parser(t_tokens *tokens, t_commands **out);
+typedef enum s_type
+{
+	WORD,
+	UNSET,
+	PIPE,
+	INPUT,
+	OUTPUT,
+	APPEND,
+	HEREDOC,
+}	t_type;
+
+typedef struct s_redir
+{
+	t_type	type;
+	char	*filename;
+}	t_redir;
+
+typedef struct s_command
+{
+	char	**argv;
+	t_list	*redirs;
+}	t_command;
+
+int	parser(t_list *tokens, t_list **out);
 
 #endif

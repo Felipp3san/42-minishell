@@ -14,11 +14,19 @@
 #include "buffer.h"
 #include "libft.h"
 
-t_buffer	*buffer_init(t_buffer *buffer)
+t_buffer	*buffer_create()
 {
+	t_buffer	*buffer;
+
+	buffer = (t_buffer *) malloc(sizeof(t_buffer));
+	if (!buffer)
+		return (NULL);
 	buffer->data = (char *) malloc(16);
 	if (!buffer->data)
+	{
+		free(buffer);
 		return (NULL);
+	}
 	buffer->size = 0;
 	buffer->capacity = 16;
 	buffer->data[0] = '\0';
@@ -66,9 +74,9 @@ char	*buffer_flush(t_buffer *buffer)
 
 void	buffer_free(t_buffer *buffer)
 {
+	if (!buffer)
+		return ;
 	if (buffer->data)
 		free(buffer->data);
-	buffer->data = NULL;
-	buffer->size = 0;
-	buffer->capacity = 0;
+	free(buffer);
 }

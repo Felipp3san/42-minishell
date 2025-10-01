@@ -2,6 +2,7 @@
 CC			= cc
 RM			= rm -f
 CFLAGS		= -Wall -Wextra -Werror -g
+MAKEFLAGS	= --no-print-directory
 
 # Names
 NAME		= minishell
@@ -40,8 +41,7 @@ $(NAME): $(OBJS) $(LIBFT)
 	@printf "$(GREEN)$@ compiled! $(DEF_COLOR)\n"
 
 $(LIBFT):
-	@printf "$(CYAN)Compiling libft... $< $(DEF_COLOR)\n"
-	@make -C $(LIBFT_DIR) all
+	@$(MAKE) -C $(LIBFT_DIR) $(MAKEFLAGS) all
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
@@ -51,7 +51,7 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 clean:
 	@rm -rf $(BUILD_DIR)
 	@make -C $(LIBFT_DIR) clean
-	@printf "$(GREEN)$(NAME) object files cleaned!$(DEF_COLOR)\n"
+	@printf "$(GREEN)$(NAME) build files cleaned!$(DEF_COLOR)\n"
 
 fclean: clean
 	@rm -f $(NAME)
