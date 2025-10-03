@@ -23,10 +23,15 @@
 #include "ui.h"
 #include "types.h"
 
-void	free_shell(t_shell *shell)
+void	free_shell(t_shell *shell, t_bool full_cleaning)
 {
 	if (!shell)
 		return ;
+	if (shell->user_input)
+	{
+		free(shell->user_input);
+		shell->user_input = NULL;
+	}
 	if (shell->tokens)
 	{
 		ft_lstclear(&shell->tokens, free);
@@ -37,10 +42,14 @@ void	free_shell(t_shell *shell)
 		ft_lstclear(&shell->commands, free_command);
 		shell->commands = NULL;
 	}
-	if (shell->current_dir)
+	if (full_cleaning)
 	{
-		free(shell->current_dir);
-		shell->current_dir = NULL;
+		if (shell->current_dir)
+		{
+			free(shell->current_dir);
+			shell->current_dir = NULL;
+		}
+		rl_clear_history();
 	}
 }
 
@@ -60,27 +69,23 @@ int	init_shell(t_shell *shell)
 
 int	minishell_loop(t_shell	*shell)
 {
-	char	*input;
-
 	while (TRUE)
 	{
-		input = readline(PROMPT);
-		if (!input)
+		shell->user_input = readline(PROMPT);
+		if (!shell->user_input)
 			break ;
-		if (*input)
+		if (*shell->user_input)
 		{
-			add_history(input);
-			if (!tokenize(input, &shell->tokens))
+			add_history(shell->user_input);
+			if (!tokenize(shell->user_input, &shell->tokens))
 			{
-				free(input);
-				return (free_shell(shell), ERROR);
+				return (free_shell(shell, TRUE), ERROR);
 			}
 			if (!parse(shell->tokens, &shell->commands))
 			{
-				free(input);
-				return (free_shell(shell), ERROR);
+				return (free_shell(shell, TRUE), ERROR);
 			}
-			free(input);
+			free_shell(shell, FALSE);
 		}
 	}
 	return (SUCCESS);
@@ -96,6 +101,6 @@ int	main(void)
 		return (EXIT_FAILURE);
 	print_banner();
 	minishell_loop(&shell);
-	free_shell(&shell);
+	free_shell(&shell, TRUE);
 	return (EXIT_SUCCESS);
 }

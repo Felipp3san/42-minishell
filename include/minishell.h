@@ -18,6 +18,7 @@
 
 typedef struct s_shell
 {
+	char	*user_input;
 	t_list	*tokens;
 	t_list	*commands;
 	char	*current_dir;
