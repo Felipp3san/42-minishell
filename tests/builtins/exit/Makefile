@@ -1,4 +1,3 @@
-
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
@@ -7,7 +6,7 @@
 #    By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/01 11:16:48 by fde-alme          #+#    #+#              #
-#    Updated: 2025/10/01 12:34:29 by fde-alme         ###   ########.fr        #
+#    Updated: 2025/10/03 17:26:21 by fde-alme         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,14 +22,14 @@ MAKEFLAGS	= --no-print-directory
 LIBFT		= libft.a
 
 # Folders
-INCLUDE_DIR = ../../include
-SRC_DIR		= ../../src
-LIBFT_DIR	= ../../libft
+INCLUDE_DIR = ../../../include
+SRC_DIR		= ../../../src
+LIBFT_DIR	= ../../../libft
 BUILD_DIR	= build
 
 # Includes & Links
 INCLUDE		= -I$(INCLUDE_DIR) -I$(LIBFT_DIR)/include
-LINK		= -L../../libft -lft
+LINK		= -L../../../libft -lft
 
 # Colors
 DEF_COLOR	= \033[0;39m
@@ -44,20 +43,17 @@ CYAN		= \033[0;96m
 WHITE		= \033[0;97m
 
 # Sources
-SRCS		= $(SRC_DIR)/buffer/buffer.c \
-			  $(SRC_DIR)/parser/parser.c \
-			  $(SRC_DIR)/parser/parser_create.c \
-			  $(SRC_DIR)/parser/parser_free.c \
-			  $(SRC_DIR)/parser/parser_utils.c \
+SRCS		= $(SRC_DIR)/builtins/builtin_exit.c \
+			  $(SRC_DIR)/utils/errors.c
 
-TEST_SRC	= parser_test
+TEST_SRC	= exit_test
 
 # Objects
 OBJS		= $(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o) \
 			  $(TEST_SRC:%=$(BUILD_DIR)/%.o)
 
 # Binary
-NAME		= parser_test
+NAME		= exit_test
 
 all: $(NAME)
 
@@ -66,7 +62,6 @@ $(NAME): $(OBJS) $(LIBFT)
 	@printf "$(GREEN)$@ compiled!$(DEF_COLOR)\n"
 
 $(LIBFT):
-	@printf "$(CYAN)Compiling libft...$(DEF_COLOR)\n"
 	@$(MAKE) -C $(LIBFT_DIR) $(MAKEFLAGS) all
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c

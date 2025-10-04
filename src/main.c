@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:25:23 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/01 19:10:25 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/03 13:02:26 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,18 +73,14 @@ int	minishell_loop(t_shell	*shell)
 	{
 		shell->user_input = readline(PROMPT);
 		if (!shell->user_input)
-			break ;
+
 		if (*shell->user_input)
 		{
 			add_history(shell->user_input);
 			if (!tokenize(shell->user_input, &shell->tokens))
-			{
 				return (free_shell(shell, TRUE), ERROR);
-			}
 			if (!parse(shell->tokens, &shell->commands))
-			{
 				return (free_shell(shell, TRUE), ERROR);
-			}
 			free_shell(shell, FALSE);
 		}
 	}
