@@ -29,6 +29,13 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
+typedef struct s_strtoll
+{
+	long long	nbr;
+	int			sign;
+	size_t		i;
+}	t_strtoll;
+
 size_t		ft_nbdigits_base(unsigned long long nbr, size_t base_len);
 size_t		ft_strlcpy(char *dst, const char *src, size_t size);
 size_t		ft_strlcat(char *dst, const char *src, size_t size);

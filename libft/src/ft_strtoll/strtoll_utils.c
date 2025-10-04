@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stroll_utils.c                                     :+:      :+:    :+:   */
+/*   strtoll_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/03 22:08:31 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/03 22:09:09 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/04 15:14:06 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/04 15:15:55 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,16 @@ int	check_prefix(const char *ptr, int *base)
 		*base = 8;
 		return (1);
 	}
-	else if (base == 0)
+	else if (*base == 0)
 		*base = 10;
 	return (0);
 }
 
 int	from_base(int base, char ch)
 {
-	const char arr[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	int	i;
-	
+	const char	arr[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	int			i;
+
 	i = -1;
 	while (++i < base)
 	{

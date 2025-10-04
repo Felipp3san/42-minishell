@@ -15,8 +15,8 @@
 long long	ft_atoll(const char *nptr)
 {
 	long long	nbr;
-	int		sign;
-	size_t	i;
+	int			sign;
+	size_t		i;
 
 	sign = 1;
 	nbr = 0;

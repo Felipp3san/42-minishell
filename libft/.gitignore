@@ -1,4 +1,4 @@
+tests
 build/
 .cache/
-compile_commands.json
 *.a
