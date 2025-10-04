@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:33:34 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/03 17:10:33 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/04 18:18:03 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*join_strs(char *s1, const char *s2)
 	return (str);
 }
 
-void	print_error(const char *cmd_name, const char *msg)
+void	print_error(const char *cmd_name, const char *msg, const char *optional)
 {
 	char	*shell_name;
 	char	*full_msg;
@@ -33,6 +33,11 @@ void	print_error(const char *cmd_name, const char *msg)
 	full_msg = join_strs(full_msg, cmd_name);
 	full_msg = join_strs(full_msg, ": ");
 	full_msg = join_strs(full_msg, msg);
+	if (optional)
+	{
+		full_msg = join_strs(full_msg, ": ");
+		full_msg = join_strs(full_msg, optional);
+	}
 	ft_putendl_fd(full_msg, 2);
 	free (full_msg);
 }
