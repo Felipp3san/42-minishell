@@ -1,0 +1,3 @@
+- Handle builtins (`cd`, `export`, etc.).
+- Fork + execve for external programs.
+- Set up pipes and redirections.builtins

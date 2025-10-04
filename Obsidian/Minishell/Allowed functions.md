@@ -1,0 +1,11 @@
+- [[readline]], [[rl_clear_history]], [[rl_on_new_line]], [[rl_replace_line]], [[rl_redisplay]], [[add_history]] → input
+- [[printf]], [[write]] → output
+- [[malloc]], [[free]] → memory
+- [[fork]], [[execve]], [[wait]], [[waitpid]], [[wait3]], [[wait4]], [[exit]], [[kill]] → process handling
+- [[read]], [[open]], [[close]] → files / I/O
+- [[pipe]], [[dup]], [[dup2]], → pipes & redirection
+- [[getcwd]], [[chdir]], [[access]], [[stat]], [[lstat]], [[fstat]], [[unlink]], [[opendir]], [[readdir]], [[closedir]] → builtins & path checks
+- [[functions/signal]], [[sigaction]], [[sigemptyset]], [[sigaddset]] → signal handling
+- [[perror]], [[strerror]] → errors
+- [[isatty]], [[ttyname]], [[ttyslot]], [[ioctl]] → terminal / TTY
+- [[getenv]], [[tcsetattr]], [[tcgetattr]], [[tgetent]], [[tgetflag]], [[tgetnum]], [[tgetstr]], [[tgoto]], [[tputs]] → environment / [[termcap]]

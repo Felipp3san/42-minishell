@@ -1,0 +1,7 @@
+- Start simple: single command (`ls`, `pwd`).
+- Add arguments (`ls -l`).
+- Add env vars (`echo $USER`).
+- Add redirections (`>`, `<`).
+- Add pipes.
+- Test builtins thoroughly (`cd`, `export`, etc.).
+- Test edge cases: empty input, spaces, quotes, invalid commands.
