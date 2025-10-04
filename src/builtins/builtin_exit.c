@@ -14,27 +14,24 @@
 #include "libft.h"
 #include "utils.h"
 
-int	get_error_code(char *arg, t_bool error)
+int	get_error_code(char *arg, t_bool *error)
 {
-	int	i;
-	int	error_code;
+	long long	error_code;
+	char		*out;
 
-	i = 0;
-	while (ft_isdigit(arg[i]))
-		i++;
-	if (arg[i] && !ft_isdigit(arg[i]))
-	{
-		error = TRUE;
+	error_code = ft_strtoll(arg, &out, 10);
+	if (ft_strcmp(arg, out) == 0)
+		*error = TRUE;
+	if (error_code < 0)
+		return (0);
+	else
 		return (error_code);
-	}
-	error_code = ft_atoll(arg);
-	return (error_code);
 }
 
 int	builtin_exit(char **argv, t_shell *shell)
 {
-	long long	error_code;
-	t_bool		error;
+	unsigned char	error_code;
+	t_bool			error;
 
 	error = FALSE;
 	error_code = 0;
@@ -51,8 +48,10 @@ int	builtin_exit(char **argv, t_shell *shell)
 		{
 			error_code = get_error_code(argv[1], &error);
 			if (error)
+			{
 				print_error("exit", "numeric argument required");
-			error_code = error_code % 255;
+				return (ERROR);
+			}
 		}
 	}
 	return (error_code);

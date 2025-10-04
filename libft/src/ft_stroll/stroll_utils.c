@@ -1,39 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoll.c                                         :+:      :+:    :+:   */
+/*   stroll_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/04 15:28:44 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/03 18:16:17 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/03 22:08:31 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/03 22:09:09 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long long	ft_atoll(const char *nptr)
+int	check_prefix(const char *ptr, int *base)
 {
-	long long	nbr;
-	int		sign;
-	size_t	i;
+	if (ft_strncmp(ptr, "0x", 2) == 0)
+	{
+		*base = 16;
+		return (2);
+	}
+	else if (ft_strncmp(ptr, "0", 1) == 0)
+	{
+		*base = 8;
+		return (1);
+	}
+	else if (base == 0)
+		*base = 10;
+	return (0);
+}
 
-	sign = 1;
-	nbr = 0;
-	i = 0;
-	while (ft_isspace(nptr[i]))
-		i++;
-	if (nptr[i] == '-')
+int	from_base(int base, char ch)
+{
+	const char arr[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	int	i;
+	
+	i = -1;
+	while (++i < base)
 	{
-		sign = -1;
-		i++;
+		if (ft_tolower(ch) == ft_tolower(arr[i]))
+			return (i);
 	}
-	else if (nptr[i] == '+')
-		i++;
-	while (nptr[i] >= '0' && nptr[i] <= '9')
-	{
-		nbr = (nbr * 10) + (nptr[i] - '0');
-		i++;
-	}
-	return (nbr * sign);
+	return (-1);
 }

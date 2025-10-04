@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:42:34 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/03 16:49:48 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/03 22:14:43 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdint.h>
+# include <errno.h>
+# include <limits.h>
 # include "get_next_line.h"
 
 typedef struct s_list
@@ -66,10 +68,12 @@ int			ft_printf(const char *fstring, ...);
 int			ft_atoi(const char *nptr);
 long		ft_atol(const char *nptr);
 long long	ft_atoll(const char *nptr);
+long long	ft_strtoll(const char *nptr, char **endptr, int base);
 int			ft_isalpha(int c);
 int			ft_isdigit(int c);
 int			ft_isalnum(int c);
 int			ft_isascii(int c);
+int			ft_isspace(int c);
 int			ft_isprint(int c);
 int			ft_toupper(int c);
 int			ft_tolower(int c);

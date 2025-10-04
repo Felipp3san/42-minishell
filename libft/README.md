@@ -59,8 +59,11 @@ And by adding the following flags to the compilation of your project's sources:
 
 - `ft_itoa`        : Converts an integer to a string.
 - `ft_atoi`        : Converts the initial portion of the string pointed to by 'nptr' to int, ignoring leading whitespace and handling optional signs.
+- `ft_atol`		   : Converts a string to a signed long integer.
+- `ft_atoll`       : Converts a string to a signed long long integer.
 - `ft_toupper`     : Converts the letter 'c' to uppercase, if possible.
 - `ft_tolower`     : Converts the letter 'c' to lowercase, if possible.
+- `ft_strtoll`     : Custom implementation of strtoll, converts a string to a signed long long integer, handling optional base, white spaces, signs, and overflow.
 
 ### Lists - *ft_lst/*
 
@@ -121,7 +124,7 @@ And by adding the following flags to the compilation of your project's sources:
 
 - `ft_printf`      : Custom implementation of printf, formatted output conversion and printing to standard output.
 - `ft_dprintf`     : Custom implementation of dprintf, formatted output conversion and printing to the given file descriptor.
-  
+
 ---
 
 ## Testing

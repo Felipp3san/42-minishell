@@ -26,6 +26,7 @@ int main(void)
 	char *args6[] = {"exit", "18446744073709551615", NULL};
 	char *args7[] = {"exit", "0", NULL};
 	char *args8[] = {"exit", "-1", NULL};
+	char *args9[] = {"exit", "9223372036854775800", NULL};
 
 	ft_memset(&shell, 0, sizeof(t_shell));
 	
@@ -64,8 +65,13 @@ int main(void)
 	if (err != ERROR)
 		ft_printf("Exit code: %d, Exit function return: %d\n", shell.last_exit_status, err);
 
-	ft_printf("\nTest 7: numeric argument '-1'\n");
+	ft_printf("\nTest 8: numeric argument '-1'\n");
 	err = builtin_exit(args8, &shell);
+	if (err != ERROR)
+		ft_printf("Exit code: %d, Exit function return: %d\n", shell.last_exit_status, err);
+
+	ft_printf("\nTest 9: numeric argument '9223372036854775800'\n");
+	err = builtin_exit(args9, &shell);
 	if (err != ERROR)
 		ft_printf("Exit code: %d, Exit function return: %d\n", shell.last_exit_status, err);
 

@@ -1,0 +1,461 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/ft_printf/ft_printunbr_base.o",
+      "src/ft_printf/ft_printunbr_base.c"
+    ],
+    "directory": "/home/fde-alme/Documents/libft",
+    "file": "/home/fde-alme/Documents/libft/src/ft_printf/ft_printunbr_base.c",
+    "output": "/home/fde-alme/Documents/libft/build/ft_printf/ft_printunbr_base.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/ft_printf/ft_printchar.o",
+      "src/ft_printf/ft_printchar.c"
+    ],
+    "directory": "/home/fde-alme/Documents/libft",
+    "file": "/home/fde-alme/Documents/libft/src/ft_printf/ft_printchar.c",
+    "output": "/home/fde-alme/Documents/libft/build/ft_printf/ft_printchar.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/ft_printf/ft_printstr.o",
+      "src/ft_printf/ft_printstr.c"
+    ],
+    "directory": "/home/fde-alme/Documents/libft",
+    "file": "/home/fde-alme/Documents/libft/src/ft_printf/ft_printstr.c",
+    "output": "/home/fde-alme/Documents/libft/build/ft_printf/ft_printstr.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/ft_printf/ft_dprintf.o",
+      "src/ft_printf/ft_dprintf.c"
+    ],
+    "directory": "/home/fde-alme/Documents/libft",
+    "file": "/home/fde-alme/Documents/libft/src/ft_printf/ft_dprintf.c",
+    "output": "/home/fde-alme/Documents/libft/build/ft_printf/ft_dprintf.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/ft_printf/ft_printptr.o",
+      "src/ft_printf/ft_printptr.c"
+    ],
+    "directory": "/home/fde-alme/Documents/libft",
+    "file": "/home/fde-alme/Documents/libft/src/ft_printf/ft_printptr.c",
+    "output": "/home/fde-alme/Documents/libft/build/ft_printf/ft_printptr.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/ft_printf/ft_printhex.o",
+      "src/ft_printf/ft_printhex.c"
+    ],
+    "directory": "/home/fde-alme/Documents/libft",
+    "file": "/home/fde-alme/Documents/libft/src/ft_printf/ft_printhex.c",
+    "output": "/home/fde-alme/Documents/libft/build/ft_printf/ft_printhex.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/ft_printf/ft_printf.o",
+      "src/ft_printf/ft_printf.c"
+    ],
+    "directory": "/home/fde-alme/Documents/libft",
+    "file": "/home/fde-alme/Documents/libft/src/ft_printf/ft_printf.c",
+    "output": "/home/fde-alme/Documents/libft/build/ft_printf/ft_printf.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/ft_printf/ft_printnbr.o",
+      "src/ft_printf/ft_printnbr.c"
+    ],
+    "directory": "/home/fde-alme/Documents/libft",
+    "file": "/home/fde-alme/Documents/libft/src/ft_printf/ft_printnbr.c",
+    "output": "/home/fde-alme/Documents/libft/build/ft_printf/ft_printnbr.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/ft_math/ft_nbdigits_base.o",
+      "src/ft_math/ft_nbdigits_base.c"
+    ],
+    "directory": "/home/fde-alme/Documents/libft",
+    "file": "/home/fde-alme/Documents/libft/src/ft_math/ft_nbdigits_base.c",
+    "output": "/home/fde-alme/Documents/libft/build/ft_math/ft_nbdigits_base.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/ft_mem/ft_memcpy.o",
+      "src/ft_mem/ft_memcpy.c"
+    ],
+    "directory": "/home/fde-alme/Documents/libft",
+    "file": "/home/fde-alme/Documents/libft/src/ft_mem/ft_memcpy.c",
+    "output": "/home/fde-alme/Documents/libft/build/ft_mem/ft_memcpy.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/ft_mem/ft_memset.o",
+      "src/ft_mem/ft_memset.c"
+    ],
+    "directory": "/home/fde-alme/Documents/libft",
+    "file": "/home/fde-alme/Documents/libft/src/ft_mem/ft_memset.c",
+    "output": "/home/fde-alme/Documents/libft/build/ft_mem/ft_memset.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/ft_mem/ft_bzero.o",
+      "src/ft_mem/ft_bzero.c"
+    ],
+    "directory": "/home/fde-alme/Documents/libft",
+    "file": "/home/fde-alme/Documents/libft/src/ft_mem/ft_bzero.c",
+    "output": "/home/fde-alme/Documents/libft/build/ft_mem/ft_bzero.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/ft_mem/ft_memchr.o",
+      "src/ft_mem/ft_memchr.c"
+    ],
+    "directory": "/home/fde-alme/Documents/libft",
+    "file": "/home/fde-alme/Documents/libft/src/ft_mem/ft_memchr.c",
+    "output": "/home/fde-alme/Documents/libft/build/ft_mem/ft_memchr.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/ft_mem/ft_memdel.o",
+      "src/ft_mem/ft_memdel.c"
+    ],
+    "directory": "/home/fde-alme/Documents/libft",
+    "file": "/home/fde-alme/Documents/libft/src/ft_mem/ft_memdel.c",
+    "output": "/home/fde-alme/Documents/libft/build/ft_mem/ft_memdel.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/ft_mem/ft_memmove.o",
+      "src/ft_mem/ft_memmove.c"
+    ],
+    "directory": "/home/fde-alme/Documents/libft",
+    "file": "/home/fde-alme/Documents/libft/src/ft_mem/ft_memmove.c",
+    "output": "/home/fde-alme/Documents/libft/build/ft_mem/ft_memmove.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/ft_mem/ft_memcmp.o",
+      "src/ft_mem/ft_memcmp.c"
+    ],
+    "directory": "/home/fde-alme/Documents/libft",
+    "file": "/home/fde-alme/Documents/libft/src/ft_mem/ft_memcmp.c",
+    "output": "/home/fde-alme/Documents/libft/build/ft_mem/ft_memcmp.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/ft_mem/ft_calloc.o",
+      "src/ft_mem/ft_calloc.c"
+    ],
+    "directory": "/home/fde-alme/Documents/libft",
+    "file": "/home/fde-alme/Documents/libft/src/ft_mem/ft_calloc.c",
+    "output": "/home/fde-alme/Documents/libft/build/ft_mem/ft_calloc.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/ft_is/ft_isalpha.o",
+      "src/ft_is/ft_isalpha.c"
+    ],
+    "directory": "/home/fde-alme/Documents/libft",
+    "file": "/home/fde-alme/Documents/libft/src/ft_is/ft_isalpha.c",
+    "output": "/home/fde-alme/Documents/libft/build/ft_is/ft_isalpha.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/ft_is/ft_isascii.o",
+      "src/ft_is/ft_isascii.c"
+    ],
+    "directory": "/home/fde-alme/Documents/libft",
+    "file": "/home/fde-alme/Documents/libft/src/ft_is/ft_isascii.c",
+    "output": "/home/fde-alme/Documents/libft/build/ft_is/ft_isascii.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/ft_is/ft_isprint.o",
+      "src/ft_is/ft_isprint.c"
+    ],
+    "directory": "/home/fde-alme/Documents/libft",
+    "file": "/home/fde-alme/Documents/libft/src/ft_is/ft_isprint.c",
+    "output": "/home/fde-alme/Documents/libft/build/ft_is/ft_isprint.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/ft_is/ft_isdigit.o",
+      "src/ft_is/ft_isdigit.c"
+    ],
+    "directory": "/home/fde-alme/Documents/libft",
+    "file": "/home/fde-alme/Documents/libft/src/ft_is/ft_isdigit.c",
+    "output": "/home/fde-alme/Documents/libft/build/ft_is/ft_isdigit.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/ft_is/ft_isalnum.o",
+      "src/ft_is/ft_isalnum.c"
+    ],
+    "directory": "/home/fde-alme/Documents/libft",
+    "file": "/home/fde-alme/Documents/libft/src/ft_is/ft_isalnum.c",
+    "output": "/home/fde-alme/Documents/libft/build/ft_is/ft_isalnum.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/ft_gnl/get_next_line.o",
+      "src/ft_gnl/get_next_line.c"
+    ],
+    "directory": "/home/fde-alme/Documents/libft",
+    "file": "/home/fde-alme/Documents/libft/src/ft_gnl/get_next_line.c",
+    "output": "/home/fde-alme/Documents/libft/build/ft_gnl/get_next_line.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/ft_to/ft_atoi.o",
+      "src/ft_to/ft_atoi.c"
+    ],
+    "directory": "/home/fde-alme/Documents/libft",
+    "file": "/home/fde-alme/Documents/libft/src/ft_to/ft_atoi.c",
+    "output": "/home/fde-alme/Documents/libft/build/ft_to/ft_atoi.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/ft_to/ft_toupper.o",
+      "src/ft_to/ft_toupper.c"
+    ],
+    "directory": "/home/fde-alme/Documents/libft",
+    "file": "/home/fde-alme/Documents/libft/src/ft_to/ft_toupper.c",
+    "output": "/home/fde-alme/Documents/libft/build/ft_to/ft_toupper.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/ft_to/ft_atol.o",
+      "src/ft_to/ft_atol.c"
+    ],
+    "directory": "/home/fde-alme/Documents/libft",
+    "file": "/home/fde-alme/Documents/libft/src/ft_to/ft_atol.c",
+    "output": "/home/fde-alme/Documents/libft/build/ft_to/ft_atol.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/ft_to/ft_strtol.o",
+      "src/ft_to/ft_strtol.c"
+    ],
+    "directory": "/home/fde-alme/Documents/libft",
+    "file": "/home/fde-alme/Documents/libft/src/ft_to/ft_strtol.c",
+    "output": "/home/fde-alme/Documents/libft/build/ft_to/ft_strtol.o"
+  }
+]
