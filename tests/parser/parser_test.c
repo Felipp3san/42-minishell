@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 15:22:28 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/01 18:46:56 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/04 16:48:19 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,6 +246,25 @@ int	main(void)
 		return (1);
 	}
 	ft_printf("---- Test 9 ----\n");
+	print_pipeline(commands);
+	ft_lstclear(&tokens, free);
+	ft_lstclear(&commands, free_command);
+
+	// ---------------- Test 10 ----------------
+	tokens = NULL; commands = NULL;
+	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("echo")));
+	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("-n")));
+	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("--")));
+	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("hello")));
+	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup(">>")));
+	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("output.log")));
+
+	if (!parse(tokens, &commands))
+	{
+		ft_printf("parse failed\n");
+		return (1);
+	}
+	ft_printf("---- Test 10 ----\n");
 	print_pipeline(commands);
 	ft_lstclear(&tokens, free);
 	ft_lstclear(&commands, free_command);

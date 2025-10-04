@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:25:23 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/03 13:02:26 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/04 18:25:46 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include "parser.h"
 #include "ui.h"
 #include "types.h"
+#include "env.h"
 
 void	free_shell(t_shell *shell, t_bool full_cleaning)
 {
@@ -49,11 +50,16 @@ void	free_shell(t_shell *shell, t_bool full_cleaning)
 			free(shell->current_dir);
 			shell->current_dir = NULL;
 		}
+		if (shell->env)
+		{
+			ft_lstclear(&shell->env, free);
+			shell->env = NULL;
+		}
 		rl_clear_history();
 	}
 }
 
-int	init_shell(t_shell *shell)
+int	init_shell(t_shell *shell, char **envp)
 {
 	char	*cwd;
 
@@ -64,6 +70,9 @@ int	init_shell(t_shell *shell)
 	shell->commands = NULL;
 	shell->current_dir = cwd;
 	shell->last_exit_status = errno;
+	shell->env = env_clone(envp);
+	if (!shell->env)
+		return (ERROR);
 	return (SUCCESS);
 }
 
@@ -87,14 +96,16 @@ int	minishell_loop(t_shell	*shell)
 	return (SUCCESS);
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	t_shell	shell;
 
-	if (init_shell(&shell) != SUCCESS)
-		return (EXIT_FAILURE);
+	(void) argc;
+	(void) argv;
+	if (init_shell(&shell, envp) != SUCCESS)
+		return (free_shell(&shell, TRUE), EXIT_FAILURE);
 	if (init_parent_signals() != SUCCESS)
-		return (EXIT_FAILURE);
+		return (free_shell(&shell, TRUE), EXIT_FAILURE);
 	print_banner();
 	minishell_loop(&shell);
 	free_shell(&shell, TRUE);

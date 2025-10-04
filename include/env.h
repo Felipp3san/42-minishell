@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/23 11:31:58 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/04 18:23:58 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/04 16:56:06 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/04 18:47:29 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef ENV_H
+# define ENV_H
 
-# include <stddef.h>
-# include "libft.h"
+#include "libft.h"
 
-typedef struct s_shell
-{
-	char	*current_dir;
-	char	*user_input;
-	t_list	*tokens;
-	t_list	*commands;
-	t_list	*env;
-	int		last_exit_status;
-}	t_shell;
+void	env_free(char **envp);
+t_list	*env_clone(char **envp);
+char	**env_list_to_arr(t_list *envp);
+char	*env_get(t_list *envp, const char *var);
 
 #endif
+

@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/23 11:31:58 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/04 18:23:58 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/04 16:16:43 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/04 18:26:12 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
+#include "types.h"
 
-# include <stddef.h>
-# include "libft.h"
-
-typedef struct s_shell
+int	executor(t_list *env, t_list	*commands)
 {
-	char	*current_dir;
-	char	*user_input;
-	t_list	*tokens;
-	t_list	*commands;
-	t_list	*env;
-	int		last_exit_status;
-}	t_shell;
-
-#endif
+	(void) commands;
+	return (SUCCESS);
+}
