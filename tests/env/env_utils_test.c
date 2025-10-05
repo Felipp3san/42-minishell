@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "env.h"
 #include "libft.h"
+#include "env.h"
 
 int	env_compare(char **env1, char **env2)
 {
@@ -52,16 +52,45 @@ int	main(int argc, char **argv, char **envp)
 		else
 			ft_printf("env_list_to_arr failed");
 		env_free(arr_clone);
-		ft_lstclear(&list_clone, free);
 	}
 
 	// Get env
 	std_val = getenv("PATH");
 	if (std_val)
-		ft_printf("%s\n", std_val);
+		ft_printf("getenv (PATH): %s\n", std_val);
+
+	ft_val = getenv("HOME");
+	if (ft_val)
+		ft_printf("getenv (HOME): %s\n", ft_val);
+
+	ft_val = getenv("HOMES");
+	if (ft_val)
+		ft_printf("getenv (HOMES): %s\n", ft_val);
+
+	ft_val = getenv("");
+	if (ft_val)
+		ft_printf("getenv (""): %s\n", ft_val);
+
 	ft_val = env_get(list_clone, "PATH");
 	if (ft_val)
-		ft_printf("%s\n", ft_val);
+		ft_printf("env_get (PATH): %s\n", ft_val);
 
+	ft_val = env_get(list_clone, "HOME");
+	if (ft_val)
+		ft_printf("env_get (HOME): %s\n", ft_val);
+
+	ft_val = env_get(list_clone, "HOMES");
+	if (ft_val)
+		ft_printf("env_get (HOMES): %s\n", ft_val);
+
+	ft_val = env_get(list_clone, "");
+	if (ft_val)
+		ft_printf("env_get (""): %s\n", ft_val);
+
+	ft_val = env_get(list_clone, NULL);
+	if (ft_val)
+		ft_printf("env_get (NULL) %s\n", ft_val);
+
+	ft_lstclear(&list_clone, free);
 	return (0);
 }

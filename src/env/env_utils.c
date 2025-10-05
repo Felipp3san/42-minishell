@@ -18,17 +18,18 @@ char	*env_get(t_list *envp, const char *var)
 {
 	t_list	*node;
 	size_t	len;
+	char	*str;
 
 	if (!envp || !var)
 		return (NULL);
-	node = envp;
 	len = ft_strlen(var);
+	node = envp;
 	while (node)
 	{
-		ft_memchr(node->content, '=');
-		if (ft_strncmp(node->content, var, len) == 0)
-		{
-		}
+		str = node->content;
+		if (ft_strncmp(str, var, len) == 0
+			&& str[len] == '=')
+			return (&str[len + 1]);
 		node = node->next;
 	}
 	return (NULL);

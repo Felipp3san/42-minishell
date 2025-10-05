@@ -15,6 +15,7 @@
 
 int	executor(t_list *env, t_list	*commands)
 {
+	(void) env;
 	(void) commands;
 	return (SUCCESS);
 }
