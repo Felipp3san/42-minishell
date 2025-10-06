@@ -1,19 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   env_get_lst.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/03 16:46:50 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/06 17:30:43 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/06 17:33:26 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/06 18:37:32 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "libft.h"
 
-void	print_error(const char *cmd_name, const char *msg);
-void	free_split(char **arr);
+char	*env_get_lst(t_list *envp, const char *var)
+{
+	t_list	*node;
+	size_t	len;
+	char	*str;
 
-#endif
+	if (!envp || !var)
+		return (NULL);
+	len = ft_strlen(var);
+	node = envp;
+	while (node)
+	{
+		str = node->content;
+		if (ft_strncmp(str, var, len) == 0
+			&& str[len] == '=')
+			return (&str[len + 1]);
+		node = node->next;
+	}
+	return (NULL);
+}

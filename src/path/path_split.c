@@ -1,19 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   path_split.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/03 16:46:50 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/06 17:30:43 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/06 17:25:16 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/06 18:46:40 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "libft.h"
 
-void	print_error(const char *cmd_name, const char *msg);
-void	free_split(char **arr);
+/* Split PATH var in an array of paths 
+ * Ex: ["/usr/local/bin", "/usr/bin"...] */
+char	**path_split(char *path)
+{
+	char	**paths;
+	char	*skip_var;
 
-#endif
+	if (!path)
+		return (NULL);
+	skip_var = ft_strchr(path, '=');
+	if (skip_var)
+		path = skip_var + 1;
+	paths = ft_split(path + 1, ':');
+	if (!paths)
+		return (NULL);
+	return (paths);
+}

@@ -1,21 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor.c                                         :+:      :+:    :+:   */
+/*   path_join.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/04 16:16:43 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/06 19:29:10 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/06 17:49:44 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/06 18:23:12 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "types.h"
 
-int	executor(t_list *env, t_list *commands)
+/* Join the path with the command separated by a slash.
+ * Ex: "bin/ls", "bin/cat"...
+ * */
+char	*path_join(const char *path, const char *cmd)
 {
-	(void) env;
-	(void) commands;
-	return (SUCCESS);
+	char *path_slash;
+	char *full_path;
+
+	path_slash = ft_strjoin(path, "/");
+	if (!path_slash)
+		return (NULL);
+	full_path = ft_strjoin(path_slash, cmd);
+	if (!full_path)
+	{
+		free(path_slash);
+		return (NULL);
+	}
+	free(path_slash);
+	return (full_path);
 }
