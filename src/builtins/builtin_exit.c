@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 12:42:57 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/03 18:24:31 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/06 18:35:58 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	builtin_exit(char **argv, t_shell *shell)
 	{
 		if (argv[2])
 		{
-			print_error("exit", "too many arguments");
+			print_error("exit", "too many arguments", 0);
 			return (ERROR);
 		}
 		else if (argv[1])
@@ -49,7 +49,7 @@ int	builtin_exit(char **argv, t_shell *shell)
 			error_code = get_error_code(argv[1], &error);
 			if (error)
 			{
-				print_error("exit", "numeric argument required");
+				print_error("exit", "numeric argument required", 0);
 				return (ERROR);
 			}
 		}
