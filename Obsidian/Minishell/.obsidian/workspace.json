@@ -39,12 +39,14 @@
             "id": "bd5c681a0e05eb78",
             "type": "leaf",
             "state": {
-              "type": "pdf",
+              "type": "markdown",
               "state": {
-                "file": "minishell/Subject.pdf"
+                "file": "Parser.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-file-text",
-              "title": "Subject"
+              "icon": "lucide-file",
+              "title": "Parser"
             }
           }
         ],
@@ -198,6 +200,7 @@
   },
   "active": "bd5c681a0e05eb78",
   "lastOpenFiles": [
+    "Subject.pdf",
     "builtins/pwd.md",
     "functions/getcwd.md",
     "functions/perror.md",
@@ -224,7 +227,6 @@
     "functions/readdir.md",
     "functions/free.md",
     "functions/rl_clear_history.md",
-    "functions/ttyslot.md",
     "minishell",
     "Untitled",
     "terms",

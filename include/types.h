@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 18:22:52 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/25 18:36:59 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/05 15:18:13 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ typedef enum e_status
 	ERR_SIGACTION = -2,
 	ERR_MALLOC = -3
 }	t_status;
+
+typedef enum e_pipe
+{
+	READ,
+	WRITE,
+}	t_pipe;
 
 typedef enum e_bool
 {

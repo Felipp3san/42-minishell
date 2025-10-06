@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:31:58 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/04 18:23:58 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/05 14:55:45 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 # define MINISHELL_H
 
 # include <stddef.h>
+# include "types.h"
 # include "libft.h"
+
+extern int	g_last_exit_code;
 
 typedef struct s_shell
 {
@@ -23,7 +26,9 @@ typedef struct s_shell
 	t_list	*tokens;
 	t_list	*commands;
 	t_list	*env;
-	int		last_exit_status;
+	t_bool	should_exit;
 }	t_shell;
+
+void	free_shell(t_shell *shell, t_bool full_cleaning);
 
 #endif
