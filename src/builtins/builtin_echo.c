@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:03:08 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/04 17:38:22 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/07 18:23:51 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ static int	is_option_n(char *s)
 	return (SUCCESS);
 }
 
-int	builtin_echo(char **args, int fd)
+int	builtin_echo(char **args)
 {
 	int i;
 	int	newline;
 
 	i = 0;
 	newline = 1;
-	if (!args || !*args || fd <= 0)
+	if (!args || !*args)
 		return (ERROR);
 	while (args[i] && is_option_n(args[i]) == SUCCESS)
 	{
@@ -47,12 +47,12 @@ int	builtin_echo(char **args, int fd)
 	}
 	while (args[i])
 	{
-		ft_putstr_fd(args[i], fd);
+		ft_putstr_fd(args[i], 1);
 		if (args[i + 1])
-			write(fd, " ", 1);
+			write(1, " ", 1);
 		i++;
 	}
 	if (newline)
-		write(fd, "\n", 1);
+		write(1, "\n", 1);
 	return (SUCCESS);
 }
