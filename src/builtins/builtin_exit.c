@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/03 12:42:57 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/05 15:03:34 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/08 16:30:19 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/08 16:30:29 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	builtin_exit(char **argv)
 	{
 		if (argv[2])
 		{
-			print_error("exit", "too many arguments");
+			print_error("exit", "too many arguments", 0);
 			return (ERROR);
 		}
 		else if (argv[1])
@@ -51,7 +51,7 @@ int	builtin_exit(char **argv)
 			error_code = get_error_code(argv[1], &error);
 			if (error)
 			{
-				print_error("exit", "numeric argument required");
+				print_error("exit", "numeric argument required", 0);
 				return (ERROR);
 			}
 		}

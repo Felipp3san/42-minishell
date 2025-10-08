@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/06 17:30:15 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/06 17:30:51 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/08 16:30:40 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/08 16:30:44 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*join_strs(char *s1, const char *s2)
 	return (str);
 }
 
-void	print_error(const char *cmd_name, const char *msg)
+void	print_error(const char *cmd_name, const char *msg, const char *optional)
 {
 	char	*shell_name;
 	char	*full_msg;
@@ -33,6 +33,11 @@ void	print_error(const char *cmd_name, const char *msg)
 	full_msg = join_strs(full_msg, cmd_name);
 	full_msg = join_strs(full_msg, ": ");
 	full_msg = join_strs(full_msg, msg);
+	if (optional)
+	{
+		full_msg = join_strs(full_msg, ": ");
+		full_msg = join_strs(full_msg, optional);
+	}
 	ft_putendl_fd(full_msg, 2);
 	free (full_msg);
 }
