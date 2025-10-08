@@ -1,34 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   command.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/23 11:31:58 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/05 14:55:45 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/05 14:24:58 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/08 13:09:40 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef COMMAND_H
+# define COMMAND_H
 
 # include <stddef.h>
-# include "types.h"
 # include "libft.h"
 
-extern int	g_last_exit_code;
-
-typedef struct s_shell
+typedef enum s_type
 {
-	char	*current_dir;
-	char	*user_input;
-	t_list	*tokens;
-	t_list	*commands;
-	t_list	*env;
-	t_bool	should_exit;
-}	t_shell;
+	WORD,
+	PIPE,
+	INPUT,
+	OUTPUT,
+	APPEND,
+	HEREDOC,
+}	t_type;
 
-void	free_shell(t_shell *shell, t_bool full_cleaning);
+/*
+ * Filename if OUTPUT, APPEND, INPUT
+ * delimiter if HEREDOC
+ */
+typedef struct s_redir
+{
+	char	*filename;
+	char	*delimiter;
+	t_type	type;
+}	t_redir;
+
+typedef struct s_command
+{
+	char	**argv;
+	size_t	size;
+	size_t	capacity;
+	t_list	*redirs;
+}	t_command;
 
 #endif

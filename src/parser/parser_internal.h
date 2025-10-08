@@ -6,19 +6,19 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 13:40:17 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/01 18:58:01 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/08 13:12:24 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_INTERNAL_H
 # define PARSER_INTERNAL_H
 
-# include "parser.h"
 # include "libft.h"
 # include "types.h"
+# include "command.h"
 
 // parser_create.c
-t_redir		*redir_create(char *filename, t_type type);
+t_redir		*redir_create(char *name, t_type type);
 t_command	*command_create(void);
 t_command	*argv_append(t_command *command, const char *str);
 t_command	*argv_realloc(t_command *command);

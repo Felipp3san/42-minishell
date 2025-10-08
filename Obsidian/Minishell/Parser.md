@@ -11,3 +11,8 @@ PIPE
  ├── COMMAND "ls" ["-l"]
  └── REDIR ">" "out.txt"
      └── COMMAND "grep" ["txt"]
+     ```
+   
+## Should expand env variables
+
+- $? 
