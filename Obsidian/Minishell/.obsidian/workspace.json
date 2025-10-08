@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "functions/pipe.md",
+                "file": "Executor.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "pipe"
+              "title": "Executor"
             }
           }
         ],
@@ -200,9 +200,9 @@
   },
   "active": "bd5c681a0e05eb78",
   "lastOpenFiles": [
+    "functions/pipe.md",
     "functions/open.md",
     "Valgrind.md",
-    "functions/pipe.md",
     "functions/perror.md",
     "Parser.md",
     "Subject.pdf",

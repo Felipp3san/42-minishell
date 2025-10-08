@@ -15,8 +15,8 @@
 
 int	execute_builtin(t_exec *exec, t_shell *shell)
 {
-	pid_t		pid;
 	t_command	*cmd;
+	pid_t		pid;
 	int			error_code;
 
 	cmd = exec->cmd;
