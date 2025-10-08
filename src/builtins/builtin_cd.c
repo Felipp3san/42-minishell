@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:12:38 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/04 18:28:54 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/08 21:37:14 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	builtin_cd(char **path)
 	if (chdir(target) != 0)
 	{
 		print_error("cd",target, strerror(errno));
-    	return (ERROR);
+		return (ERROR);
 	}
 	return (SUCCESS);
 }

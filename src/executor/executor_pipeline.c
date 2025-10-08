@@ -6,47 +6,98 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:42:55 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/08 15:58:29 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/08 22:09:58 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor_internal.h"
 #include "utils.h"
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <string.h>
+
+void	child_process(t_exec *exec, t_shell *shell)
+{
+	int	ret;
+
+	if (exec->input_fd != STDOUT_FILENO)
+	{
+		dup2(exec->input_fd, STDIN_FILENO);
+		close(exec->input_fd);
+	}
+	if (!exec->last)
+	{
+		dup2(exec->pipe_fd[WRITE], STDOUT_FILENO);
+		close(exec->pipe_fd[READ]);
+		close(exec->pipe_fd[WRITE]);
+	}
+	setup_redirs(exec);
+	if (is_builtin(exec->cmd->argv[0]))
+	{
+		ret = execute_builtin(exec, shell);
+		close(STDOUT_FILENO);
+		exit_shell(shell, ret);
+	}
+	else
+	{
+		ret = execute_external(exec, shell);
+		close(STDOUT_FILENO);
+		exit_shell(shell, ret);
+	}
+
+}
+
+void	parent_process(t_exec *exec)
+{
+	if (exec->input_fd != STDIN_FILENO)
+		close(exec->input_fd);
+	if (!exec->last)
+	{
+		close(exec->pipe_fd[WRITE]);
+		exec->input_fd = exec->pipe_fd[READ];
+	}
+}
+
+int	wait_children()
+{
+	int	status;
+	int	saved;
+
+	saved = 0;
+	while (wait(&status) > 0)
+	{
+		if (WIFEXITED(status))
+			saved = WEXITSTATUS(status);
+	}
+	return (saved);
+}
 
 int	pipeline(t_exec *exec, t_shell *shell)
 {
-	int		pipe_fd[2];
 	t_list	*cmd_node;
+	pid_t	pid;
 
 	cmd_node = shell->commands;
 	while (!shell->should_exit && cmd_node)
 	{
 		exec->last = (cmd_node->next == NULL);
 		exec->cmd = (t_command *)cmd_node->content;
-
-		if (!exec->last && pipe(pipe_fd) == -1)
-			return (ERROR);
-		if (!exec->last)
-			exec->output_fd = pipe_fd[WRITE];
+		if (is_builtin(exec->cmd->argv[0]) && is_single_command(shell->commands))
+			return (execute_builtin(exec, shell));
 		else
-			exec->output_fd = -1;
-		if (setup_redirs(exec) == ERROR)
-			print_error("redirs", "redirection setup failed");
-		if (is_builtin(exec->cmd))
-			execute_builtin(exec, shell);
-		else
-			execute_external(exec);
-		if (exec->input_fd != -1)
 		{
-			close(exec->input_fd);
-			exec->input_fd = -1;
-		}
-		if (!exec->last)
-		{
-			close(pipe_fd[WRITE]);
-			exec->input_fd = pipe_fd[READ];
+			if (!exec->last && pipe(exec->pipe_fd) == -1)
+				return (print_err_exit("pipe", strerror(errno), EXIT_FAILURE));
+			pid = fork();
+			if (pid == -1)
+				return (print_err_exit("fork", strerror(errno), EXIT_FAILURE));
+			else if (pid == 0)
+				child_process(exec, shell);
+			else
+				parent_process(exec);
 		}
 		cmd_node = cmd_node->next;
 	}
-	return (SUCCESS);
+	return (wait_children());
 }

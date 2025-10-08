@@ -11,19 +11,19 @@
 /* ************************************************************************** */
 
 #include "executor_internal.h"
+#include <unistd.h>
 
 void	init_exec(t_exec *exec)
 {
-	exec->input_fd = -1;
-	exec->output_fd = -1;
+	exec->input_fd = STDIN_FILENO;
+	exec->output_fd = STDOUT_FILENO;
 	exec->pipe_fd[READ] = -1;
 	exec->pipe_fd[WRITE] = -1;
 	exec->last = FALSE;
-	exec->envp = NULL;
 	exec->cmd = NULL;
 }
 
-t_bool	is_builtin(t_command *command)
+t_bool	is_builtin(char *cmd)
 {
 	const char	*builtins[] = {
 		"echo",
@@ -37,12 +37,12 @@ t_bool	is_builtin(t_command *command)
 	};
 	size_t		i;
 
-	if (!command || !command->argv)
+	if (!cmd)
 		return (FALSE);
 	i = 0;
 	while (builtins[i])
 	{
-		if (ft_strcmp(builtins[i], command->argv[0]) == 0)
+		if (ft_strcmp(builtins[i], cmd) == 0)
 			return (TRUE);
 		i++;
 	}

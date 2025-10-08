@@ -25,7 +25,8 @@ typedef struct s_shell
 	char	*user_input;
 	t_list	*tokens;
 	t_list	*commands;
-	t_list	*env;
+	t_list	*env_lst;
+	char	**env_arr;
 	t_bool	should_exit;
 }	t_shell;
 

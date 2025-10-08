@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include "executor_internal.h"
 #include "utils.h"
 
@@ -30,34 +32,22 @@ int	setup_redirs(t_exec *exec)
 		{
 			redir = (t_redir *) redir_node->content;
 			if (redir->type == INPUT)
-			{
 				fd = open_input(redir->filename);
-				if (fd == -1)
-					return (ERROR);
-				exec->input_fd = fd;
-			}
 			else if (redir->type == OUTPUT)
-			{
 				fd = open_output(redir->filename, FALSE);
-				if (fd == -1)
-					return (ERROR);
-				exec->output_fd = fd;
-			}
 			else if (redir->type == APPEND)
-			{
 				fd = open_output(redir->filename, TRUE);
-				if (fd == -1)
-					return (ERROR);
-				exec->output_fd = fd;
-			}
 			else if (redir->type == HEREDOC)
 			{
-				if (exec->input_fd != -1)
-					close(exec->input_fd);
 				exec->input_fd = heredoc(redir->delimiter);
 				if (exec->input_fd == -1)
 					return (ERROR);
 			}
+			if (redir->type == INPUT)
+				dup2(fd, STDIN_FILENO);
+			else
+				dup2(fd, STDOUT_FILENO);
+			close(fd);
 			redir_node = redir_node->next;
 		}
 	}
@@ -71,8 +61,8 @@ static int	open_input(char *filename)
 	fd = open(filename, O_RDONLY, 0644);
 	if (fd == -1)
 	{
-		print_error(strerror(errno), filename);
-		return (EXIT_FAILURE);
+		print_error(strerror(errno), filename, NULL);
+		exit(EXIT_FAILURE);
 	}
 	return (fd);
 }
@@ -87,8 +77,8 @@ static int	open_output(char *filename, t_bool append)
 		fd = open(filename, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (fd == -1)
 	{
-		print_error(strerror(errno), filename);
-		return (EXIT_FAILURE);
+		print_error(strerror(errno), filename, NULL);
+		exit(EXIT_FAILURE);
 	}
 	return (fd);
 }

@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:25:23 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/08 15:21:17 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/08 21:50:33 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ void	free_shell(t_shell *shell, t_bool full_cleaning)
 		ft_lstclear(&shell->commands, free_command);
 		shell->commands = NULL;
 	}
+	if (shell->env_arr)
+	{
+		env_free(shell->env_arr);
+		shell->env_arr = NULL;
+	}
 	if (full_cleaning)
 	{
 		if (shell->current_dir)
@@ -51,10 +56,10 @@ void	free_shell(t_shell *shell, t_bool full_cleaning)
 			free(shell->current_dir);
 			shell->current_dir = NULL;
 		}
-		if (shell->env)
+		if (shell->env_lst)
 		{
-			ft_lstclear(&shell->env, free);
-			shell->env = NULL;
+			ft_lstclear(&shell->env_lst, free);
+			shell->env_lst = NULL;
 		}
 		rl_clear_history();
 	}
@@ -71,25 +76,20 @@ int	init_shell(t_shell *shell, char **envp)
 	shell->commands = NULL;
 	shell->current_dir = cwd;
 	shell->should_exit = FALSE;
-	shell->env = env_arr_to_lst(envp);
-	if (!shell->env)
+	shell->env_lst = env_arr_to_lst(envp);
+	if (!shell->env_lst)
 		return (ERROR);
+	shell->env_arr = NULL;
 	return (SUCCESS);
 }
 
 int	minishell_loop(t_shell	*shell)
 {
-	int	status;
-
 	while (shell->should_exit == FALSE)
 	{
 		shell->user_input = readline(PROMPT);
 		if (!shell->user_input)
-		{
-			status = builtin_exit(NULL);
-			free_shell(shell, TRUE);
-			exit(status);
-		}
+			builtin_exit(NULL, shell);
 		else if (*shell->user_input)
 		{
 			add_history(shell->user_input);
@@ -97,8 +97,7 @@ int	minishell_loop(t_shell	*shell)
 				return (free_shell(shell, TRUE), ERROR);
 			if (!parse(shell->tokens, &shell->commands))
 				return (free_shell(shell, TRUE), ERROR);
-			if (executor(shell) != SUCCESS)
-				return (free_shell(shell, TRUE), ERROR);
+			g_last_exit_code = execute(shell);
 		}
 		free_shell(shell, FALSE);
 	}
