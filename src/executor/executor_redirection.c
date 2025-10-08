@@ -71,7 +71,7 @@ static int	open_input(char *filename)
 	fd = open(filename, O_RDONLY, 0644);
 	if (fd == -1)
 	{
-		print_error(strerror(errno), filename);
+		print_error(strerror(errno), filename, NULL);
 		return (EXIT_FAILURE);
 	}
 	return (fd);
@@ -87,7 +87,7 @@ static int	open_output(char *filename, t_bool append)
 		fd = open(filename, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (fd == -1)
 	{
-		print_error(strerror(errno), filename);
+		print_error(strerror(errno), filename, NULL);
 		return (EXIT_FAILURE);
 	}
 	return (fd);

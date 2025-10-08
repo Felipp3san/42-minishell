@@ -32,11 +32,11 @@ static void	execute(t_exec *exec)
 	path = path_find(exec->cmd->argv[0], exec->envp);
 	if (!path)
 	{
-		print_error("command not found", exec->cmd->argv[0]);
+		print_error("command not found", exec->cmd->argv[0], NULL);
 		exit(127);
 	}
 	execve(path, exec->cmd->argv, exec->envp);
-	print_error(exec->cmd->argv[0], strerror(errno));
+	print_error(exec->cmd->argv[0], strerror(errno), NULL);
 	if (errno == ENOENT)
 		exit(127);
 	exit(EXIT_FAILURE);
