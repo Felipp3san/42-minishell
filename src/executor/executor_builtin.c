@@ -1,38 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor.c                                         :+:      :+:    :+:   */
+/*   executor_builtin.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/06 21:41:51 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/08 15:58:22 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/08 14:34:24 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/08 14:47:20 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/wait.h>
+#include "builtins.h"
 #include "executor_internal.h"
-#include "env.h"
 
-int	g_last_exit_code;
-
-void	wait_processes()
+int	execute_builtin(t_exec *exec, t_shell *shell)
 {
-	while (wait(NULL) > 0)
-		;
-}
+	pid_t		pid;
+	t_command	*cmd;
+	int			error_code;
 
-int	executor(t_shell *shell)
-{
-	t_exec	exec;
-	
-	init_exec(&exec);
-	exec.envp = env_list_to_arr(shell->env);
-	if (!exec.envp)
-		return (ERROR);
-	if (pipeline(&exec, shell) == ERROR)
-		return (env_free(exec.envp), ERROR);
-	wait_processes();
-	env_free(exec.envp);
+	cmd = exec->cmd;
+	if (cmd && cmd->argv)
+	{
+		if (ft_strcmp(cmd->argv[0], "exit") == 0)
+		{
+			error_code = builtin_exit(cmd->argv);
+			if (error_code == ERROR)
+				return (ERROR);
+			shell->should_exit = TRUE;
+			return (error_code);
+		}
+		else
+		{
+			pid = fork_child(exec);
+			if (pid == -1)
+				return (ERROR);
+		}
+	}
 	return (SUCCESS);
 }

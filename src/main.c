@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:25:23 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/05 15:03:01 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/08 15:21:17 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	init_shell(t_shell *shell, char **envp)
 	shell->commands = NULL;
 	shell->current_dir = cwd;
 	shell->should_exit = FALSE;
-	shell->env = env_clone(envp);
+	shell->env = env_arr_to_lst(envp);
 	if (!shell->env)
 		return (ERROR);
 	return (SUCCESS);

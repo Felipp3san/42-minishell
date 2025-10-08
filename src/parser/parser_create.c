@@ -6,24 +6,35 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 13:47:16 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/05 14:39:08 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/08 13:12:14 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser_internal.h"
 
-t_redir	*redir_create(char *filename, t_type type)
+t_redir	*redir_create(char *name, t_type type)
 {
 	t_redir	*redir;
+	char	*str;
 
 	redir = (t_redir *) malloc(sizeof(t_redir));
 	if (!redir)
 		return (NULL);
-	redir->filename = ft_strdup(filename);
-	if (!redir->filename)
+	str = ft_strdup(name);
+	if (!str)
 	{
 		free(redir);
 		return (NULL);
+	}
+	if (type != HEREDOC)
+	{
+		redir->filename = str;
+		redir->delimiter = NULL;
+	}
+	else
+	{
+		redir->delimiter = str;
+		redir->filename = NULL;
 	}
 	redir->type = type;
 	return (redir);

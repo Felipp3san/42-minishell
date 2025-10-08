@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 14:24:58 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/05 14:25:30 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/08 13:09:40 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,14 @@ typedef enum s_type
 	HEREDOC,
 }	t_type;
 
+/*
+ * Filename if OUTPUT, APPEND, INPUT
+ * delimiter if HEREDOC
+ */
 typedef struct s_redir
 {
 	char	*filename;
+	char	*delimiter;
 	t_type	type;
 }	t_redir;
 

@@ -6,13 +6,14 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 15:22:28 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/04 16:48:19 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/08 13:14:01 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "parser.h"
 #include "types.h"
+#include "command.h"
 
 const char *redir_type_to_str(int type)
 {
@@ -58,8 +59,8 @@ static void	print_pipeline(t_list *commands)
 			while (redirs)
 			{
 				redir = (t_redir *)redirs->content;
-				ft_printf("{type="YELLOW"%s "RESET"filename="MAGENTA"%s"RESET" },",
-					redir_type_to_str(redir->type), redir->filename);
+				ft_printf("{type="YELLOW"%s "RESET"filename="MAGENTA"%s "RESET"delimiter="MAGENTA"%s"RESET" },",
+					redir_type_to_str(redir->type), redir->filename, redir->delimiter);
 				redirs = redirs->next;
 			}
 			ft_printf("]\n");
