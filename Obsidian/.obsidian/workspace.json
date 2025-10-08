@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Minishell/Parser.md",
+                "file": "Minishell/functions/perror.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Parser"
+              "title": "perror"
             }
           }
         ]
@@ -171,17 +171,19 @@
   },
   "active": "718ac88b71542080",
   "lastOpenFiles": [
+    "Minishell/functions/getenv.md",
+    "Minishell/functions/chdir.md",
+    "Minishell/Allowed functions.md",
+    "Minishell/Parser.md",
     "Minishell/Main loop.md",
     "Minishell/Architecture.md",
     "Minishell/Diagram.md",
     "Minishell/Executor.md",
-    "Minishell/Allowed functions.md",
     "pipes.md",
     "Minishell/Testing strategy.md",
     "Minishell/functions/closedir.md",
     "Untitled",
     "Minishell/Subject.pdf",
-    "Minishell/Parser.md",
     "Minishell/Tokenizer.md",
     "Minishell/functions/fork.md",
     "Minishell/builtins/exit.md",
@@ -197,8 +199,6 @@
     "Minishell/functions/dup2.md",
     "Minishell/functions/rl_redisplay.md",
     "Minishell/functions/rl_on_new_line.md",
-    "Minishell/functions/pipe.md",
-    "Minishell/functions/open.md",
     "Minishell/tests"
   ]
 }
