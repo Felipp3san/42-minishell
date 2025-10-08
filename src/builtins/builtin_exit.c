@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/03 12:42:57 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/06 18:35:58 by jfernand         ###   ########.fr       */
+/*   Created: 2025/10/08 16:30:19 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/08 16:30:29 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "libft.h"
+#include "minishell.h"
 #include "utils.h"
 
 int	get_error_code(char *arg, t_bool *error)
@@ -28,15 +29,16 @@ int	get_error_code(char *arg, t_bool *error)
 		return (error_code);
 }
 
-int	builtin_exit(char **argv, t_shell *shell)
+int	builtin_exit(char **argv)
 {
 	unsigned char	error_code;
 	t_bool			error;
 
 	error = FALSE;
 	error_code = 0;
+	ft_putendl_fd("exit", 1);
 	if (!argv || !argv[1])
-		error_code = shell->last_exit_status;
+		error_code = g_last_exit_code;
 	else
 	{
 		if (argv[2])

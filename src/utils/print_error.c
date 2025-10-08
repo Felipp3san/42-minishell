@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   print_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/03 16:33:34 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/04 18:18:03 by jfernand         ###   ########.fr       */
+/*   Created: 2025/10/08 16:30:40 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/08 16:30:44 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*join_strs(char *s1, const char *s2)
+static char	*join_strs(char *s1, const char *s2)
 {
 	char	*str;
 

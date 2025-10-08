@@ -1,21 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   path_join.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/30 14:02:39 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/05 14:25:37 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/06 17:49:44 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/06 18:23:12 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
-
 #include "libft.h"
 
-t_list	*parse(t_list *tokens, t_list **out);
-void	free_command(void *content);
+/* Join the path with the command separated by a slash.
+ * Ex: "bin/ls", "bin/cat"...
+ * */
+char	*path_join(const char *path, const char *cmd)
+{
+	char *path_slash;
+	char *full_path;
 
-#endif
+	path_slash = ft_strjoin(path, "/");
+	if (!path_slash)
+		return (NULL);
+	full_path = ft_strjoin(path_slash, cmd);
+	if (!full_path)
+	{
+		free(path_slash);
+		return (NULL);
+	}
+	free(path_slash);
+	return (full_path);
+}

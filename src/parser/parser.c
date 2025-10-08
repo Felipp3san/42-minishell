@@ -5,16 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/30 14:19:47 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/01 19:00:32 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/06 21:42:00 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/06 21:42:03 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "parser_internal.h"
-#include "types.h"
 
-int	parse_token(t_list **node, t_command **command)
+static int	parse_token(t_list **node, t_command **command)
 {
 	t_redir	*redir;
 	t_type	type;
@@ -36,7 +34,7 @@ int	parse_token(t_list **node, t_command **command)
 	return (SUCCESS);
 }
 
-t_command	*parser(t_list **node)
+static t_command	*parser(t_list **node)
 {
 	t_command	*command;
 

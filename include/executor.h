@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/03 13:04:14 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/05 14:29:00 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/05 14:08:01 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/08 15:21:07 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#ifndef EXECUTOR_H
+# define EXECUTOR_H
 
-int	builtin_exit(char **argv);
+#include "minishell.h"
+
+int	executor(t_shell *shell);
 
 #endif
