@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:25:23 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/08 21:50:33 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/09 12:28:57 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include "types.h"
 #include "env.h"
 #include "executor.h"
+#include "debug.h"
 #include "builtins.h"
 
 void	free_shell(t_shell *shell, t_bool full_cleaning)
@@ -35,15 +36,9 @@ void	free_shell(t_shell *shell, t_bool full_cleaning)
 		shell->user_input = NULL;
 	}
 	if (shell->tokens)
-	{
-		ft_lstclear(&shell->tokens, free);
-		shell->tokens = NULL;
-	}
+		token_lst_clear(&shell->tokens);
 	if (shell->commands)
-	{
 		ft_lstclear(&shell->commands, free_command);
-		shell->commands = NULL;
-	}
 	if (shell->env_arr)
 	{
 		env_free(shell->env_arr);
@@ -57,10 +52,7 @@ void	free_shell(t_shell *shell, t_bool full_cleaning)
 			shell->current_dir = NULL;
 		}
 		if (shell->env_lst)
-		{
 			ft_lstclear(&shell->env_lst, free);
-			shell->env_lst = NULL;
-		}
 		rl_clear_history();
 	}
 }
@@ -93,11 +85,17 @@ int	minishell_loop(t_shell	*shell)
 		else if (*shell->user_input)
 		{
 			add_history(shell->user_input);
-			if (!tokenize(shell->user_input, &shell->tokens))
-				return (free_shell(shell, TRUE), ERROR);
-			if (!parse(shell->tokens, &shell->commands))
-				return (free_shell(shell, TRUE), ERROR);
-			g_last_exit_code = execute(shell);
+			shell->tokens = tokenize(shell->user_input);
+			if (!shell->tokens)
+			{
+				g_last_exit_code = 1;
+				continue ;
+			}
+			print_token_list(shell->tokens);
+				//return (free_shell(shell, TRUE), ERROR);
+			//if (!parse(shell->tokens, &shell->commands))
+				//return (free_shell(shell, TRUE), ERROR);
+			//g_last_exit_code = execute(shell);
 		}
 		free_shell(shell, FALSE);
 	}

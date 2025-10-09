@@ -1,36 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   debug.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/23 11:31:58 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/09 11:12:40 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/09 11:11:14 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/09 11:11:37 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef DEBUG_H
+# define DEBUG_H
 
-# include <stddef.h>
-# include "types.h"
-# include "libft.h"
-# include "tokenizer.h"
+#include "tokenizer.h"
 
-extern int	g_last_exit_code;
-
-typedef struct s_shell
-{
-	char	*current_dir;
-	char	*user_input;
-	t_token	*tokens;
-	t_list	*commands;
-	t_list	*env_lst;
-	char	**env_arr;
-	t_bool	should_exit;
-}	t_shell;
-
-void	free_shell(t_shell *shell, t_bool full_cleaning);
+void	print_token_list(t_token *token);
 
 #endif

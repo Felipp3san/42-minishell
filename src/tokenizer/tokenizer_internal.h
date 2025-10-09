@@ -6,46 +6,33 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 13:29:07 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/01 18:59:30 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/09 12:20:32 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENIZER_INTERNAL_H
 # define TOKENIZER_INTERNAL_H
 
-# include "libft.h"
-# include "buffer.h"
+# include "tokenizer.h"
 # include "types.h"
+# include <stddef.h>
 
-typedef enum e_state
-{
-	NORMAL,
-	SINGLE,
-	DOUBLE,
-	OPERATOR
-}	t_state;
-
-typedef struct s_tokenizer
-{
-	t_buffer	*buffer;
-	t_state		state;
-	char		ch;
-	t_status	err;
-}	t_tokenizer;
-
-// tokenizer.c
-t_status	add_token(t_buffer *buffer, t_list **out);
-
-// tokenizer_modes.c
-int			normal_mode(t_tokenizer *tok, t_list **out);
-int			single_mode(t_tokenizer *tok);
-int			double_mode(t_tokenizer *tok);
-int			operator_mode(t_tokenizer *tok, t_list **out);
+// tokenizer_list.c
+t_token	*token_lst_new(char *value, t_token_type type);
+t_token	*token_lst_last(t_token *token);
+void	token_lst_add_back(t_token **token_list, t_token *new_token);
+void	token_lst_clear(t_token **token);
+size_t	token_lst_size(t_token *token);
 
 // tokenizer_utils.c
-t_bool		ch_is_space(char ch);
-t_bool		ch_is_single_quote(char ch);
-t_bool		ch_is_double_quote(char ch);
-t_bool		ch_is_operator(char ch);
+t_bool	has_open_quotes(const char *str);
+void	advance_to_next_quote(char	**line);
+void	skip_spaces(char **line);
+
+// tokenizer_is.c
+t_bool	is_space(char ch);
+t_bool	is_single_quote(char ch);
+t_bool	is_double_quote(char ch);
+t_bool	is_separator(char ch);
 
 #endif

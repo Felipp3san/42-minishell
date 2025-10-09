@@ -43,10 +43,12 @@ CYAN		= \033[0;96m
 WHITE		= \033[0;97m
 
 # Sources
-SRCS		= $(SRC_DIR)/buffer/buffer.c \
-			  $(SRC_DIR)/tokenizer/tokenizer.c \
-			  $(SRC_DIR)/tokenizer/tokenizer_modes.c \
-			  $(SRC_DIR)/tokenizer/tokenizer_utils.c
+SRCS		= $(SRC_DIR)/tokenizer/tokenizer.c \
+			  $(SRC_DIR)/tokenizer/tokenizer_list.c \
+			  $(SRC_DIR)/tokenizer/tokenizer_utils.c \
+			  $(SRC_DIR)/tokenizer/tokenizer_is.c \
+			  $(SRC_DIR)/utils/print_error.c
+
 TEST_SRC	= tokenizer_test
 
 # Objects

@@ -6,57 +6,91 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:37:46 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/01 18:40:04 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/09 12:44:25 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer_internal.h"
+#include "libft.h"
+#include "utils.h"
 
-t_status	add_token(t_buffer *buffer, t_list **out)
+t_token	*append_operator(char **line, t_token **token_list, t_token_type type)
 {
-	t_list	*token;
-	char	*output;
+	t_token		*new_token;
 
-	if (buffer->size == 0)
-		return (SUCCESS);
-	output = buffer_flush(buffer);
-	if (!output)
-		return (ERR_MALLOC);
-	token = ft_lstnew(output);
-	if (!token)
-	{
-		free(output);
-		return (ERR_MALLOC);
-	}
-	ft_lstadd_back(out, token);
-	return (SUCCESS);
+	new_token = token_lst_new(NULL, type);
+	if (!new_token)
+		return (NULL);
+	token_lst_add_back(token_list, new_token);
+	if (type == APPEND || type == HEREDOC)
+		*line = *line + 2;
+	else
+		*line = *line + 1;
+	return (new_token);
 }
 
-t_list	*tokenize(char const *str, t_list **out)
+t_token	*handle_separator(char **line, t_token **token_list)
 {
-	t_tokenizer	tok;
+	if (!ft_strncmp(*line, "<<", 2))
+		return (append_operator(line, token_list, HEREDOC));
+	else if (!ft_strncmp(*line, ">>", 2))
+		return (append_operator(line, token_list, APPEND));
+	else if (!ft_strncmp(*line, "|", 1))
+		return (append_operator(line, token_list, PIPE));
+	else if (!ft_strncmp(*line, "<", 1))
+		return (append_operator(line, token_list, INPUT));
+	else if (!ft_strncmp(*line, ">", 1))
+		return (append_operator(line, token_list, OUTPUT));
+	return (NULL);
+}
 
-	tok.state = NORMAL;
-	tok.buffer = buffer_create();
-	if (!tok.buffer)
-		return (NULL);
-	while (*str)
+t_token	*append_word(char **line, t_token **token_list)
+{
+	const char	*start;
+	t_token		*new_token;
+	char		*word;
+
+	new_token = NULL;
+	start = *line;
+	while (**line && !is_separator(**line) && !ft_isspace(**line))
 	{
-		tok.ch = *str;
-		if (tok.state == NORMAL)
-			tok.err = normal_mode(&tok, out);
-		else if (tok.state == SINGLE)
-			tok.err = single_mode(&tok);
-		else if (tok.state == DOUBLE)
-			tok.err = double_mode(&tok);
-		else if (tok.state == OPERATOR)
-			tok.err = operator_mode(&tok, out);
-		if (tok.err != SUCCESS)
-			return (buffer_free(tok.buffer), NULL);
-		str++;
+		if (is_single_quote(**line) || is_double_quote(**line))
+			advance_to_next_quote(line);
+		(*line)++;
 	}
-	if (add_token(tok.buffer, out) != SUCCESS)
-		return (buffer_free(tok.buffer), NULL);
-	buffer_free(tok.buffer);
-	return (*out);
+	word = ft_substr(start, 0, (*line) - start);
+	if (!word)
+		return (NULL);
+	new_token = token_lst_new(word, WORD);
+	if (!new_token)
+		return (NULL);
+	token_lst_add_back(token_list, new_token);
+	return (new_token);
+}
+
+t_token	*tokenize(char *line)
+{
+	t_token	*token_list;
+
+	token_list = NULL;
+	if (has_open_quotes(line))
+	{
+		print_error("tokenizer", "input has open quotes", NULL);
+		return (NULL);
+	}
+	while (*line)
+	{
+		skip_spaces(&line);
+		if (is_separator(*line))
+		{
+			if (!handle_separator(&line, &token_list))
+				return (token_lst_clear(&token_list), NULL);
+		}
+		else
+		{
+			if (!append_word(&line, &token_list))
+				return (token_lst_clear(&token_list), NULL);
+		}
+	}
+	return (token_list);
 }
