@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:25:23 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/09 12:28:57 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/09 16:30:09 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "minishell.h"
+#include "parser/parser_internal.h"
 #include "signals.h"
 #include "tokenizer.h"
 #include "parser.h"
@@ -38,7 +39,7 @@ void	free_shell(t_shell *shell, t_bool full_cleaning)
 	if (shell->tokens)
 		token_lst_clear(&shell->tokens);
 	if (shell->commands)
-		ft_lstclear(&shell->commands, free_command);
+		cmd_lst_clear(&shell->commands);
 	if (shell->env_arr)
 	{
 		env_free(shell->env_arr);
@@ -89,12 +90,18 @@ int	minishell_loop(t_shell	*shell)
 			if (!shell->tokens)
 			{
 				g_last_exit_code = 1;
+				free_shell(shell, FALSE);
 				continue ;
 			}
-			print_token_list(shell->tokens);
-				//return (free_shell(shell, TRUE), ERROR);
-			//if (!parse(shell->tokens, &shell->commands))
-				//return (free_shell(shell, TRUE), ERROR);
+			//print_token_list(shell->tokens);
+			shell->commands = parse(shell->tokens);
+			if (!shell->commands)
+			{
+				g_last_exit_code = 1;
+				free_shell(shell, FALSE);
+				continue ;
+			}
+			print_command_list(shell->commands);
 			//g_last_exit_code = execute(shell);
 		}
 		free_shell(shell, FALSE);

@@ -6,11 +6,11 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 11:08:19 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/09 11:19:07 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/09 15:03:02 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenizer.h"
+#include "token.h"
 #include "libft.h"
 
 char	*get_type(t_token_type type)

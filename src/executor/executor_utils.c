@@ -6,11 +6,12 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:11 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/08 15:28:59 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/09 15:12:44 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor_internal.h"
+#include "parser.h"
 #include <unistd.h>
 
 void	init_exec(t_exec *exec)
@@ -49,7 +50,7 @@ t_bool	is_builtin(char *cmd)
 	return (FALSE);
 }
 
-t_bool	is_single_command(t_list *commands)
+t_bool	is_single_command(t_command *commands)
 {
-	return (ft_lstsize(commands) == 1);
+	return (cmd_lst_size(commands) == 1);
 }

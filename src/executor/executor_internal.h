@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 21:47:54 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/08 22:06:50 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/09 15:12:22 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct	s_exec
 // executor_utils.c
 void	init_exec(t_exec *exec);
 t_bool	is_builtin(char *cmd);
-t_bool	is_single_command(t_list *commands);
+t_bool	is_single_command(t_command *commands);
 
 // executor_heredoc.c
 int		heredoc(char *delimiter);

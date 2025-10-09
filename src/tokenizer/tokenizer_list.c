@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 10:47:08 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/09 12:25:39 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/09 14:23:19 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ size_t	token_lst_size(t_token *token)
 	if (token)
 	{
 		count++;
-		token = (token)->next;
+		token = token->next;
 	}
 	return (count);
 }

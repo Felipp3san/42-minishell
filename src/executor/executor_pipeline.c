@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:42:55 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/08 22:09:58 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/09 15:15:05 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,14 @@ int	wait_children()
 
 int	pipeline(t_exec *exec, t_shell *shell)
 {
-	t_list	*cmd_node;
-	pid_t	pid;
+	t_command	*cmd_node;
+	pid_t		pid;
 
 	cmd_node = shell->commands;
 	while (!shell->should_exit && cmd_node)
 	{
+		exec->cmd = cmd_node;
 		exec->last = (cmd_node->next == NULL);
-		exec->cmd = (t_command *)cmd_node->content;
 		if (is_builtin(exec->cmd->argv[0]) && is_single_command(shell->commands))
 			return (execute_builtin(exec, shell));
 		else

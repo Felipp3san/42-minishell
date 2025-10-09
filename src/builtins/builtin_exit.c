@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:30:19 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/08 21:15:50 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/09 15:15:32 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "libft.h"
 #include "minishell.h"
 #include "utils.h"
+#include "parser.h"
 
 int	get_error_code(char *arg, t_bool *error)
 {
@@ -36,7 +37,7 @@ int	builtin_exit(char **args, t_shell *shell)
 
 	error = FALSE;
 	error_code = 0;
-	if (ft_lstsize(shell->commands) <= 1)
+	if (cmd_lst_size(shell->commands) <= 1)
 		ft_putendl_fd("exit", 1);
 	if (!args || !args[1])
 		error_code = g_last_exit_code;

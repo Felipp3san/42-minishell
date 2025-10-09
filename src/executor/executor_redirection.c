@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:36:20 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/08 14:42:18 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/09 15:14:54 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,30 +16,28 @@
 #include "executor_internal.h"
 #include "utils.h"
 
-static int	open_input(char *filename);
-static int	open_output(char *filename, t_bool append);
+static int	open_input(char *value);
+static int	open_output(char *value, t_bool append);
 
 int	setup_redirs(t_exec *exec)
 {
-	t_list	*redir_node;
 	t_redir	*redir;
 	int		fd;
 
 	if (exec->cmd->redirs)
 	{
-		redir_node = exec->cmd->redirs;
-		while (redir_node)
+		redir = exec->cmd->redirs;
+		while (redir)
 		{
-			redir = (t_redir *) redir_node->content;
 			if (redir->type == INPUT)
-				fd = open_input(redir->filename);
+				fd = open_input(redir->value);
 			else if (redir->type == OUTPUT)
-				fd = open_output(redir->filename, FALSE);
+				fd = open_output(redir->value, FALSE);
 			else if (redir->type == APPEND)
-				fd = open_output(redir->filename, TRUE);
+				fd = open_output(redir->value, TRUE);
 			else if (redir->type == HEREDOC)
 			{
-				exec->input_fd = heredoc(redir->delimiter);
+				exec->input_fd = heredoc(redir->value);
 				if (exec->input_fd == -1)
 					return (ERROR);
 			}
@@ -48,36 +46,36 @@ int	setup_redirs(t_exec *exec)
 			else
 				dup2(fd, STDOUT_FILENO);
 			close(fd);
-			redir_node = redir_node->next;
+			redir = redir->next;
 		}
 	}
 	return (SUCCESS);
 }
 
-static int	open_input(char *filename)
+static int	open_input(char *value)
 {
 	int	fd;
 
-	fd = open(filename, O_RDONLY, 0644);
+	fd = open(value, O_RDONLY, 0644);
 	if (fd == -1)
 	{
-		print_error(strerror(errno), filename, NULL);
+		print_error(strerror(errno), value, NULL);
 		exit(EXIT_FAILURE);
 	}
 	return (fd);
 }
 
-static int	open_output(char *filename, t_bool append)
+static int	open_output(char *value, t_bool append)
 {
 	int	fd;
 
 	if (append)
-		fd = open(filename, O_CREAT | O_APPEND | O_WRONLY, 0644);
+		fd = open(value, O_CREAT | O_APPEND | O_WRONLY, 0644);
 	else
-		fd = open(filename, O_CREAT | O_TRUNC | O_WRONLY, 0644);
+		fd = open(value, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (fd == -1)
 	{
-		print_error(strerror(errno), filename, NULL);
+		print_error(strerror(errno), value, NULL);
 		exit(EXIT_FAILURE);
 	}
 	return (fd);

@@ -5,49 +5,37 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/01 13:07:06 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/01 18:18:34 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/09 18:21:57 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/09 18:24:57 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
 #include "parser_internal.h"
+#include "libft.h"
 
-t_bool	is_word(t_type type)
+void	print_parser_err(t_token *error)
 {
-	return (type == WORD);
+	ft_putstr_fd("minishell: syntax error near unexpected token `", 1);
+	if (error->next == NULL)
+		ft_putstr_fd("newline", 1);
+	else
+		ft_putstr_fd(error->value, 1);
+	ft_putendl_fd("'", 1);
 }
 
-t_bool	is_redir(t_type type)
+t_bool	is_redir(t_token_type type)
 {
-	return (type == INPUT || type == OUTPUT || type == APPEND
+	return (type == OUTPUT || type == INPUT || type == APPEND 
 		|| type == HEREDOC);
 }
 
-t_type	get_token_type(char *str)
+t_bool	is_sep(t_token_type type)
 {
-	char	*value;
-
-	value = (char *) str;
-	if (ft_strcmp(value, "|") == 0)
-		return (PIPE);
-	else if (ft_strcmp(value, ">") == 0)
-		return (OUTPUT);
-	else if (ft_strcmp(value, ">>") == 0)
-		return (APPEND);
-	else if (ft_strcmp(value, "<") == 0)
-		return (INPUT);
-	else if (ft_strcmp(value, "<<") == 0)
-		return (HEREDOC);
-	else
-		return (WORD);
+	return (type == OUTPUT || type == INPUT || type == APPEND 
+		|| type == HEREDOC || type == PIPE);
 }
 
-void	move_forward(t_list **start, size_t count)
+t_bool	is_word(t_token_type type)
 {
-	while (*start && count > 0)
-	{
-		(*start) = (*start)->next;
-		count--;
-	}
+	return (type == WORD);
 }

@@ -17,15 +17,24 @@
 t_token	*append_operator(char **line, t_token **token_list, t_token_type type)
 {
 	t_token		*new_token;
+	char		*value;
+	int			offset;
 
-	new_token = token_lst_new(NULL, type);
-	if (!new_token)
-		return (NULL);
-	token_lst_add_back(token_list, new_token);
 	if (type == APPEND || type == HEREDOC)
-		*line = *line + 2;
+		offset = 2;
 	else
-		*line = *line + 1;
+		offset = 1;
+	value = ft_substr(*line, 0, offset);
+	if (!value)
+		return (NULL);
+	new_token = token_lst_new(value, type);
+	if (!new_token)
+	{
+		free(value);
+		return (NULL);
+	}
+	token_lst_add_back(token_list, new_token);
+	*line = *line + offset;
 	return (new_token);
 }
 
@@ -63,7 +72,10 @@ t_token	*append_word(char **line, t_token **token_list)
 		return (NULL);
 	new_token = token_lst_new(word, WORD);
 	if (!new_token)
+	{
+		free(word);
 		return (NULL);
+	}
 	token_lst_add_back(token_list, new_token);
 	return (new_token);
 }

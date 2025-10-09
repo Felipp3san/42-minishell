@@ -44,11 +44,16 @@ CYAN		= \033[0;96m
 WHITE		= \033[0;97m
 
 # Sources
-SRCS		= $(SRC_DIR)/buffer/buffer.c \
-			  $(SRC_DIR)/parser/parser.c \
-			  $(SRC_DIR)/parser/parser_create.c \
-			  $(SRC_DIR)/parser/parser_free.c \
-			  $(SRC_DIR)/parser/parser_utils.c \
+SRCS		= $(SRC_DIR)/parser/parser.c \
+			  $(SRC_DIR)/parser/parser_argv.c \
+			  $(SRC_DIR)/parser/parser_cmd_list.c \
+			  $(SRC_DIR)/parser/parser_redir_list.c \
+			  $(SRC_DIR)/tokenizer/tokenizer.c \
+			  $(SRC_DIR)/tokenizer/tokenizer_is.c \
+			  $(SRC_DIR)/tokenizer/tokenizer_list.c \
+			  $(SRC_DIR)/tokenizer/tokenizer_utils.c \
+			  $(SRC_DIR)/utils/print_error.c \
+			  $(SRC_DIR)/debug/print_command_list.c \
 
 TEST_SRC	= parser_test
 

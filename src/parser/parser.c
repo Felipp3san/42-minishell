@@ -6,71 +6,82 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 21:42:00 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/06 21:42:03 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/09 18:27:35 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser_internal.h"
+#include "libft.h"
+#include "types.h"
 
-static int	parse_token(t_list **node, t_command **command)
+static int	parse_token(t_token **token, t_command *command)
 {
 	t_redir	*redir;
-	t_type	type;
+	char	*value;
 
-	type = get_token_type((*node)->content);
-	if (is_word(type))
+	if (is_word((*token)->type))
 	{
-		if (!argv_append(*command, (*node)->content))
+		if (!argv_append(command, (*token)->value))
 			return (ERR_MALLOC);
 	}
-	else if (is_redir(type))
+	else if (is_redir((*token)->type))
 	{
-		*node = (*node)->next;
-		redir = redir_create((*node)->content, type);
+		(*token) = (*token)->next;
+		value = ft_strdup((*token)->value);
+		if (!value)
+			return (ERR_MALLOC);
+		redir = redir_lst_new(value, (*token)->previous->type);
 		if (!redir)
 			return (ERR_MALLOC);
-		ft_lstadd_back(&(*command)->redirs, ft_lstnew(redir));
+		redir_lst_add_back(&command->redirs, redir);
 	}
+	(*token) = (*token)->next;
 	return (SUCCESS);
 }
 
-static t_command	*parser(t_list **node)
+t_token	*syntax_check(t_token *token)
 {
-	t_command	*command;
-
-	command = command_create();
-	if (!command)
-		return (NULL);
-	while (*node && get_token_type((*node)->content) != PIPE)
+	if (token->type == PIPE)
+		return (token);
+	while (token)
 	{
-		if (parse_token(node, &command) == ERR_MALLOC)
-		{
-			free_command(command);
-			return (NULL);
-		}
-		*node = (*node)->next;
+		if (!token->next && is_sep(token->type))
+			break;
+		if (is_redir(token->type) && is_sep(token->next->type))
+			break ;
+		if (token->type == PIPE && token->next->type == PIPE)
+			break ;
+		token = token->next;
 	}
-	return (command);
+	return (token);
 }
 
-t_list	*parse(t_list *tokens, t_list **out)
+t_command	*parse(t_token *token)
 {
-	t_command	*command;
-	t_list		*node;
+	t_command	*cmd_list;
+	t_command	*new_cmd;
+	t_token		*error;
 
-	node = tokens;
-	while (node)
+	cmd_list = NULL;
+	error = syntax_check(token);
+	if (error)
+		return (print_parser_err(error), NULL);
+	while (token)
 	{
-		command = parser(&node);
-		if (!command)
+		new_cmd = cmd_lst_new();
+		if (!new_cmd)
+			return (cmd_lst_clear(&cmd_list), NULL);
+		while (token && token->type != PIPE)
 		{
-			ft_lstclear(out, free_command);
-			*out = NULL;
-			return (NULL);
+			if (parse_token(&token, new_cmd) != SUCCESS)
+			{
+				cmd_lst_delone(&new_cmd);
+				return (cmd_lst_clear(&cmd_list), NULL);
+			}
 		}
-		ft_lstadd_back(out, ft_lstnew(command));
-		if (node && get_token_type(node->content) == PIPE)
-			node = node->next;
+		if (token)
+			token = token->next;
+		cmd_lst_add_back(&cmd_list, new_cmd);
 	}
-	return (*out);
+	return (cmd_list);
 }

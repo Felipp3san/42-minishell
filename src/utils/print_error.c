@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:30:40 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/08 16:30:44 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/09 15:34:45 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static char	*join_strs(char *s1, const char *s2)
 
 	if (!s1)
 		return (ft_strdup(s2));
+	if (!s2)
+		return (s1);
 	str = ft_strjoin(s1, s2);
 	free(s1);
 	return (str);
