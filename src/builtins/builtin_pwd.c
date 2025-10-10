@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:12:58 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/06 18:35:09 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/10 08:12:34 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include <stdlib.h>
 
-int	write_pwd(char *s, int fd)
+int	write_pwd(char *s)
 {
 	ssize_t	len;
 	ssize_t	w;
@@ -22,25 +22,23 @@ int	write_pwd(char *s, int fd)
 	if (!s)
 		return (ERROR);
 	len = (ssize_t)ft_strlen(s);
-	w = write(fd, s, len);
+	w = write(1, s, len);
 	if (w != len)
 		return (ERROR);
-	w = write(fd, "\n", 1);
+	w = write(1, "\n", 1);
 	if (w != 1)
 		return (ERROR);
 	return (SUCCESS);
 }
 
-int	builtin_pwd(int fd)
+int	builtin_pwd(void)
 {
 	char	*path;
 
-	if (fd < 0)
-		return (ERROR);
 	path = getcwd(NULL, 0);
 	if (!path)
 		return (ERROR);
-	if (write_pwd(path, fd) < 0)
+	if (write_pwd(path) < 0)
 	{
 		free(path);
 		return (ERROR);

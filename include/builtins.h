@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:04:14 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/05 14:29:00 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/10 08:12:56 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,8 @@
 # define BUILTINS_H
 
 int	builtin_exit(char **argv);
+int	builtin_exit(char **path);
+int	builtin_echo(char **args);
+int builtin_cd(void);
 
 #endif

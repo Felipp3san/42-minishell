@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:03:31 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/03 13:13:49 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/10 08:15:24 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <types.h>
 
-int	builtin_env(void)
+int	builtin_env(t_list *env)
 {
+
 	return (SUCCESS);
 }
