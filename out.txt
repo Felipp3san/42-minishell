@@ -1,0 +1,2 @@
+Hello file
+This goes into out.txt

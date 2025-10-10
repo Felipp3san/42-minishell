@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:36:20 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/09 15:14:54 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/10 14:13:47 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ int	apply_redirections(t_exec *exec)
 			}
 			else if (redir->type == HEREDOC)
 			{
-				exec->input_fd = heredoc(redir->value);
-				if (exec->input_fd == ERROR)
-					return (ERROR);
+				fd = redir->heredoc_fd;
+				redir->heredoc_fd = -1;
 			}
-			if (redir->type == INPUT)
+
+			if (redir->type == INPUT || redir->type == HEREDOC)
 				dup2(fd, STDIN_FILENO);
 			else
 				dup2(fd, STDOUT_FILENO);

@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 21:42:00 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/09 18:27:35 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/10 14:06:49 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ static int	parse_token(t_token **token, t_command *command)
 {
 	t_redir	*redir;
 	char	*value;
+	int		heredoc_fd;
 
+	heredoc_fd = -1;
 	if (is_word((*token)->type))
 	{
 		if (!argv_append(command, (*token)->value))
@@ -30,7 +32,13 @@ static int	parse_token(t_token **token, t_command *command)
 		value = ft_strdup((*token)->value);
 		if (!value)
 			return (ERR_MALLOC);
-		redir = redir_lst_new(value, (*token)->previous->type);
+		if (is_heredoc((*token)->previous->type))
+		{
+			heredoc_fd = parser_heredoc((*token)->value);
+			if (heredoc_fd == -1)
+				return (ERROR);
+		}
+		redir = redir_lst_new(value, heredoc_fd, (*token)->previous->type);
 		if (!redir)
 			return (ERR_MALLOC);
 		redir_lst_add_back(&command->redirs, redir);
@@ -81,7 +89,10 @@ t_command	*parse(t_token *token)
 		}
 		if (token)
 			token = token->next;
-		cmd_lst_add_back(&cmd_list, new_cmd);
+		if (!new_cmd->argv[0])
+			cmd_lst_delone(&new_cmd);
+		else
+			cmd_lst_add_back(&cmd_list, new_cmd);
 	}
 	return (cmd_list);
 }

@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 14:18:50 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/09 18:27:53 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/10 14:06:20 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_command	*cmd_lst_new()
 		free(cmd);
 		return (NULL);
 	}
+	cmd->argv[0] = NULL;
 	cmd->size = 0;
 	cmd->capacity = 16;
 	cmd->redirs = NULL;
@@ -104,8 +105,7 @@ void	cmd_lst_delone(t_command **cmd)
 {
 	size_t	i;
 
-	i = 0;
-	if (!*cmd)
+	if (!cmd || !*cmd)
 		return ;
 	if ((*cmd)->argv)
 	{
