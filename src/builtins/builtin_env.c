@@ -12,8 +12,7 @@
 
 #include <types.h>
 
-int	builtin_env(t_list *env)
+int	builtin_env()
 {
-
 	return (SUCCESS);
 }

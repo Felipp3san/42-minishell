@@ -101,8 +101,8 @@ int	minishell_loop(t_shell	*shell)
 				free_shell(shell, FALSE);
 				continue ;
 			}
-			print_command_list(shell->commands);
-			//g_last_exit_code = execute(shell);
+			//print_command_list(shell->commands);
+			g_last_exit_code = execute(shell);
 		}
 		free_shell(shell, FALSE);
 	}

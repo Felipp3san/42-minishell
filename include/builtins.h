@@ -13,6 +13,8 @@
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
+#include "minishell.h"
+
 int	builtin_exit(char **args, t_shell *shell);
 int	builtin_echo(char **args);
 int	builtin_cd(char **path);

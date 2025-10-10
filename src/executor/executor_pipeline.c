@@ -75,15 +75,15 @@ int	wait_children()
 
 int	pipeline(t_exec *exec, t_shell *shell)
 {
-	t_command	*cmd_node;
+	t_command	*cmd;
 	pid_t		pid;
 
-	cmd_node = shell->commands;
-	while (!shell->should_exit && cmd_node)
+	cmd = shell->commands;
+	while (!shell->should_exit && cmd)
 	{
-		exec->cmd = cmd_node;
-		exec->last = (cmd_node->next == NULL);
-		if (is_builtin(exec->cmd->argv[0]) && is_single_command(shell->commands))
+		exec->cmd = cmd;
+		exec->last = (cmd->next == NULL);
+		if (is_builtin(exec->cmd->argv[0]) && exec->last)
 			return (execute_builtin(exec, shell));
 		else
 		{
@@ -97,7 +97,7 @@ int	pipeline(t_exec *exec, t_shell *shell)
 			else
 				parent_process(exec);
 		}
-		cmd_node = cmd_node->next;
+		cmd = cmd->next;
 	}
 	return (wait_children());
 }
