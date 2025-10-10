@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 17:25:59 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/06 18:40:17 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/10 14:38:08 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*path_find(const char *cmd, char **envp)
 	if (!cmd)
 		cmd = " ";
 	if (ft_strchr(cmd, '/'))
-		return ((char *)cmd);
+		return (ft_strdup(cmd));
 	path_var = env_get_arr(envp, "PATH");
 	if (!path_var)
 		return (NULL);

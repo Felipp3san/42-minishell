@@ -38,7 +38,7 @@ t_bool	is_single_command(t_command *commands);
 int		heredoc(char *delimiter);
 
 // executor_external.c
-int		execute_external(t_exec *exec, t_shell *shell);
+void	execute_external(t_exec *exec, t_shell *shell);
 
 // execute_builtin.c
 int		execute_builtin(t_exec *exec, t_shell *shell);

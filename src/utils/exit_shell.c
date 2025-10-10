@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <unistd.h>
 
 void	exit_shell(t_shell *shell, int err_code)
 {
