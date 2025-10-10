@@ -31,7 +31,7 @@ int	pipeline(t_exec *exec, t_shell *shell)
 		else
 			exec->output_fd = -1;
 		if (setup_redirs(exec) == ERROR)
-			print_error("redirs", "redirection setup failed");
+			print_error("redirs", "redirection setup failed", NULL);
 		if (is_builtin(exec->cmd))
 			execute_builtin(exec, shell);
 		else
