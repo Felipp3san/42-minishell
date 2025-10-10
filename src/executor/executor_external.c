@@ -10,12 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include "executor_internal.h"
 #include "utils.h"
 #include "path.h"
 
-int	execute_external(t_exec *exec, t_shell *shell)
+void	execute_external(t_exec *exec, t_shell *shell)
 {
 	char	*path;
 
@@ -30,8 +32,7 @@ int	execute_external(t_exec *exec, t_shell *shell)
 		print_error(exec->cmd->argv[0], strerror(errno), NULL);
 		free(path);
 		if (errno == ENOENT)
-			return (CMD_NOT_FOUND);
-		return (EXIT_FAILURE);
+			exit_shell(shell, CMD_NOT_FOUND);
+		exit_shell(shell, EXIT_FAILURE);
 	}
-	return (EXIT_SUCCESS);
 }

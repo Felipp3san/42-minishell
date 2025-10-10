@@ -40,11 +40,7 @@ void	child_process(t_exec *exec, t_shell *shell)
 		exit_shell(shell, ret);
 	}
 	else
-	{
-		ret = execute_external(exec, shell);
-		exit_shell(shell, ret);
-	}
-
+		execute_external(exec, shell);
 }
 
 void	parent_process(t_exec *exec)
@@ -82,7 +78,7 @@ int	pipeline(t_exec *exec, t_shell *shell)
 	{
 		exec->cmd = cmd;
 		exec->last = (cmd->next == NULL);
-		if (is_builtin(exec->cmd->argv[0]) && exec->last)
+		if (is_builtin(exec->cmd->argv[0]) && is_single_command(shell->commands))
 			return (execute_single_builtin(exec, shell));
 		else
 		{
