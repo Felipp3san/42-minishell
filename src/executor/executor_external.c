@@ -31,7 +31,7 @@ int	execute_external(t_exec *exec, t_shell *shell)
 		free(path);
 		if (errno == ENOENT)
 			return (CMD_NOT_FOUND);
-		return (1);
+		return (EXIT_FAILURE);
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
