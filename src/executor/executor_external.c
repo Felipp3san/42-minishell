@@ -22,7 +22,7 @@ int	execute_external(t_exec *exec, t_shell *shell)
 	path = path_find(exec->cmd->argv[0], shell->env_arr);
 	if (!path)
 	{
-		print_error("command not found", exec->cmd->argv[0], NULL);
+		print_error(exec->cmd->argv[0], "command not found", NULL);
 		exit_shell(shell, CMD_NOT_FOUND);
 	}
 	if (execve(path, exec->cmd->argv, shell->env_arr) == -1)

@@ -21,7 +21,7 @@ void	child_process(t_exec *exec, t_shell *shell)
 {
 	int	ret;
 
-	if (exec->input_fd != STDOUT_FILENO)
+	if (exec->input_fd != STDIN_FILENO)
 	{
 		dup2(exec->input_fd, STDIN_FILENO);
 		close(exec->input_fd);
@@ -32,17 +32,16 @@ void	child_process(t_exec *exec, t_shell *shell)
 		close(exec->pipe_fd[READ]);
 		close(exec->pipe_fd[WRITE]);
 	}
-	setup_redirs(exec);
+	if (apply_redirections(exec) == ERROR)
+		exit_shell(shell, EXIT_FAILURE);
 	if (is_builtin(exec->cmd->argv[0]))
 	{
 		ret = execute_builtin(exec, shell);
-		close(STDOUT_FILENO);
 		exit_shell(shell, ret);
 	}
 	else
 	{
 		ret = execute_external(exec, shell);
-		close(STDOUT_FILENO);
 		exit_shell(shell, ret);
 	}
 
@@ -84,7 +83,7 @@ int	pipeline(t_exec *exec, t_shell *shell)
 		exec->cmd = cmd;
 		exec->last = (cmd->next == NULL);
 		if (is_builtin(exec->cmd->argv[0]) && exec->last)
-			return (execute_builtin(exec, shell));
+			return (execute_single_builtin(exec, shell));
 		else
 		{
 			if (!exec->last && pipe(exec->pipe_fd) == -1)

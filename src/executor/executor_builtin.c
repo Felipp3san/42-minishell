@@ -12,6 +12,9 @@
 
 #include "executor_internal.h"
 #include "builtins.h"
+#include "utils.h"
+#include <string.h>
+#include <unistd.h>
 
 int	execute_builtin(t_exec *exec, t_shell *shell)
 {
@@ -27,4 +30,22 @@ int	execute_builtin(t_exec *exec, t_shell *shell)
 	if (ft_strcmp(cmd->argv[0], "cd") == 0)
 		return (builtin_cd(cmd->argv));
 	return (CMD_NOT_FOUND);
+}
+
+int	execute_single_builtin(t_exec *exec, t_shell *shell)
+{
+	int	ret;
+	int	saved_in;
+	int	saved_out;
+
+	saved_in = dup(STDIN_FILENO);
+	saved_out = dup(STDOUT_FILENO);
+	if (apply_redirections(exec) == ERROR)
+		return (print_err_exit("redir", strerror(errno), EXIT_FAILURE));
+	ret = execute_builtin(exec, shell);
+	dup2(saved_in, STDIN_FILENO);
+	close(saved_in);
+	dup2(saved_out, STDOUT_FILENO);
+	close(saved_out);
+	return (ret);
 }

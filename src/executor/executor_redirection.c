@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include "executor_internal.h"
@@ -19,7 +18,7 @@
 static int	open_input(char *value);
 static int	open_output(char *value, t_bool append);
 
-int	setup_redirs(t_exec *exec)
+int	apply_redirections(t_exec *exec)
 {
 	t_redir	*redir;
 	int		fd;
@@ -30,15 +29,27 @@ int	setup_redirs(t_exec *exec)
 		while (redir)
 		{
 			if (redir->type == INPUT)
+			{
 				fd = open_input(redir->value);
+				if (fd == ERROR)
+					return (ERROR);
+			}
 			else if (redir->type == OUTPUT)
+			{
 				fd = open_output(redir->value, FALSE);
+				if (fd == ERROR)
+					return (ERROR);
+			}
 			else if (redir->type == APPEND)
+			{
 				fd = open_output(redir->value, TRUE);
+				if (fd == ERROR)
+					return (ERROR);
+			}
 			else if (redir->type == HEREDOC)
 			{
 				exec->input_fd = heredoc(redir->value);
-				if (exec->input_fd == -1)
+				if (exec->input_fd == ERROR)
 					return (ERROR);
 			}
 			if (redir->type == INPUT)
@@ -59,8 +70,8 @@ static int	open_input(char *value)
 	fd = open(value, O_RDONLY, 0644);
 	if (fd == -1)
 	{
-		print_error(strerror(errno), value, NULL);
-		exit(EXIT_FAILURE);
+		print_error("open_input", strerror(errno), value);
+		return (ERROR);
 	}
 	return (fd);
 }
@@ -75,8 +86,8 @@ static int	open_output(char *value, t_bool append)
 		fd = open(value, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (fd == -1)
 	{
-		print_error(strerror(errno), value, NULL);
-		exit(EXIT_FAILURE);
+		print_error("open_output", strerror(errno), value);
+		return (ERROR);
 	}
 	return (fd);
 }

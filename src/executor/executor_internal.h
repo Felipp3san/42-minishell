@@ -42,11 +42,12 @@ int		execute_external(t_exec *exec, t_shell *shell);
 
 // execute_builtin.c
 int		execute_builtin(t_exec *exec, t_shell *shell);
+int		execute_single_builtin(t_exec *exec, t_shell *shell);
 
 // executor_pipeline.c
 int		pipeline(t_exec *exec, t_shell *shell);
 
 // executor_redirection.c
-int		setup_redirs(t_exec *exec);
+int		apply_redirections(t_exec *exec);
 
 #endif
