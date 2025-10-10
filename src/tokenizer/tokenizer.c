@@ -93,6 +93,8 @@ t_token	*tokenize(char *line)
 	while (*line)
 	{
 		skip_spaces(&line);
+		if (!*line)
+			break ;
 		if (is_separator(*line))
 		{
 			if (!handle_separator(&line, &token_list))

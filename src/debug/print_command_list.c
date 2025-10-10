@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 15:02:53 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/09 15:38:26 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/10 13:46:53 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	print_redir_list(t_redir *redir)
 		ft_printf(MAGENTA"\tRedir %d\n"RESET, i);
 		ft_printf("\tAddress: %p\n", redir);
 		ft_printf("\tValue: %s\n", redir->value);
+		ft_printf("\tHeredoc fd: %d\n", redir->heredoc_fd);
 		ft_printf("\tType: %s\n", get_type(redir->type));
 		ft_printf("\tPrevious: %p\n", redir->previous);
 		ft_printf("\n");

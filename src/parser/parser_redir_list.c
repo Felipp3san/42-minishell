@@ -6,20 +6,22 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 18:28:03 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/09 18:28:40 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/10 13:55:46 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser_internal.h"
 #include <stdlib.h>
+#include <unistd.h>
 
-t_redir	*redir_lst_new(char *value, t_token_type type) {
+t_redir	*redir_lst_new(char *value, int heredoc_fd, t_token_type type) {
 	t_redir	*redir;
 
 	redir = (t_redir *) malloc(sizeof(t_redir));
 	if (!redir)
 		return (NULL);
 	redir->value = value;
+	redir->heredoc_fd = heredoc_fd;
 	redir->type = type;
 	redir->next = NULL;
 	redir->previous = NULL;
@@ -78,6 +80,8 @@ void	redir_lst_clear(t_redir **redir)
 		next = current->next;
 		if (current->value)
 			free(current->value);
+		if (current->heredoc_fd != -1)
+			close(current->heredoc_fd);
 		free(current);
 		current = next;
 	}
