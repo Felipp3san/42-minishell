@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 14:08:01 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/08 15:21:07 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/08 21:33:29 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 #include "minishell.h"
 
-int	executor(t_shell *shell);
+int	execute(t_shell *shell);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:25:23 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/08 15:21:17 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/09 16:30:09 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "minishell.h"
+#include "parser/parser_internal.h"
 #include "signals.h"
 #include "tokenizer.h"
 #include "parser.h"
@@ -23,6 +24,7 @@
 #include "types.h"
 #include "env.h"
 #include "executor.h"
+#include "debug.h"
 #include "builtins.h"
 
 void	free_shell(t_shell *shell, t_bool full_cleaning)
@@ -35,14 +37,13 @@ void	free_shell(t_shell *shell, t_bool full_cleaning)
 		shell->user_input = NULL;
 	}
 	if (shell->tokens)
-	{
-		ft_lstclear(&shell->tokens, free);
-		shell->tokens = NULL;
-	}
+		token_lst_clear(&shell->tokens);
 	if (shell->commands)
+		cmd_lst_clear(&shell->commands);
+	if (shell->env_arr)
 	{
-		ft_lstclear(&shell->commands, free_command);
-		shell->commands = NULL;
+		env_free(shell->env_arr);
+		shell->env_arr = NULL;
 	}
 	if (full_cleaning)
 	{
@@ -51,11 +52,8 @@ void	free_shell(t_shell *shell, t_bool full_cleaning)
 			free(shell->current_dir);
 			shell->current_dir = NULL;
 		}
-		if (shell->env)
-		{
-			ft_lstclear(&shell->env, free);
-			shell->env = NULL;
-		}
+		if (shell->env_lst)
+			ft_lstclear(&shell->env_lst, free);
 		rl_clear_history();
 	}
 }
@@ -71,34 +69,40 @@ int	init_shell(t_shell *shell, char **envp)
 	shell->commands = NULL;
 	shell->current_dir = cwd;
 	shell->should_exit = FALSE;
-	shell->env = env_arr_to_lst(envp);
-	if (!shell->env)
+	shell->env_lst = env_arr_to_lst(envp);
+	if (!shell->env_lst)
 		return (ERROR);
+	shell->env_arr = NULL;
 	return (SUCCESS);
 }
 
 int	minishell_loop(t_shell	*shell)
 {
-	int	status;
-
 	while (shell->should_exit == FALSE)
 	{
 		shell->user_input = readline(PROMPT);
 		if (!shell->user_input)
-		{
-			status = builtin_exit(NULL);
-			free_shell(shell, TRUE);
-			exit(status);
-		}
+			builtin_exit(NULL, shell);
 		else if (*shell->user_input)
 		{
 			add_history(shell->user_input);
-			if (!tokenize(shell->user_input, &shell->tokens))
-				return (free_shell(shell, TRUE), ERROR);
-			if (!parse(shell->tokens, &shell->commands))
-				return (free_shell(shell, TRUE), ERROR);
-			if (executor(shell) != SUCCESS)
-				return (free_shell(shell, TRUE), ERROR);
+			shell->tokens = tokenize(shell->user_input);
+			if (!shell->tokens)
+			{
+				g_last_exit_code = 1;
+				free_shell(shell, FALSE);
+				continue ;
+			}
+			//print_token_list(shell->tokens);
+			shell->commands = parse(shell->tokens);
+			if (!shell->commands)
+			{
+				g_last_exit_code = 1;
+				free_shell(shell, FALSE);
+				continue ;
+			}
+			print_command_list(shell->commands);
+			//g_last_exit_code = execute(shell);
 		}
 		free_shell(shell, FALSE);
 	}

@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:30:19 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/08 16:30:29 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/09 15:15:32 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "libft.h"
 #include "minishell.h"
 #include "utils.h"
+#include "parser.h"
 
 int	get_error_code(char *arg, t_bool *error)
 {
@@ -29,32 +30,34 @@ int	get_error_code(char *arg, t_bool *error)
 		return (error_code);
 }
 
-int	builtin_exit(char **argv)
+int	builtin_exit(char **args, t_shell *shell)
 {
 	unsigned char	error_code;
 	t_bool			error;
 
 	error = FALSE;
 	error_code = 0;
-	ft_putendl_fd("exit", 1);
-	if (!argv || !argv[1])
+	if (cmd_lst_size(shell->commands) <= 1)
+		ft_putendl_fd("exit", 1);
+	if (!args || !args[1])
 		error_code = g_last_exit_code;
 	else
 	{
-		if (argv[2])
+		if (args[2])
 		{
 			print_error("exit", "too many arguments", 0);
-			return (ERROR);
+			return (2);
 		}
-		else if (argv[1])
+		else if (args[1])
 		{
-			error_code = get_error_code(argv[1], &error);
+			error_code = get_error_code(args[1], &error);
 			if (error)
 			{
 				print_error("exit", "numeric argument required", 0);
-				return (ERROR);
+				return (2);
 			}
 		}
 	}
-	return (error_code);
+	exit_shell(shell, error_code);
+	return (2);
 }

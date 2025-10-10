@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   exit_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/03 13:04:14 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/10 08:12:56 by jfernand         ###   ########.fr       */
+/*   Created: 2025/10/08 20:36:04 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/08 20:36:56 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "minishell.h"
 
-int	builtin_exit(char **args, t_shell *shell);
-int	builtin_echo(char **args);
-int	builtin_cd(char **path);
-
-#endif
+void	exit_shell(t_shell *shell, int err_code)
+{
+	if (shell)
+		free_shell(shell, TRUE);
+	exit (err_code);
+}

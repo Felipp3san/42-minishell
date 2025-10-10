@@ -6,24 +6,25 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:11 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/08 15:28:59 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/09 15:12:44 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor_internal.h"
+#include "parser.h"
+#include <unistd.h>
 
 void	init_exec(t_exec *exec)
 {
-	exec->input_fd = -1;
-	exec->output_fd = -1;
+	exec->input_fd = STDIN_FILENO;
+	exec->output_fd = STDOUT_FILENO;
 	exec->pipe_fd[READ] = -1;
 	exec->pipe_fd[WRITE] = -1;
 	exec->last = FALSE;
-	exec->envp = NULL;
 	exec->cmd = NULL;
 }
 
-t_bool	is_builtin(t_command *command)
+t_bool	is_builtin(char *cmd)
 {
 	const char	*builtins[] = {
 		"echo",
@@ -37,19 +38,19 @@ t_bool	is_builtin(t_command *command)
 	};
 	size_t		i;
 
-	if (!command || !command->argv)
+	if (!cmd)
 		return (FALSE);
 	i = 0;
 	while (builtins[i])
 	{
-		if (ft_strcmp(builtins[i], command->argv[0]) == 0)
+		if (ft_strcmp(builtins[i], cmd) == 0)
 			return (TRUE);
 		i++;
 	}
 	return (FALSE);
 }
 
-t_bool	is_single_command(t_list *commands)
+t_bool	is_single_command(t_command *commands)
 {
-	return (ft_lstsize(commands) == 1);
+	return (cmd_lst_size(commands) == 1);
 }

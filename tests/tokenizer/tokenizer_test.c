@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 20:52:57 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/09/30 19:50:28 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/09 12:47:30 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,27 @@
 #include "libft.h"
 #include "types.h"
 
-void print_tokens(const char *str, t_list *head)
+char	*get_type(t_token_type type)
 {
-	t_list	*node;
+	if (type == OUTPUT)
+		return ("OUTPUT");
+	else if (type == INPUT)
+		return ("INPUT");
+	else if (type == HEREDOC)
+		return ("HEREDOC");
+	else if (type == APPEND)
+		return ("APPEND");
+	else if (type == PIPE)
+		return ("PIPE");
+	else if (type == WORD)
+		return ("WORD");
+	else
+		return (NULL);
+}
+
+void print_tokens(const char *str, t_token *head)
+{
+	t_token	*node;
 
 	if (!head)
 		return;
@@ -26,18 +44,18 @@ void print_tokens(const char *str, t_list *head)
 	node = head;
 	while (node)
 	{
-		ft_printf(GREEN"%s"RESET, (char *) node->content);
-		if (node->next != NULL)
-			ft_printf(CYAN" - "RESET);
+		ft_printf(YELLOW"Value: "RESET);
+		ft_printf(GREEN"%s "RESET, node->value);
+		ft_printf(YELLOW"Type: "RESET);
+		ft_printf(GREEN"%s\n"RESET, get_type(node->type));
 		node = node->next;
 	}
 }
 
 int	main(void)
 {
-	t_list		*tokens;
-	size_t		i;
-	t_status	err;
+	t_token	*tokens;
+	size_t	i;
 
 	tokens = NULL;
 	const char *test_strings[] = {
@@ -124,23 +142,24 @@ int	main(void)
 	i = 0;
 	while (test_strings[i])
 	{
-		err = tokenize(test_strings[i], &tokens);
-		if (err != SUCCESS)
+		char *input = ft_strdup(test_strings[i]); // duplicate, so it's writable
+		if (!input)
+			return (ft_printf(RED"malloc error\n"RESET), EXIT_FAILURE);
+
+		tokens = tokenize(input);
+		if (!tokens)
 		{
-			if (err == ERROR)
-			{
-				ft_printf(CYAN"%s\n"RESET, test_strings[i]);
-				ft_printf(YELLOW"Open quotes detected.\n"RESET);
-			}
-			if (err == ERR_MALLOC)
-			{
-				ft_printf(RED"Tokenizer failed\n"RESET);
-				return (EXIT_FAILURE);
-			}
+			ft_printf(RED"error\n\n"RESET);
+			free(input);
+			i++;
+			continue;
 		}
+
 		print_tokens(test_strings[i], tokens);
 		ft_printf("\n\n");
-		ft_lstclear(&tokens, free);
+
+		token_lst_clear(&tokens);
+		free(input); // free after tokenization
 		i++;
 	}
 	return (EXIT_SUCCESS);

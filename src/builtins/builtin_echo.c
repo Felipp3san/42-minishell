@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:03:08 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/07 18:23:51 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/08 21:40:09 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	builtin_echo(char **args)
 	int i;
 	int	newline;
 
-	i = 0;
+	i = 1;
 	newline = 1;
 	if (!args || !*args)
 		return (ERROR);

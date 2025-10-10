@@ -1,20 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/03 13:04:14 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/10 08:12:56 by jfernand         ###   ########.fr       */
+/*   Created: 2025/10/09 14:15:56 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/09 14:17:02 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#ifndef TOKEN_H
+# define TOKEN_H
 
-int	builtin_exit(char **args, t_shell *shell);
-int	builtin_echo(char **args);
-int	builtin_cd(char **path);
+typedef enum e_token_type
+{
+	WORD,
+	PIPE,
+	INPUT,
+	OUTPUT,
+	APPEND,
+	HEREDOC
+}	t_token_type;
+
+typedef struct s_token
+{
+	t_token_type	type;
+	char			*value;
+	struct s_token	*next;
+	struct s_token	*previous;
+}	t_token;
 
 #endif

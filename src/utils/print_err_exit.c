@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_error.c                                      :+:      :+:    :+:   */
+/*   print_err_exit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/08 16:30:40 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/09 15:34:45 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/08 21:27:15 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/08 21:30:07 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,12 @@ static char	*join_strs(char *s1, const char *s2)
 
 	if (!s1)
 		return (ft_strdup(s2));
-	if (!s2)
-		return (s1);
 	str = ft_strjoin(s1, s2);
 	free(s1);
 	return (str);
 }
 
-void	print_error(const char *cmd_name, const char *msg, const char *optional)
+int	print_err_exit(const char *cmd_name, const char *msg, int exit_code)
 {
 	char	*shell_name;
 	char	*full_msg;
@@ -35,11 +33,7 @@ void	print_error(const char *cmd_name, const char *msg, const char *optional)
 	full_msg = join_strs(full_msg, cmd_name);
 	full_msg = join_strs(full_msg, ": ");
 	full_msg = join_strs(full_msg, msg);
-	if (optional)
-	{
-		full_msg = join_strs(full_msg, ": ");
-		full_msg = join_strs(full_msg, optional);
-	}
 	ft_putendl_fd(full_msg, 2);
 	free (full_msg);
+	return (exit_code);
 }

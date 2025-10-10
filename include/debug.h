@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   debug.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/03 13:04:14 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/10 08:12:56 by jfernand         ###   ########.fr       */
+/*   Created: 2025/10/09 11:11:14 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/09 15:09:50 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#ifndef DEBUG_H
+# define DEBUG_H
 
-int	builtin_exit(char **args, t_shell *shell);
-int	builtin_echo(char **args);
-int	builtin_cd(char **path);
+#include "command.h"
+
+void	print_token_list(t_token *token);
+void	print_command_list(t_command *command);
 
 #endif

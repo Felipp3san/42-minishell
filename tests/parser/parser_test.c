@@ -5,270 +5,85 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/30 15:22:28 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/08 13:14:01 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/09 15:48:57 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/09 16:21:13 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stddef.h>
+#include <stdlib.h>
 #include "parser.h"
+#include "tokenizer.h"
+#include "libft.h"
 #include "types.h"
 #include "command.h"
-
-const char *redir_type_to_str(int type)
-{
-	if (type == INPUT)
-		return "INPUT";
-	else if (type == OUTPUT)
-		return "OUTPUT";
-	else if (type == APPEND)
-		return "APPEND";
-	else if (type == HEREDOC)
-		return "HEREDOC";
-	return "UNKNOWN";
-}
-
-static void	print_pipeline(t_list *commands)
-{
-	t_list		*node = commands;
-	t_command	*command;
-	t_list		*redirs;
-	t_redir		*redir;
-	size_t		i;
-	size_t		cmd_idx = 0;
-
-	while (node)
-	{
-		command = (t_command *)node->content;
-		ft_printf("cmds[%d]: argv=[", cmd_idx++);
-		i = 0;
-		while (command->argv[i])
-		{
-			ft_printf(CYAN"%s"RESET, command->argv[i]);
-			if (command->argv[i + 1])
-				ft_printf(", ");
-			i++;
-		}
-		ft_printf("]"RESET);
-		if (!command->redirs)
-			ft_printf(",   redirs=[]\n");
-		else
-		{
-			ft_printf(",   redirs=[");
-			redirs = command->redirs;
-			while (redirs)
-			{
-				redir = (t_redir *)redirs->content;
-				ft_printf("{type="YELLOW"%s "RESET"filename="MAGENTA"%s "RESET"delimiter="MAGENTA"%s"RESET" },",
-					redir_type_to_str(redir->type), redir->filename, redir->delimiter);
-				redirs = redirs->next;
-			}
-			ft_printf("]\n");
-		}
-		node = node->next;
-	}
-	ft_printf("\n");
-}
+#include "debug.h"
 
 int	main(void)
 {
-	t_list	*tokens;
-	t_list	*commands;
+	t_token		*tokens;
+	t_command	*commands;
+	size_t		i;
 
-	// ---------------- Test 1 ----------------
-	tokens = NULL; commands = NULL;
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("cat")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("infile")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("|")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("grep")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("foo")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("|")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("sort")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("-u")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("|")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("wc")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("-l")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup(">")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("result.txt")));
+	tokens = NULL;
+	commands = NULL;
 
-	if (!parse(tokens, &commands))
+	const char *test_strings[] = {
+		"echo hello world",
+		"ls -la /tmp",
+		"echo \"Hello World\"",
+		"cat file.txt | grep test",
+		"echo hello > file.txt",
+		"echo hello >> append.txt",
+		"cat < infile | grep data > outfile",
+		"echo 'Single quotes work too'",
+		"echo $USER",
+		"echo \"$HOME is home\"",
+		"echo a >>> file.txt",
+		"command arg1 arg2 | another_command arg3 > out.txt",
+		"grep 'pattern' < input.txt | sort | uniq > output.txt",
+		"   spaces   before and after   ",
+		"echo \"Mix 'single $USER' and double $HOME\"",
+		"echo '$USER's home is $HOME'", // tricky one
+		"echo << EOF",
+		"echo <<|> \"test\"",
+		NULL
+	};
+
+	i = 0;
+	while (test_strings[i])
 	{
-		ft_printf("parse failed\n");
-		return (1);
+		char *input = ft_strdup(test_strings[i]);
+		if (!input)
+			return (ft_printf(RED"malloc error\n"RESET), EXIT_FAILURE);
+
+		ft_printf(CYAN"Input: %s\n"RESET, test_strings[i]);
+		tokens = tokenize(input);
+		if (!tokens)
+		{
+			ft_printf(RED"Tokenizer failed\n\n"RESET);
+			free(input);
+			i++;
+			continue;
+		}
+
+		commands = parse(tokens);
+		if (!commands)
+		{
+			ft_printf(RED"Parser failed\n\n"RESET);
+			token_lst_clear(&tokens);
+			free(input);
+			i++;
+			continue;
+		}
+
+		print_command_list(commands);
+		ft_printf("\n");
+
+		cmd_lst_clear(&commands);
+		token_lst_clear(&tokens);
+		free(input);
+		i++;
 	}
-	ft_printf("---- Test 1 ----\n");
-	print_pipeline(commands);
-	ft_lstclear(&tokens, free);
-	ft_lstclear(&commands, free_command);
-
-	// ---------------- Test 2 ----------------
-	tokens = NULL; commands = NULL;
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("echo")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("hello")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup(">")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("out.txt")));
-
-	if (!parse(tokens, &commands))
-	{
-		ft_printf("parse failed\n");
-		return (1);
-	}
-	ft_printf("---- Test 2 ----\n");
-	print_pipeline(commands);
-	ft_lstclear(&tokens, free);
-	ft_lstclear(&commands, free_command);
-
-	// ---------------- Test 3 ----------------
-	tokens = NULL; commands = NULL;
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("grep")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("bar")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("<")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("input.txt")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("|")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("wc")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("-w")));
-
-	if (!parse(tokens, &commands))
-	{
-		ft_printf("parse failed\n");
-		return (1);
-	}
-	ft_printf("---- Test 3 ----\n");
-	print_pipeline(commands);
-	ft_lstclear(&tokens, free);
-	ft_lstclear(&commands, free_command);
-
-	// ---------------- Test 4 ----------------
-	tokens = NULL; commands = NULL;
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("echo")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("more text")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup(">>")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("logfile.txt")));
-
-	if (!parse(tokens, &commands))
-	{
-		ft_printf("parse failed\n");
-		return (1);
-	}
-	ft_printf("---- Test 4 ----\n");
-	print_pipeline(commands);
-	ft_lstclear(&tokens, free);
-	ft_lstclear(&commands, free_command);
-
-	// ---------------- Test 5 ----------------
-	tokens = NULL; commands = NULL;
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("cat")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("<<")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("EOF")));
-
-	if (!parse(tokens, &commands))
-	{
-		ft_printf("parse failed\n");
-		return (1);
-	}
-	ft_printf("---- Test 5 ----\n");
-	print_pipeline(commands);
-	ft_lstclear(&tokens, free);
-	ft_lstclear(&commands, free_command);
-
-	// ---------------- Test 6 ----------------
-	tokens = NULL; commands = NULL;
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("ls")));
-
-	if (!parse(tokens, &commands))
-	{
-		ft_printf("parse failed\n");
-		return (1);
-	}
-	ft_printf("---- Test 6 ----\n");
-	print_pipeline(commands);
-	ft_lstclear(&tokens, free);
-	ft_lstclear(&commands, free_command);
-
-	// ---------------- Test 7 ----------------
-	tokens = NULL; commands = NULL;
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("grep")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("foo")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("<")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("input.txt")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup(">>")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("output.log")));
-
-	if (!parse(tokens, &commands))
-	{
-		ft_printf("parse failed\n");
-		return (1);
-	}
-	ft_printf("---- Test 7 ----\n");
-	print_pipeline(commands);
-	ft_lstclear(&tokens, free);
-	ft_lstclear(&commands, free_command);
-
-	// ---------------- Test 8 ----------------
-	tokens = NULL; commands = NULL;
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("cat")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("<<")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("EOF")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("|")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("grep")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("foo bar")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("|")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("sort")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("-r")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("|")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("uniq")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("-c")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup(">>")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("result.log")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("|")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("echo")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("done")));
-
-	if (!parse(tokens, &commands))
-	{
-		ft_printf("parse failed\n");
-		return (1);
-	}
-	ft_printf("---- Test 8 (Crazy Pipeline) ----\n");
-	print_pipeline(commands);
-	ft_lstclear(&tokens, free);
-	ft_lstclear(&commands, free_command);
-
-	// ---------------- Test 9 ----------------
-	tokens = NULL; commands = NULL;
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("<<")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("EOF")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("wc")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("-l")));
-
-	if (!parse(tokens, &commands))
-	{
-		ft_printf("parse failed\n");
-		return (1);
-	}
-	ft_printf("---- Test 9 ----\n");
-	print_pipeline(commands);
-	ft_lstclear(&tokens, free);
-	ft_lstclear(&commands, free_command);
-
-	// ---------------- Test 10 ----------------
-	tokens = NULL; commands = NULL;
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("echo")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("-n")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("--")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("hello")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup(">>")));
-	ft_lstadd_back(&tokens, ft_lstnew(ft_strdup("output.log")));
-
-	if (!parse(tokens, &commands))
-	{
-		ft_printf("parse failed\n");
-		return (1);
-	}
-	ft_printf("---- Test 10 ----\n");
-	print_pipeline(commands);
-	ft_lstclear(&tokens, free);
-	ft_lstclear(&commands, free_command);
-
-	return (0);
+	return (EXIT_SUCCESS);
 }
