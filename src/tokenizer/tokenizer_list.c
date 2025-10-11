@@ -58,7 +58,7 @@ size_t	token_lst_size(t_token *token)
 	count = 0;
 	if (!token)
 		return (count);
-	if (token)
+	while (token)
 	{
 		count++;
 		token = token->next;
