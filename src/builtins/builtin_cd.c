@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:12:38 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/08 21:37:14 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/11 10:59:56 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "utils.h"
 #include <string.h>
 
-int	builtin_cd(char **path)
+int	builtin_cd(char *path)
 {
 	char *target;
 
@@ -30,7 +30,7 @@ int	builtin_cd(char **path)
 		chdir(target);
 	}
 	else
-		target = *path;
+		target = path;
 	if (chdir(target) != 0)
 	{
 		print_error("cd",target, strerror(errno));
