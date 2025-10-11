@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		".fantomasignore": "ignore",
+		"source_location": "c",
+		"stacktrace": "c"
+	}
+}

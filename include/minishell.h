@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:31:58 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/09 14:25:00 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/11 13:53:50 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "libft.h"
 # include "command.h"
 # include "token.h"
+# include "env.h"
 
 extern int	g_last_exit_code;
 
@@ -27,7 +28,7 @@ typedef struct s_shell
 	char		*user_input;
 	t_token		*tokens;
 	t_command	*commands;
-	t_list		*env_lst;
+	t_env		*env_lst;
 	char		**env_arr;
 	t_bool		should_exit;
 }	t_shell;

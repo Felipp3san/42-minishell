@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 14:40:56 by jfernand          #+#    #+#             */
-/*   Updated: 2025/10/11 12:19:07 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/11 16:09:18 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ char	*build_new_var_string(const char *content, const char *value);
 int		split_assignment(const char *variable, char **out_name, char **out_value);
 int		is_valid_name(char *name);
 int		name_cmp(const char *a, const char *b);
-int		insert_in_list(t_list **env, t_list *new_node);
+int		insert_in_list(t_env **env, t_env *new_node);
 char	*build_new_var_string(const char *content, const char *value);
-int		builtin_export(t_list **env, const char *variable);
+t_env	*search_variable(t_env *env, char *name);
+
 
 #endif

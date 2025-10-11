@@ -6,16 +6,16 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:03:55 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/11 12:19:36 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/11 16:08:23 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./env_helpers/internal_helpers.h"
 
-static t_list	*search_variable(t_list *env, char *name)
+t_env	*search_variable(t_env *env, char *name)
 {
 	char	*sign;
-	t_list	*temp;
+	t_env	*temp;
 
 	temp = env;
 	while (temp != NULL)
@@ -38,7 +38,7 @@ static t_list	*search_variable(t_list *env, char *name)
 	return (NULL);
 }
 
-static int	replace_variable(t_list *node, char *value)
+static int	replace_variable(t_env *node, char *value)
 {
 	char	*new_value;
 	char 	*content;
@@ -52,9 +52,9 @@ static int	replace_variable(t_list *node, char *value)
 	return (SUCCESS);
 }
 
-static int	add_variable(t_list **env, char *name, char *value)
+static int	add_variable(t_env **env, char *name, char *value)
 {
-	t_list	*new_node;
+	t_env	*new_node;
 	char	*new_content;
 
 	new_node = NULL;
@@ -63,7 +63,7 @@ static int	add_variable(t_list **env, char *name, char *value)
 	new_content = build_new_var_string(name, value);
 	if (!new_content)
 		return (ERR_MALLOC);
-	new_node = ft_lstnew(new_content);
+	new_node = env_new(new_content);
 	if (!new_node)
 		return (ERR_MALLOC);
 	if (insert_in_list(env, new_node) != SUCCESS)
@@ -72,12 +72,12 @@ static int	add_variable(t_list **env, char *name, char *value)
 }
 
 
-int	builtin_export(t_list **env, const char *variable)
+int	builtin_export(t_env **env, const char *variable)
 {
 	char	*var_name;
 	char	*var_value;
 	int		ret_value;
-	t_list	*node_found;
+	t_env	*node_found;
 
 	if (!env)
 		return (ERROR);
