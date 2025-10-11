@@ -6,21 +6,18 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:03:55 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/10 15:50:48 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/11 12:19:36 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "types.h"
-#include "libft.h"
-#include "env.h"
-#include "internal_helpers.h"
+#include "./env_helpers/internal_helpers.h"
 
-static t_list	*search_variable(t_list **env, char *name)
+static t_list	*search_variable(t_list *env, char *name)
 {
 	char	*sign;
 	t_list	*temp;
 
-	temp = *env;
+	temp = env;
 	while (temp != NULL)
 	{
 		sign = ft_strchr((char *)temp->content, '=');
@@ -52,7 +49,7 @@ static int	replace_variable(t_list *node, char *value)
 		return (ERR_MALLOC);
 	free(node->content);
 	node->content = new_value;
-	return (SUCCESS);	
+	return (SUCCESS);
 }
 
 static int	add_variable(t_list **env, char *name, char *value)
@@ -61,7 +58,7 @@ static int	add_variable(t_list **env, char *name, char *value)
 	char	*new_content;
 
 	new_node = NULL;
-	if (!env || !*env)
+	if (!env)
 		return (ERROR);
 	new_content = build_new_var_string(name, value);
 	if (!new_content)
@@ -73,6 +70,7 @@ static int	add_variable(t_list **env, char *name, char *value)
 		return (ERROR);
 	return (SUCCESS);
 }
+
 
 int	builtin_export(t_list **env, const char *variable)
 {
@@ -92,7 +90,7 @@ int	builtin_export(t_list **env, const char *variable)
 		free(var_value);
 		return (ERROR);
 	}
-	node_found = search_variable(env, var_name);
+	node_found = search_variable(*env, var_name);
 	if (node_found)
 		ret_value = replace_variable(node_found, var_value);
 	else

@@ -6,19 +6,17 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 14:39:07 by jfernand          #+#    #+#             */
-/*   Updated: 2025/10/10 16:05:33 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/11 12:19:01 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "types.h"
-#include "libft.h"
-#include "internal_helpers.h"
+#include "./internal_helpers.h"
 
 static void compute_name_value_len(const char *content, const char *value,
                             int *name_len, int *value_len)
 {
     char *sign;
-	
+
 	sign = ft_strchr(content, '=');
     if (sign)
         *name_len = sign - content;

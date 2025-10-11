@@ -6,13 +6,11 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 14:32:14 by jfernand          #+#    #+#             */
-/*   Updated: 2025/10/10 16:05:20 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/11 12:19:06 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "types.h"
-#include "libft.h"
-#include "internal_helpers.h"
+#include "./internal_helpers.h"
 
 int	split_assignment(const char *variable, char **out_name, char **out_value)
 {
@@ -60,38 +58,18 @@ int	is_valid_name(char *name)
 	{
 		if (!ft_isalnum(name[i]) && name[i] != '_')
 			return (ERROR);
-			i++;
+		i++;
 	}
 	return (SUCCESS);
-}
-
-static int insert_at_head(t_list **env, t_list *new_node)
-{
-	if (!*env || name_cmp((char *)new_node->content, (char *)(*env)->content) <= 0)
-	{
-		ft_lstadd_front(env, new_node);
-		return (SUCCESS);
-	}
-	return (ERROR);
 }
 
 int insert_in_list(t_list **env, t_list *new_node)
 {
-	t_list *prev;
-	t_list *cur;
+    t_list **cur = env;
 
-	if (!env || !new_node)
-		return (ERROR);
-	if (insert_at_head(env, new_node) == SUCCESS)
-		return (SUCCESS);
-	prev = *env;
-	cur = prev->next;
-	while (cur && name_cmp((char *)cur->content, (char *)new_node->content) < 0)
-	{
-		prev = cur;
-		cur = cur->next;
-	}
-	prev->next = new_node;
-	new_node->next = cur;
-	return (SUCCESS);
+    while (*cur && name_cmp((char *)(*cur)->content, (char *)new_node->content) < 0)
+        cur = &(*cur)->next;
+    new_node->next = *cur;
+    *cur = new_node;
+    return (SUCCESS);
 }
