@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 19:25:42 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/11 15:47:46 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/11 17:18:15 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ t_env	*env_arr_to_lst(char **envp)
 	{
 		content = ft_strdup(envp[i]);
 		if (!content)
-			return (env_free_all(clone), NULL);
+			return (env_free_all(&clone), NULL);
 		node = env_new(content);
 		if (!node)
 		{
 			free(content);
-			return (env_free_all(clone), NULL);
+			return (env_free_all(&clone), NULL);
 		}
 		env_append(&clone, node);
 		i++;

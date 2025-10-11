@@ -23,14 +23,14 @@ t_env *env_new(char *content)
     t_env *node = malloc(sizeof(t_env));
     if (!node)
         return NULL;
-    node->content = strdup(content);
+    node->content = content;
     if (!node->content)
     {
         free(node);
         return NULL;
     }
     node->next = NULL;
-    node->previous = NULL;
+    node->prev = NULL;
     return node;
 }
 
@@ -43,19 +43,16 @@ void env_append(t_env **head, t_env *new_node)
 
     if (!head || !new_node)
         return;
-
     if (*head == NULL)
     {
         *head = new_node;
         return;
     }
-
     tmp = *head;
     while (tmp->next)
         tmp = tmp->next;
-
     tmp->next = new_node;
-    new_node->previous = tmp;
+    new_node->prev = tmp;
 }
 
 // ----------------------
@@ -65,7 +62,7 @@ t_env *env_find(t_env *head, const char *prefix)
 {
     while (head)
     {
-        if (strncmp(head->content, prefix, strlen(prefix)) == 0)
+        if (ft_strncmp(head->content, prefix, ft_strlen(prefix)) == 0)
             return head;
         head = head->next;
     }
@@ -93,10 +90,10 @@ void env_prepend(t_env **head, t_env *new_node)
         return;
 
     new_node->next = *head;
-    new_node->previous = NULL;
+    new_node->prev = NULL;
 
     if (*head)
-        (*head)->previous = new_node;
+        (*head)->prev = new_node;
 
     *head = new_node;
 }

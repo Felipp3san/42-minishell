@@ -11,41 +11,51 @@
 /* ************************************************************************** */
 
 #include "env.h"
+#include "../builtins/env_helpers/internal_helpers.h"
 
 // ----------------------
 // 1. Delete a node by content prefix
 // ----------------------
-void env_delete(t_env **head, const char *prefix)
+int env_delete(t_env **head, const char *name)
 {
     t_env *node;
 
-	node = env_find(*head, prefix);
+	if (!head || !name)
+		return (ERROR);
+	node = search_variable(*head, (char *)name);
     if (!node)
-        return;
-    if (node->previous)
-        node->previous->next = node->next;
+        return (SUCCESS);
+    if (node->prev)
+        node->prev->next = node->next;
     else
-        *head = node->next; // node was head
+        *head = node->next;
     if (node->next)
-        node->next->previous = node->previous;
+        node->next->prev = node->prev;
     free(node->content);
     free(node);
+	return (SUCCESS);
 }
 
 // ----------------------
 // 2. Free the entire list
 // ----------------------
-void env_free_all(t_env *head)
+void	env_free_all(t_env **env)
 {
-    t_env *tmp;
+	t_env	*current;
+	t_env	*next;
 
-    while (head)
-    {
-        tmp = head;
-        head = head->next;
-        free(tmp->content);
-        free(tmp);
-    }
+	if (!env)
+		return ;
+	current = *env;
+	while (current)
+	{
+		next = current->next;
+		if (current->content)
+			free(current->content);
+		free(current);
+		current = next;
+	}
+	*env = NULL;
 }
 
 // ----------------------

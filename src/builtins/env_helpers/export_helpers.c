@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 14:32:14 by jfernand          #+#    #+#             */
-/*   Updated: 2025/10/11 16:06:38 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/11 17:07:02 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,11 @@ int	is_valid_name(char *name)
 }*/
 int insert_in_list(t_env **env, t_env *new_node)
 {
-    t_env *prev = NULL;
-    t_env *cur = NULL;
+    t_env *prev;
+    t_env *cur;
 
+	prev = NULL;
+	cur = NULL;
     if (!env || !new_node)
         return (ERROR);
     cur = *env;

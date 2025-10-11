@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:25:23 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/11 16:10:37 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/11 17:24:29 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ void	free_shell(t_shell *shell, t_bool full_cleaning)
 			shell->current_dir = NULL;
 		}
 		if (shell->env_lst)
-			env_free_all(shell->env_lst);
+		{
+			env_free_all(&shell->env_lst);
+			env_print(shell->env_lst);
+		}
 		rl_clear_history();
 	}
 }

@@ -2,6 +2,7 @@
 	"files.associations": {
 		".fantomasignore": "ignore",
 		"source_location": "c",
-		"stacktrace": "c"
+		"stacktrace": "c",
+		"cstdlib": "c"
 	}
 }
