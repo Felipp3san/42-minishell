@@ -59,7 +59,7 @@ size_t	redir_lst_size(t_redir *redir)
 	count = 0;
 	if (!redir)
 		return (count);
-	if (redir)
+	while (redir)
 	{
 		count++;
 		redir = redir->next;

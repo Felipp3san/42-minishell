@@ -66,7 +66,7 @@ size_t	cmd_lst_size(t_command *cmd)
 	count = 0;
 	if (!cmd)
 		return (count);
-	if (cmd)
+	while (cmd)
 	{
 		count++;
 		cmd = cmd->next;
