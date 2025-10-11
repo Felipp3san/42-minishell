@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   debug.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/08 16:30:02 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/08 21:37:27 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/09 11:11:14 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/09 15:09:50 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef DEBUG_H
+# define DEBUG_H
 
-#include "minishell.h"
+#include "command.h"
 
-void	print_error(const char *cmd_name, const char *msg, const char *optional);
-int		print_err_exit(const char *cmd_name, const char *msg, int exit_code);
-void	free_split(char **arr);
-void	exit_shell(t_shell *shell, int err_code);
+void	print_token_list(t_token *token);
+void	print_command_list(t_command *command);
 
 #endif

@@ -6,31 +6,28 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 11:41:34 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/01 19:09:58 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/09 12:44:58 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "types.h"
 #include "tokenizer_internal.h"
+#include "libft.h"
+#include "types.h"
 
-t_bool	ch_is_operator(char ch)
+void	skip_spaces(char **line)
 {
-	return (ch == '>' || ch == '<' || ch == '|');
+	while (**line && ft_isspace(**line))
+		(*line)++;
 }
 
-t_bool	ch_is_space(char ch)
+void	advance_to_next_quote(char	**line)
 {
-	return ((ch >= 9 && ch <= 13) || ch == ' ');
-}
-
-t_bool	ch_is_single_quote(char ch)
-{
-	return (ch == '\'');
-}
-
-t_bool	ch_is_double_quote(char ch)
-{
-	return (ch == '\"');
+	char	quote;
+	
+	quote = **line;
+	*line = *line + 1;
+	while (**line && (**line != quote))
+		(*line)++;
 }
 
 t_bool	has_open_quotes(const char *str)
@@ -42,9 +39,9 @@ t_bool	has_open_quotes(const char *str)
 	double_opened = FALSE;
 	while (*str)
 	{
-		if (ch_is_single_quote(*str) && !double_opened)
+		if (is_single_quote(*str) && !double_opened)
 			single_opened = !single_opened;
-		if (ch_is_double_quote(*str) && !single_opened)
+		if (is_double_quote(*str) && !single_opened)
 			double_opened = !double_opened;
 		str++;
 	}
