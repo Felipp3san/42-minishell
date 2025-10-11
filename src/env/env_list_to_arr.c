@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 17:32:53 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/11 17:08:00 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/11 18:30:32 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**env_list_to_arr(t_env *envp)
 
 	if (!envp)
 		return (NULL);
-	size = env_size(envp);
+	size = env_lst_size(envp);
 	clone = (char **) malloc(sizeof(char *) * (size + 1));
 	if (!clone)
 		return (NULL);

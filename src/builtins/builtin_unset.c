@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:12:10 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/11 16:38:04 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/11 18:30:51 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	builtin_unset(t_env **env, char *variable)
 		return (ERROR);
 	}
 	if (!var_value)
-		ret_value = env_delete(env, var_name);
+		ret_value = env_var_delete(env, var_name);
 	else
 	{
 		fprintf(stderr, "unset: `%s': not a valid identifier\n", variable);

@@ -18,26 +18,23 @@
 // ----------------------
 // 1. Create a new node
 // ----------------------
-t_env *env_new(char *content)
+t_env *env_lst_new(char *content)
 {
-    t_env *node = malloc(sizeof(t_env));
+    t_env *node;
+
+    node= malloc(sizeof(t_env));
     if (!node)
-        return NULL;
+        return (NULL);
     node->content = content;
-    if (!node->content)
-    {
-        free(node);
-        return NULL;
-    }
     node->next = NULL;
     node->prev = NULL;
-    return node;
+    return (node);
 }
 
 // ----------------------
 // 2. Append node to list
 // ----------------------
-void env_append(t_env **head, t_env *new_node)
+void env_lst_add_back(t_env **head, t_env *new_node)
 {
     t_env *tmp;
 
@@ -46,7 +43,8 @@ void env_append(t_env **head, t_env *new_node)
     if (*head == NULL)
     {
         *head = new_node;
-        return;
+        new_node->prev  = NULL;
+        return ;
     }
     tmp = *head;
     while (tmp->next)
@@ -56,23 +54,9 @@ void env_append(t_env **head, t_env *new_node)
 }
 
 // ----------------------
-// 3. Find a node by content prefix (e.g., "PATH=")
+// 3. Print the list
 // ----------------------
-t_env *env_find(t_env *head, const char *prefix)
-{
-    while (head)
-    {
-        if (ft_strncmp(head->content, prefix, ft_strlen(prefix)) == 0)
-            return head;
-        head = head->next;
-    }
-    return NULL;
-}
-
-// ----------------------
-// 4. Print the list (for debugging)
-// ----------------------
-void env_print(t_env *head)
+void env_lst_print(t_env *head)
 {
     while (head)
     {
@@ -82,18 +66,34 @@ void env_print(t_env *head)
 }
 
 // ----------------------
-// 5. Prepend node to the list
+// 4. Prepend node to the list
 // ----------------------
-void env_prepend(t_env **head, t_env *new_node)
+void env_lst_add_front(t_env **head, t_env *new_node)
 {
     if (!head || !new_node)
         return;
 
     new_node->next = *head;
     new_node->prev = NULL;
-
     if (*head)
         (*head)->prev = new_node;
-
     *head = new_node;
+}
+
+// ----------------------
+// 5. Count the the number of nodes of the list
+// ----------------------
+int	env_lst_size(t_env *head)
+{
+	int		count;
+	t_env	*current;
+
+	count = 0;
+	current = head;
+	while (current)
+	{
+		count++;
+		current = current->next;
+	}
+	return (count);
 }

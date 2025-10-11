@@ -16,7 +16,7 @@
 // ----------------------
 // 1. Delete a node by content prefix
 // ----------------------
-int env_delete(t_env **head, const char *name)
+int env_var_delete(t_env **head, const char *name)
 {
     t_env *node;
 
@@ -39,7 +39,7 @@ int env_delete(t_env **head, const char *name)
 // ----------------------
 // 2. Free the entire list
 // ----------------------
-void	env_free_all(t_env **env)
+void	env_lst_clear(t_env **env)
 {
 	t_env	*current;
 	t_env	*next;
@@ -59,19 +59,11 @@ void	env_free_all(t_env **env)
 }
 
 // ----------------------
-// 3. Count the the number of nodes of the list
+// 3. Return last node
 // ----------------------
-int	env_size(t_env *head)
+t_env	*env_lst_last(t_env *head)
 {
-	int		count;
-	t_env	*current;
-
-	count = 0;
-	current = head;
-	while (current)
-	{
-		count++;
-		current = current->next;
-	}
-	return (count);
+	while (head && head->next != NULL)
+		head = head->next;
+	return (head);
 }

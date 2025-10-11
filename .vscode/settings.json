@@ -3,6 +3,11 @@
 		".fantomasignore": "ignore",
 		"source_location": "c",
 		"stacktrace": "c",
-		"cstdlib": "c"
+		"cstdlib": "c",
+		"bitset": "c",
+		"algorithm": "c",
+		"flat_map": "c",
+		"flat_set": "c",
+		"format": "c"
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:03:55 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/11 16:54:48 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/11 19:07:37 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	add_variable(t_env **env, char *name, char *value)
 	new_content = build_new_var_string(name, value);
 	if (!new_content)
 		return (ERR_MALLOC);
-	new_node = env_new(new_content);
+	new_node = env_lst_new(new_content);
 	if (!new_node)
 	{
 		free(new_content);

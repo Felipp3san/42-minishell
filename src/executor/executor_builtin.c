@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:34:24 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/11 16:39:53 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/11 18:43:34 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	execute_builtin(t_exec *exec, t_shell *shell)
 	if (ft_strcmp(cmd->argv[0], "echo") == 0)
 		return (builtin_echo(cmd->argv));
 	if (ft_strcmp(cmd->argv[0], "cd") == 0)
-		return (builtin_cd(cmd->argv[1]));
+		return (builtin_cd(cmd->argv[1], &shell->env_lst));
 	if (ft_strcmp(cmd->argv[0], "pwd") == 0)
 		return (builtin_pwd());
 	if (ft_strcmp(cmd->argv[0], "env") == 0)
