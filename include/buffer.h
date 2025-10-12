@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   buffer.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/30 14:02:39 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/12 18:35:15 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/09/25 17:00:19 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/12 19:16:54 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#ifndef BUFFER_H
+# define BUFFER_H
 
-#include "command.h"
+# include <stddef.h>
 
-t_command	*parse(t_token *token);
-size_t		cmd_lst_size(t_command *cmd);
-void		cmd_lst_clear(t_command **cmd);
+typedef struct s_buffer
+{
+	char	*data;
+	size_t	size;
+	size_t	capacity;
+}	t_buffer;
 
-// parser_argv.c
-t_command	*argv_remove_index(t_command *cmd, size_t idx);
+t_buffer	*buffer_create(t_buffer **buf);
+t_buffer	*buffer_realloc(t_buffer *buffer);
+t_buffer	*buffer_append(t_buffer *buffer, char ch);
+char		*buffer_flush(t_buffer *buffer);
+void		buffer_free(t_buffer *buffer);
 
 #endif

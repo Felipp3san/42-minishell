@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 14:48:38 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/09 14:58:02 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/12 18:46:48 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,22 @@ t_command	*argv_realloc(t_command *cmd)
 	cmd->argv = cmd->argv;
 	cmd->capacity += 16;
 	return (cmd);
+}
+
+void	argv_remove_index(t_command *cmd, size_t idx)
+{
+	if (!cmd || !cmd->argv || idx >= cmd->size)
+		return ;
+	if (cmd->argv[idx])
+		free(cmd->argv[idx]);
+	while (cmd->argv[idx])
+	{
+		cmd->argv[idx] = cmd->argv[idx + 1];
+		idx++;
+	}
+	cmd->argv[idx] = NULL;
+	if (cmd->size > 0)
+		cmd->size--;
 }
 
 t_command	*argv_append(t_command *cmd, const char *str)

@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:12:38 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/11 10:59:56 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/12 19:27:36 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	builtin_cd(char *path)
 		target = path;
 	if (chdir(target) != 0)
 	{
-		print_error("cd",target, strerror(errno));
+		print_error("cd", target, strerror(errno));
 		return (ERROR);
 	}
 	return (SUCCESS);

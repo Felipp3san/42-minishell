@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:03:55 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/12 12:21:39 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/12 19:30:04 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static t_list	*search_variable(t_list *env, char *name)
 		if (sign)
 		{
 			if (ft_strncmp(name, (char *)temp->content,
-				sign - (char *)temp->content) == 0
-					&& name[sign - (char *)temp->content] == '\0')
+					sign - (char *)temp->content) == 0
+				&& name[sign - (char *)temp->content] == '\0')
 				return (temp);
 		}
 		else
@@ -42,7 +42,7 @@ static t_list	*search_variable(t_list *env, char *name)
 static int	replace_variable(t_list *node, char *value)
 {
 	char	*new_value;
-	char 	*content;
+	char	*content;
 
 	content = (char *)node->content;
 	new_value = build_new_var_string(content, value);
@@ -71,7 +71,6 @@ static int	add_variable(t_list **env, char *name, char *value)
 		return (ERROR);
 	return (SUCCESS);
 }
-
 
 int	builtin_export(t_list **env, const char *variable)
 {
