@@ -54,7 +54,7 @@ void	parent_process(t_exec *exec)
 	}
 }
 
-int	wait_children()
+int	wait_children(void)
 {
 	int	status;
 	int	saved;
@@ -78,7 +78,7 @@ int	pipeline(t_exec *exec, t_shell *shell)
 	{
 		exec->cmd = cmd;
 		exec->last = (cmd->next == NULL);
-		if (is_builtin(exec->cmd->argv[0]) && is_single_command(shell->commands))
+		if (is_builtin(exec->cmd->argv[0]) && is_single_cmd(shell->commands))
 			return (execute_single_builtin(exec, shell));
 		else
 		{

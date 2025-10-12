@@ -6,11 +6,12 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:03:55 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/11 12:19:36 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/12 12:21:39 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./env_helpers/internal_helpers.h"
+#include "types.h"
 
 static t_list	*search_variable(t_list *env, char *name)
 {
@@ -25,7 +26,7 @@ static t_list	*search_variable(t_list *env, char *name)
 		{
 			if (ft_strncmp(name, (char *)temp->content,
 				sign - (char *)temp->content) == 0
-				&& name[sign - (char *)temp->content] == '\0')
+					&& name[sign - (char *)temp->content] == '\0')
 				return (temp);
 		}
 		else

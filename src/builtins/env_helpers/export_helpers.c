@@ -6,11 +6,13 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 14:32:14 by jfernand          #+#    #+#             */
-/*   Updated: 2025/10/11 12:19:06 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/12 12:20:42 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./internal_helpers.h"
+#include "internal_helpers.h"
+#include "types.h"
+
 
 int	split_assignment(const char *variable, char **out_name, char **out_value)
 {
