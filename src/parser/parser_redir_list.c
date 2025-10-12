@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 18:28:03 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/10 13:55:46 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/12 12:35:41 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-t_redir	*redir_lst_new(char *value, int heredoc_fd, t_token_type type) {
+t_redir	*redir_lst_new(t_redir_data *data, t_token_type type)
+{
 	t_redir	*redir;
 
 	redir = (t_redir *) malloc(sizeof(t_redir));
 	if (!redir)
 		return (NULL);
-	redir->value = value;
-	redir->heredoc_fd = heredoc_fd;
+	redir->value = data->value;
+	redir->heredoc_fd = data->heredoc_fd;
+	redir->expand_heredoc = data->expand_heredoc;
 	redir->type = type;
 	redir->next = NULL;
 	redir->previous = NULL;

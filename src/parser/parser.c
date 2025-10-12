@@ -6,21 +6,56 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 21:42:00 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/10 14:06:49 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/12 12:35:50 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser_internal.h"
 #include "libft.h"
 #include "types.h"
+#include "utils.h"
+
+static char	*get_redir_value(char *token_value, int *expand)
+{
+	if (ft_strchr(token_value, '\"') || ft_strchr(token_value, '\''))
+	{
+		*expand = FALSE;
+		return (remove_quotes(token_value));
+	}
+	*expand = TRUE;
+	return (ft_strdup(token_value));
+}
+
+static int	handle_redir(t_token **token, t_command *command)
+{
+	t_redir_data	data;
+	t_redir			*redir;
+
+	if (!(*token) || !(*token)->next)
+		return (ERROR);
+	data.expand_heredoc = TRUE;
+	data.heredoc_fd = -1;
+	data.value = get_redir_value((*token)->next->value, &data.expand_heredoc);
+	if (!data.value)
+		return (ERR_MALLOC);
+	if (is_heredoc((*token)->type))
+	{
+		data.heredoc_fd = parser_heredoc(data.value);
+		if (data.heredoc_fd == -1)
+			return (free(data.value), ERROR);
+	}
+	redir = redir_lst_new(&data, (*token)->type);
+	if (!redir)
+		return (free(data.value), ERR_MALLOC);
+	redir_lst_add_back(&command->redirs, redir);
+	*token = (*token)->next;
+	return (SUCCESS);
+}
 
 static int	parse_token(t_token **token, t_command *command)
 {
-	t_redir	*redir;
-	char	*value;
-	int		heredoc_fd;
+	int	status;
 
-	heredoc_fd = -1;
 	if (is_word((*token)->type))
 	{
 		if (!argv_append(command, (*token)->value))
@@ -28,20 +63,9 @@ static int	parse_token(t_token **token, t_command *command)
 	}
 	else if (is_redir((*token)->type))
 	{
-		(*token) = (*token)->next;
-		value = ft_strdup((*token)->value);
-		if (!value)
-			return (ERR_MALLOC);
-		if (is_heredoc((*token)->previous->type))
-		{
-			heredoc_fd = parser_heredoc((*token)->value);
-			if (heredoc_fd == -1)
-				return (ERROR);
-		}
-		redir = redir_lst_new(value, heredoc_fd, (*token)->previous->type);
-		if (!redir)
-			return (ERR_MALLOC);
-		redir_lst_add_back(&command->redirs, redir);
+		status = handle_redir(token, command);
+		if (status != SUCCESS)
+			return (status);
 	}
 	(*token) = (*token)->next;
 	return (SUCCESS);
@@ -54,7 +78,7 @@ t_token	*syntax_check(t_token *token)
 	while (token)
 	{
 		if (!token->next && is_sep(token->type))
-			break;
+			break ;
 		if (is_redir(token->type) && is_sep(token->next->type))
 			break ;
 		if (token->type == PIPE && token->next->type == PIPE)

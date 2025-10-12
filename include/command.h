@@ -21,6 +21,7 @@ typedef struct s_redir
 	char				*value;
 	t_token_type		type;
 	int					heredoc_fd;
+	int					expand_heredoc;
 	struct s_redir		*next;
 	struct s_redir		*previous;
 }	t_redir;

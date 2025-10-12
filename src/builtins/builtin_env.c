@@ -21,10 +21,10 @@ int	builtin_env(t_list *env)
 	lst = env;
 	print = NULL;
 	while (lst)
-    {
+	{
 		print = (char *)lst->content;
-        ft_putendl_fd(print, 1);
-        lst = lst->next;
-    }
+		ft_putendl_fd(print, 1);
+		lst = lst->next;
+	}
 	return (SUCCESS);
 }

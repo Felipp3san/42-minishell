@@ -34,7 +34,7 @@ t_token	*token_lst_last(t_token *token)
 	return (token);
 }
 
-void token_lst_add_back(t_token **token_list, t_token *new_token)
+void	token_lst_add_back(t_token **token_list, t_token *new_token)
 {
 	t_token	*last_token;
 
@@ -84,5 +84,3 @@ void	token_lst_clear(t_token **token)
 	}
 	*token = NULL;
 }
-
-

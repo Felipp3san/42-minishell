@@ -20,7 +20,7 @@
 
 # define CMD_NOT_FOUND 127
 
-typedef struct	s_exec
+typedef struct s_exec
 {
 	t_command	*cmd;
 	int			pipe_fd[2];
@@ -32,7 +32,7 @@ typedef struct	s_exec
 // executor_utils.c
 void	init_exec(t_exec *exec);
 t_bool	is_builtin(char *cmd);
-t_bool	is_single_command(t_command *commands);
+t_bool	is_single_cmd(t_command *commands);
 
 // executor_heredoc.c
 int		heredoc(char *delimiter);
