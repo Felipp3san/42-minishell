@@ -103,7 +103,7 @@ int	minishell_loop(t_shell	*shell)
 				continue ;
 			}
 			expand(shell);
-			//print_command_list(shell->commands);
+			print_command_list(shell->commands);
 			g_last_exit_code = execute(shell);
 		}
 		free_shell(shell, FALSE);
@@ -121,7 +121,7 @@ int	main(int argc, char **argv, char **envp)
 		return (free_shell(&shell, TRUE), EXIT_FAILURE);
 	if (init_parent_signals() != SUCCESS)
 		return (free_shell(&shell, TRUE), EXIT_FAILURE);
-	print_banner();
+	//print_banner();
 	minishell_loop(&shell);
 	free_shell(&shell, TRUE);
 	return (g_last_exit_code);

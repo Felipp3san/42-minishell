@@ -12,8 +12,6 @@
 
 #include "executor_internal.h"
 #include "builtins.h"
-#include "utils.h"
-#include <string.h>
 #include <unistd.h>
 
 int	execute_builtin(t_exec *exec, t_shell *shell)
@@ -49,7 +47,11 @@ int	execute_single_builtin(t_exec *exec, t_shell *shell)
 	saved_in = dup(STDIN_FILENO);
 	saved_out = dup(STDOUT_FILENO);
 	if (apply_redirections(exec) == ERROR)
-		return (print_err_exit("redir", strerror(errno), EXIT_FAILURE));
+	{
+		close(saved_in);
+		close(saved_out);
+		return (EXIT_FAILURE);
+	}
 	ret = execute_builtin(exec, shell);
 	dup2(saved_in, STDIN_FILENO);
 	close(saved_in);
