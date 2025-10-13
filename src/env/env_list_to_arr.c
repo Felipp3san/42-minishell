@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   env_list_to_arr.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 17:32:53 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/06 17:33:06 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/11 18:30:32 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "libft.h"
 
-char	**env_list_to_arr(t_list *envp)
+char	**env_list_to_arr(t_env *envp)
 {
 	char	**clone;
-	t_list	*node;
+	t_env	*node;
 	size_t	size;
 	size_t	i;
 
 	if (!envp)
 		return (NULL);
-	size = ft_lstsize(envp);
+	size = env_lst_size(envp);
 	clone = (char **) malloc(sizeof(char *) * (size + 1));
 	if (!clone)
 		return (NULL);
