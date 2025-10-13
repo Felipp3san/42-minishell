@@ -12,9 +12,8 @@
 
 #ifndef INTERNAL_HELPERS_H
 # define INTERNAL_HELPERS_H
-# include "types.h"
+
 # include "libft.h"
-# include "env.h"
 
 char	*build_new_var_string(const char *content, const char *value);
 int		split_assignment(const char *variable, char **out_name, char **out_value);

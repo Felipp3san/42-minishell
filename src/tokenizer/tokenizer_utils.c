@@ -6,12 +6,13 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 11:41:34 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/09 12:44:58 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/12 12:08:48 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer_internal.h"
 #include "libft.h"
+#include "utils.h"
 #include "types.h"
 
 void	skip_spaces(char **line)
@@ -23,17 +24,17 @@ void	skip_spaces(char **line)
 void	advance_to_next_quote(char	**line)
 {
 	char	quote;
-	
+
 	quote = **line;
 	*line = *line + 1;
 	while (**line && (**line != quote))
 		(*line)++;
 }
 
-t_bool	has_open_quotes(const char *str)
+int	has_open_quotes(const char *str)
 {
-	t_bool	single_opened;
-	t_bool	double_opened;
+	int	single_opened;
+	int	double_opened;
 
 	single_opened = FALSE;
 	double_opened = FALSE;

@@ -6,11 +6,16 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:03:55 by fde-alme          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/10/11 19:07:37 by jfernand         ###   ########.fr       */
+=======
+/*   Updated: 2025/10/12 12:21:39 by fde-alme         ###   ########.fr       */
+>>>>>>> origin/main
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./env_helpers/internal_helpers.h"
+#include "types.h"
 
 t_env	*search_variable(t_env *env, char *name)
 {
@@ -25,7 +30,7 @@ t_env	*search_variable(t_env *env, char *name)
 		{
 			if (ft_strncmp(name, (char *)temp->content,
 				sign - (char *)temp->content) == 0
-				&& name[sign - (char *)temp->content] == '\0')
+					&& name[sign - (char *)temp->content] == '\0')
 				return (temp);
 		}
 		else

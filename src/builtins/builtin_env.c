@@ -16,6 +16,20 @@
 
 int	builtin_env(t_env *env)
 {
+<<<<<<< HEAD
 	env_lst_print(env);
+=======
+	t_list	*lst;
+	char	*print;
+
+	lst = env;
+	print = NULL;
+	while (lst)
+	{
+		print = (char *)lst->content;
+		ft_putendl_fd(print, 1);
+		lst = lst->next;
+	}
+>>>>>>> origin/main
 	return (SUCCESS);
 }

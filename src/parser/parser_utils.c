@@ -25,13 +25,13 @@ void	print_parser_err(t_token *error)
 
 t_bool	is_redir(t_token_type type)
 {
-	return (type == OUTPUT || type == INPUT || type == APPEND 
+	return (type == OUTPUT || type == INPUT || type == APPEND
 		|| type == HEREDOC);
 }
 
 t_bool	is_sep(t_token_type type)
 {
-	return (type == OUTPUT || type == INPUT || type == APPEND 
+	return (type == OUTPUT || type == INPUT || type == APPEND
 		|| type == HEREDOC || type == PIPE);
 }
 

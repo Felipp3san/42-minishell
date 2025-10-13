@@ -50,7 +50,7 @@ t_bool	is_builtin(char *cmd)
 	return (FALSE);
 }
 
-t_bool	is_single_command(t_command *commands)
+t_bool	is_single_cmd(t_command *commands)
 {
 	return (cmd_lst_size(commands) == 1);
 }
