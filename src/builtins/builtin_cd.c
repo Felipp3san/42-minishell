@@ -16,25 +16,66 @@
 #include "types.h"
 #include "utils.h"
 #include <string.h>
+#include "builtins.h"
 
-int	builtin_cd(char *path)
+static int update_env_oldpwd(t_env **env, const char *oldcwd)
 {
-	char *target;
+    char *oldpwd_str;
+
+    if (!oldcwd)
+        return (ERROR);
+    oldpwd_str = ft_strjoin("OLDPWD=", oldcwd);
+    if (!oldpwd_str)
+        return (ERR_MALLOC);
+    builtin_export(env, oldpwd_str);
+    free(oldpwd_str);
+    return (SUCCESS);
+}
+
+static int	update_env_pwd(t_env **env)
+{
+	char	*cwd;
+	char	*tmp;
+
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
+		return (ERROR);
+	tmp = ft_strjoin("PWD=", cwd);
+	if (!tmp)
+	{
+		free(cwd);
+		return (ERR_MALLOC);
+	}
+	builtin_export(env, tmp);
+	free(cwd);
+	free(tmp);
+	return (SUCCESS);
+}
+
+int	builtin_cd(char *path, t_env **env)
+{
+	char	*target;
+	char	*oldcwd;
 
 	if (!path || !*path)
 	{
-		//temporary till we get ours working
 		target = getenv("HOME");
 		if (!target)
 			return (ERROR);
-		chdir(target);
 	}
 	else
 		target = path;
+	oldcwd = getcwd(NULL, 0);
+	if (!oldcwd)
+		return (ERROR);
 	if (chdir(target) != 0)
 	{
 		print_error("cd", target, strerror(errno));
 		return (ERROR);
 	}
+	if (update_env_oldpwd(env, oldcwd) != SUCCESS)
+		return (ERROR);
+	if (update_env_pwd(env) != SUCCESS)
+		return (ERROR);
 	return (SUCCESS);
 }
