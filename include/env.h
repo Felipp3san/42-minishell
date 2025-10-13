@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 16:56:06 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/11 18:30:35 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/13 19:16:52 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ typedef struct s_env
 	struct s_env	*next;
 	struct s_env	*prev;
 }	t_env;
-
-
 
 // ─────────────────────────────────────────────
 // Creation & Insertion
