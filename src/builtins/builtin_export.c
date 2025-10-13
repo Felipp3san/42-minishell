@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:03:55 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/13 21:16:33 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/13 23:35:45 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,13 @@
 
 t_env	*search_variable(t_env *env, char *name)
 {
-	char	*sign;
 	t_env	*temp;
 
 	temp = env;
 	while (temp != NULL)
 	{
-		sign = ft_strchr((char *)temp->content, '=');
-		if (sign)
-		{
-			if (ft_strncmp(name, (char *)temp->content,
-					sign - (char *)temp->content) == 0
-				&& name[sign - (char *)temp->content] == '\0')
-				return (temp);
-		}
-		else
-		{
-			if (ft_strcmp(name, (char *)temp->content) == 0)
-				return (temp);
-		}
+		if (ft_strcmp(name, temp->name) == 0)
+			return (temp);
 		temp = temp->next;
 	}
 	return (NULL);
@@ -41,40 +29,26 @@ t_env	*search_variable(t_env *env, char *name)
 
 static int	replace_variable(t_env *node, char *value)
 {
-	char	*new_value;
-	char	*content;
-
-	content = (char *)node->content;
-	new_value = build_new_var_string(content, value);
-	if (!new_value)
-		return (ERR_MALLOC);
-	free(node->content);
-	node->content = new_value;
+	if (!node)
+		return (ERROR);
+	if (node->value)
+		free(node->value);
+	node->value = value;
 	return (SUCCESS);
 }
 
 static int	add_variable(t_env **env, char *name, char *value)
 {
 	t_env	*new_node;
-	char	*new_content;
 
-	new_node = NULL;
-	if (!env)
-		return (ERROR);
-	new_content = build_new_var_string(name, value);
-	if (!new_content)
-		return (ERR_MALLOC);
-	new_node = env_lst_new(new_content);
+	new_node  = env_lst_new(name, value);
 	if (!new_node)
-	{
-		free(new_content);
-		return (ERR_MALLOC);
-	}
+		return (ERROR);
 	env_lst_add_back(env, new_node);
 	return (SUCCESS);
 }
 
-int	builtin_export(t_list **env, const char *variable)
+int	builtin_export(t_env **env, const char *variable)
 {
 	char	*var_name;
 	char	*var_value;
@@ -98,6 +72,5 @@ int	builtin_export(t_list **env, const char *variable)
 		ret_value = replace_variable(node_found, var_value);
 	else
 		ret_value = add_variable(env, var_name, var_value);
-	free_var(var_name, var_value);
 	return (ret_value);
 }

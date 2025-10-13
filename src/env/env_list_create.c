@@ -18,14 +18,15 @@
 // ----------------------
 // 1. Create a new node
 // ----------------------
-t_env *env_lst_new(char *content)
+t_env *env_lst_new(char *name, char *value)
 {
     t_env *node;
 
     node= malloc(sizeof(t_env));
     if (!node)
         return (NULL);
-    node->content = content;
+    node->name = name;
+    node->value = value;
     node->next = NULL;
     node->prev = NULL;
     return (node);
@@ -60,7 +61,9 @@ void env_lst_print(t_env *head)
 {
     while (head)
     {
-        ft_putendl_fd(head->content, 1);
+        ft_putstr_fd(head->name, 1);
+        ft_putchar_fd('=', 1);
+        ft_putendl_fd(head->value, 1);
         head = head->next;
     }
 }

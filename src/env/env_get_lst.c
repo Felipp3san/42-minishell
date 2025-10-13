@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 17:33:26 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/11 18:30:27 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/13 23:56:39 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,9 @@ char	*env_get_lst(t_env *envp, const char *var)
 	node = envp;
 	while (node)
 	{
-		str = node->content;
-		if (ft_strncmp(str, var, len) == 0
-			&& str[len] == '=')
-			return (&str[len + 1]);
+		str = node->name;
+		if (ft_strncmp(str, var, len) == 0)
+			return (node->value);
 		node = node->next;
 	}
 	return (NULL);

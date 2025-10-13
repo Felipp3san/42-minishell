@@ -6,12 +6,22 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 14:32:14 by jfernand          #+#    #+#             */
-/*   Updated: 2025/10/13 19:49:25 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/13 22:12:18 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal_helpers.h"
 #include "types.h"
+#include "env.h"
+
+static int	get_only_name(const char *variable, char **out_name, char **out_value)
+{
+	*out_name = ft_strdup(variable);
+	if (!*out_name)
+		return (ERR_MALLOC);
+	*out_value = NULL;
+	return (SUCCESS);
+}
 
 int	split_assignment(const char *variable, char **out_name, char **out_value)
 {
@@ -22,13 +32,7 @@ int	split_assignment(const char *variable, char **out_name, char **out_value)
 		return (ERROR);
 	sign = ft_strchr(variable, '=');
 	if (!sign)
-	{
-		*out_name = ft_strdup(variable);
-		if (!*out_name)
-			return (ERR_MALLOC);
-		*out_value = NULL;
-		return (SUCCESS);
-	}
+		return(get_only_name(variable, out_name, out_value));
 	name_len = (size_t)(sign - variable);
 	if (name_len == 0)
 		return (ERROR);

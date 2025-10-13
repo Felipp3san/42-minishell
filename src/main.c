@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:25:23 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/12 19:08:48 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/13 21:59:34 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	minishell_loop(t_shell	*shell)
 				continue ;
 			}
 			expand(shell);
-			print_command_list(shell->commands);
+			//print_command_list(shell->commands);
 			g_last_exit_code = execute(shell);
 		}
 		free_shell(shell, FALSE);

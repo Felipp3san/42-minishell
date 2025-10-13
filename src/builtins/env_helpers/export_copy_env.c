@@ -14,6 +14,34 @@
 #include "builtins.h"
 #include "env.h"
 
+
+int	copy_content(t_env *node, t_env *new_node)
+{
+	if (node->name)
+	{
+		new_node->name = ft_strdup(node->name);
+		if (!new_node->name)
+		{
+			free(new_node);
+			return (ERR_MALLOC);
+		}
+	}
+	else
+		return (ERR_MALLOC);
+	if (node->value)
+	{
+		new_node->value = ft_strdup(node->value);
+		if (!new_node->value)
+		{
+			free(new_node->name);
+			new_node->name = NULL;
+			free(new_node);
+			return (ERR_MALLOC);
+		}
+	}
+	return (SUCCESS);
+}
+
 static t_env	*copy_env_node(t_env *node)
 {
 	t_env	*new_node;
@@ -23,17 +51,8 @@ static t_env	*copy_env_node(t_env *node)
 	new_node = malloc(sizeof(t_env));
 	if (!new_node)
 		return (NULL);
-	if (node->content)
-	{
-		new_node->content = ft_strjoin("declare -x ", node->content);
-		if (!new_node->content)
-		{
-			free(new_node);
-			return (NULL);
-		}
-	}
-	else
-		new_node->content = NULL;
+	if (copy_content(node, new_node) != SUCCESS)
+		return (NULL);
 	new_node->next = NULL;
 	new_node->prev = NULL;
 	return (new_node);

@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 16:56:06 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/13 19:52:35 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/13 23:31:03 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 
 typedef struct s_env
 {
-	char			*content;
+	char			*name;
+	char			*value;
 	struct s_env	*next;
 	struct s_env	*prev;
 }	t_env;
@@ -28,7 +29,7 @@ typedef struct s_env
 // ─────────────────────────────────────────────
 // Creation & Insertion
 // ─────────────────────────────────────────────
-t_env	*env_lst_new(char *content);
+t_env	*env_lst_new(char *name, char *value);
 void	env_lst_add_back(t_env **head, t_env *new_node);
 void	env_lst_add_front(t_env **head, t_env *new_node);
 
