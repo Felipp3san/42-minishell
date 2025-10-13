@@ -13,6 +13,7 @@
 		"text_encoding": "c",
 		"typeindex": "c",
 		"typeinfo": "c",
-		"random": "c"
+		"random": "c",
+		"complex": "c"
 	}
 }

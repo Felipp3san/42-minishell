@@ -18,11 +18,16 @@
 
 static void swap_content(t_env *a, t_env *b)
 {
-	char *tmp;
+    char *tmp_name;
+    char *tmp_value;
 
-	tmp = a->content;
-	a->content = b->content;
-	b->content = tmp;
+    tmp_name = a->name;
+    a->name = b->name;
+    b->name = tmp_name;
+
+    tmp_value = a->value;
+    a->value = b->value;
+    b->value = tmp_value;
 }
 
 int	check_cmp(t_env *cur)
@@ -31,8 +36,8 @@ int	check_cmp(t_env *cur)
 	char	*b;
 	int		cmp;
 
-	a = cur->content;
-	b = cur->next->content;
+	a = cur->name;
+	b = cur->next->name;
 	if (!a && !b)
 		cmp = 0;
 	else if (!a)

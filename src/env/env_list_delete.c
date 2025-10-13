@@ -12,6 +12,7 @@
 
 #include "env.h"
 #include "../builtins/env_helpers/internal_helpers.h"
+#include "types.h"
 
 // ----------------------
 // 1. Delete a node by content prefix
@@ -31,7 +32,8 @@ int env_var_delete(t_env **head, const char *name)
         *head = node->next;
     if (node->next)
         node->next->prev = node->prev;
-    free(node->content);
+    free(node->name);
+	free(node->value);
     free(node);
 	return (SUCCESS);
 }
@@ -50,8 +52,12 @@ void	env_lst_clear(t_env **env)
 	while (current)
 	{
 		next = current->next;
-		if (current->content)
-			free(current->content);
+		if (current->name)
+		{
+			free(current->name);
+			if (current->value)
+				free(current->value);
+		}
 		free(current);
 		current = next;
 	}

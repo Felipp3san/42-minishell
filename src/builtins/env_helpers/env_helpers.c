@@ -6,13 +6,13 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 14:39:07 by jfernand          #+#    #+#             */
-/*   Updated: 2025/10/12 19:25:20 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/13 23:05:52 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./internal_helpers.h"
 
-static void	compute_name_value_len(const char *content, const char *value,
+/*static void	compute_name_value_len(const char *content, const char *value,
 	int *name_len, int *value_len)
 {
 	char	*sign;
@@ -26,7 +26,7 @@ static void	compute_name_value_len(const char *content, const char *value,
 		*value_len = ft_strlen(value);
 	else
 		*value_len = 0;
-}
+}*/
 
 static size_t	get_content_len(const char *sign, const char *content)
 {
@@ -61,7 +61,7 @@ int	name_cmp(const char *a, const char *b)
 	return (0);
 }
 
-char	*build_new_var_string(const char *content, const char *value)
+/*char	*build_new_var_string(const char *content, const char *value)
 {
 	int		name_len;
 	int		value_len;
@@ -84,4 +84,4 @@ char	*build_new_var_string(const char *content, const char *value)
 	else
 		new_str[name_len] = '\0';
 	return (new_str);
-}
+}*/

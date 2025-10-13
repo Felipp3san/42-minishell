@@ -14,6 +14,45 @@
 #include "builtins.h"
 #include "env.h"
 
+static void print_exp_value(char *value)
+{
+	const char	*p;
+
+    if (!value)
+        return;
+    ft_putchar_fd('"', 1);
+	p = value;
+    while (*p)
+    {
+        if (*p == '"' || *p == '\\')
+            ft_putchar_fd('\\', 1);
+        ft_putchar_fd(*p, 1);
+		p++;
+    }
+    ft_putchar_fd('"', 1);
+}
+
+static void	print_exp_list(t_env *exp_list)
+{
+	while (exp_list)
+	{
+		if(!exp_list->name)
+		{
+			exp_list = exp_list->next;
+			continue;
+		}
+		ft_putstr_fd("declare -x ", 1);
+		ft_putstr_fd(exp_list->name, 1);
+		if (exp_list->value)
+		{
+			ft_putchar_fd('=', 1);
+			print_exp_value(exp_list->value);
+		}
+		ft_putchar_fd('\n', 1);
+		exp_list = exp_list->next;
+	}
+}
+
 int	export_print_list(t_env **env)
 {
 	t_env	*new_list;
@@ -22,7 +61,7 @@ int	export_print_list(t_env **env)
 	if (!new_list)
 		return (ERR_MALLOC);
 	sort_exp_list(new_list);
-	env_lst_print(new_list);
+	print_exp_list(new_list);
 	env_lst_clear(&new_list);
 	return (SUCCESS);
 }
