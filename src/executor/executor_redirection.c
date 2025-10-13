@@ -90,7 +90,7 @@ static int	open_input(char *value)
 	fd = open(value, O_RDONLY, 0644);
 	if (fd == -1)
 	{
-		print_error("open_input", strerror(errno), value);
+		print_error(value, strerror(errno), NULL);
 		return (ERROR);
 	}
 	return (fd);
@@ -106,7 +106,7 @@ static int	open_output(char *value, t_bool append)
 		fd = open(value, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (fd == -1)
 	{
-		print_error("open_output", strerror(errno), value);
+		print_error(value, strerror(errno), NULL);
 		return (ERROR);
 	}
 	return (fd);

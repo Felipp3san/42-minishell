@@ -16,6 +16,8 @@
 #include "env.h"
 #include "parser.h"
 
+extern int g_last_exit_code;
+
 char	*extract_var_name(char **arg)
 {
 	char	*start;
@@ -23,7 +25,7 @@ char	*extract_var_name(char **arg)
 
 	(*arg)++;
 	start = *arg;
-	while (**arg && (ft_isalnum(**arg) || **arg == '_'))
+	while (**arg && (ft_isalnum(**arg) || **arg == '_' || **arg == '?'))
 		(*arg)++;
 	var_name = ft_substr(start, 0, (*arg) - start);
 	if (!var_name)
@@ -39,12 +41,20 @@ int	expand_var(t_shell *shell, char **arg, t_buffer *buffer)
 	var_name = extract_var_name(arg);
 	if (!var_name)
 		return (ERROR);
-	var_value = env_get_lst(shell->env_lst, var_name);
+	if (ft_strcmp(var_name, "?") == 0)
+	{
+		var_value = ft_itoa(g_last_exit_code);
+		if (!var_value)
+			return (free(var_name), ERROR);
+	}
+	else
+		var_value = env_get_lst(shell->env_lst, var_name);
 	if (var_value)
 	{
 		while (*var_value)
 			buffer_append(buffer, *var_value++);
 	}
+	// TODO: Free var_value
 	free(var_name);
 	return (SUCCESS);
 }
