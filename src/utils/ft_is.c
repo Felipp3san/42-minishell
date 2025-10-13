@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   ft_is.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/30 14:02:39 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/12 18:35:15 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/12 12:06:53 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/12 12:07:15 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+int	is_separator(char ch)
+{
+	return (ch == '>' || ch == '<' || ch == '|');
+}
 
-#include "command.h"
+int	is_space(char ch)
+{
+	return ((ch >= 9 && ch <= 13) || ch == ' ');
+}
 
-t_command	*parse(t_token *token);
-size_t		cmd_lst_size(t_command *cmd);
-void		cmd_lst_clear(t_command **cmd);
+int	is_single_quote(char ch)
+{
+	return (ch == '\'');
+}
 
-// parser_argv.c
-t_command	*argv_remove_index(t_command *cmd, size_t idx);
-
-#endif
+int	is_double_quote(char ch)
+{
+	return (ch == '\"');
+}

@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:12:38 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/11 19:07:16 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/12 19:27:36 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	builtin_cd(char *path, t_env **env)
 		return (ERROR);
 	if (chdir(target) != 0)
 	{
-		print_error("cd",target, strerror(errno));
+		print_error("cd", target, strerror(errno));
 		return (ERROR);
 	}
 	if (update_env_oldpwd(env, oldcwd) != SUCCESS)

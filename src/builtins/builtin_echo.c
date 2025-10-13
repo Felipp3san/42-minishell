@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:03:08 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/08 21:40:09 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/12 19:28:02 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static int	is_option_n(char *s)
 {
-	int i;
+	int	i;
 
 	if (!s || s[0] != '-')
 		return (ERROR);
@@ -33,7 +33,7 @@ static int	is_option_n(char *s)
 
 int	builtin_echo(char **args)
 {
-	int i;
+	int	i;
 	int	newline;
 
 	i = 1;

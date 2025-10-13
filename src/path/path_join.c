@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 17:49:44 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/06 18:23:12 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/12 19:26:39 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
  * */
 char	*path_join(const char *path, const char *cmd)
 {
-	char *path_slash;
-	char *full_path;
+	char	*path_slash;
+	char	*full_path;
 
 	path_slash = ft_strjoin(path, "/");
 	if (!path_slash)

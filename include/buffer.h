@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer_is.c                                     :+:      :+:    :+:   */
+/*   buffer.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/09 12:17:42 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/09 12:17:53 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/09/25 17:00:19 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/12 19:16:54 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "types.h"
+#ifndef BUFFER_H
+# define BUFFER_H
 
-t_bool	is_separator(char ch)
-{
-	return (ch == '>' || ch == '<' || ch == '|');
-}
+# include <stddef.h>
 
-t_bool	is_space(char ch)
+typedef struct s_buffer
 {
-	return ((ch >= 9 && ch <= 13) || ch == ' ');
-}
+	char	*data;
+	size_t	size;
+	size_t	capacity;
+}	t_buffer;
 
-t_bool	is_single_quote(char ch)
-{
-	return (ch == '\'');
-}
+t_buffer	*buffer_create(t_buffer **buf);
+t_buffer	*buffer_realloc(t_buffer *buffer);
+t_buffer	*buffer_append(t_buffer *buffer, char ch);
+char		*buffer_flush(t_buffer *buffer);
+void		buffer_free(t_buffer *buffer);
 
-t_bool	is_double_quote(char ch)
-{
-	return (ch == '\"');
-}
+#endif

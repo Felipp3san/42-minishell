@@ -13,7 +13,7 @@
 #include "parser_internal.h"
 #include <stdlib.h>
 
-t_command	*cmd_lst_new()
+t_command	*cmd_lst_new(void)
 {
 	t_command	*cmd;
 
@@ -35,13 +35,6 @@ t_command	*cmd_lst_new()
 	return (cmd);
 }
 
-t_command	*cmd_lst_last(t_command *cmd)
-{
-	while (cmd && cmd->next != NULL)
-		cmd = cmd->next;
-	return (cmd);
-}
-
 void	cmd_lst_add_back(t_command **cmd_list, t_command *new_cmd)
 {
 	t_command	*last_cmd;
@@ -54,7 +47,9 @@ void	cmd_lst_add_back(t_command **cmd_list, t_command *new_cmd)
 		new_cmd->previous = NULL;
 		return ;
 	}
-	last_cmd = cmd_lst_last(*cmd_list);
+	last_cmd = *cmd_list;
+	while (last_cmd && last_cmd->next != NULL)
+		last_cmd = last_cmd->next;
 	last_cmd->next = new_cmd;
 	new_cmd->previous = last_cmd;
 }
@@ -119,5 +114,3 @@ void	cmd_lst_delone(t_command **cmd)
 	free((*cmd));
 	*cmd = NULL;
 }
-
-

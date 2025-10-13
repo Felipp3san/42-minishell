@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:25:23 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/11 18:25:34 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/12 19:08:48 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include "ui.h"
 #include "types.h"
 #include "env.h"
+#include "expander.h"
 #include "executor.h"
 #include "debug.h"
 #include "builtins.h"
@@ -101,7 +102,8 @@ int	minishell_loop(t_shell	*shell)
 				free_shell(shell, FALSE);
 				continue ;
 			}
-			//print_command_list(shell->commands);
+			expand(shell);
+			print_command_list(shell->commands);
 			g_last_exit_code = execute(shell);
 		}
 		free_shell(shell, FALSE);
@@ -119,7 +121,7 @@ int	main(int argc, char **argv, char **envp)
 		return (free_shell(&shell, TRUE), EXIT_FAILURE);
 	if (init_parent_signals() != SUCCESS)
 		return (free_shell(&shell, TRUE), EXIT_FAILURE);
-	print_banner();
+	//print_banner();
 	minishell_loop(&shell);
 	free_shell(&shell, TRUE);
 	return (g_last_exit_code);

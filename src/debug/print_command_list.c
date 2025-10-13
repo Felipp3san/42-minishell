@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 15:02:53 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/10 13:46:53 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/12 18:36:16 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,26 +51,32 @@ void	print_redir_list(t_redir *redir)
 	}
 }
 
+void	print_command_args(t_command *command)
+{
+	size_t	i;
+
+	i = 0;
+	ft_printf("argv: [");
+	while (command->argv[i])
+	{
+		ft_printf("%s", command->argv[i]);
+		if (command->argv[i + 1] != NULL)
+			ft_printf(", ");
+		i++;
+	}
+	ft_printf("]\n");
+}
+
 void	print_command_list(t_command *command)
 {
 	size_t	i;
-	size_t	j;
 
 	i = 1;
 	while (command)
 	{
 		ft_printf(CYAN"COMMAND %d\n"RESET, i);
 		ft_printf("Address: %p\n", command);
-		ft_printf("argv: [");
-		j = 0;
-		while (command->argv[j])
-		{
-			ft_printf("%s", command->argv[j]);
-			if (command->argv[j + 1] != NULL)
-				ft_printf(", ");
-			j++;
-		}
-		ft_printf("]\n");
+		print_command_args(command);
 		ft_printf("Size: %d\n", command->size);
 		ft_printf("Capacity: %d\n", command->capacity);
 		print_redir_list(command->redirs);
