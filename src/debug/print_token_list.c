@@ -34,7 +34,7 @@ char	*get_type(t_token_type type)
 void	print_token_list(t_token *token)
 {
 	size_t	i;
-	
+
 	i = 1;
 	while (token)
 	{

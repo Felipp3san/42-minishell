@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./internal_helpers.h"
+#include "internal_helpers.h"
+#include "types.h"
 
 int	split_assignment(const char *variable, char **out_name, char **out_value)
 {
@@ -63,7 +64,7 @@ int	is_valid_name(char *name)
 	return (SUCCESS);
 }
 
-/*int insert_in_list(t_env **env, t_env *new_node)
+/*int	insert_in_list(t_list **env, t_list *new_node)
 {
     t_env *prev;
     t_env *cur;

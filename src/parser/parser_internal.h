@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 13:40:17 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/10 13:46:06 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/12 12:35:28 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,14 @@
 # include "token.h"
 # include "command.h"
 
+typedef struct s_redir_data
+{
+	char			*value;
+	int				heredoc_fd;
+	int				expand_heredoc;
+	t_token_type	type;
+}	t_redir_data;
+
 // parser_cmd_list.c
 t_command	*cmd_lst_new(void);
 void		cmd_lst_add_back(t_command **cmd_list, t_command *new_cmd);
@@ -24,7 +32,7 @@ void		cmd_lst_clear(t_command **cmd);
 void		cmd_lst_delone(t_command **cmd);
 
 // parser_redir_list.c
-t_redir		*redir_lst_new(char *value, int heredoc_fd, t_token_type type);
+t_redir		*redir_lst_new(t_redir_data *data, t_token_type type);
 void		redir_lst_add_back(t_redir **redir_list, t_redir *new_redir);
 void		redir_lst_clear(t_redir **redir);
 
