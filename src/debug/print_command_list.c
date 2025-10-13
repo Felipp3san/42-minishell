@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 15:02:53 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/10 13:46:53 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/12 18:36:16 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	print_command_list(t_command *command)
 		ft_printf(CYAN"COMMAND %d\n"RESET, i);
 		ft_printf("Address: %p\n", command);
 		print_command_args(command);
-		ft_printf("Size: %d\nCapacity: %d\n", command->size);
+		ft_printf("Size: %d\n", command->size);
 		ft_printf("Capacity: %d\n", command->capacity);
 		print_redir_list(command->redirs);
 		ft_printf("Next: %p\n", command->next);
