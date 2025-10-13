@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   env_get_lst.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 17:33:26 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/06 18:37:32 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/11 18:30:27 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "env.h"
 
-char	*env_get_lst(t_list *envp, const char *var)
+char	*env_get_lst(t_env *envp, const char *var)
 {
-	t_list	*node;
+	t_env	*node;
 	size_t	len;
 	char	*str;
 

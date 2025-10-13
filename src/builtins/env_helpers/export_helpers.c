@@ -65,13 +65,38 @@ int	is_valid_name(char *name)
 	return (SUCCESS);
 }
 
-int insert_in_list(t_list **env, t_list *new_node)
+/*int insert_in_list(t_env **env, t_env *new_node)
 {
-    t_list **cur = env;
+    t_env **cur = env;
 
     while (*cur && name_cmp((char *)(*cur)->content, (char *)new_node->content) < 0)
         cur = &(*cur)->next;
     new_node->next = *cur;
     *cur = new_node;
+    return (SUCCESS);
+}*/
+int insert_in_list(t_env **env, t_env *new_node)
+{
+    t_env *prev;
+    t_env *cur;
+
+	prev = NULL;
+	cur = NULL;
+    if (!env || !new_node)
+        return (ERROR);
+    cur = *env;
+    while (cur && name_cmp((char *)cur->content, (char *)new_node->content) < 0)
+    {
+        prev = cur;
+        cur = cur->next;
+    }
+    new_node->next = cur;
+    new_node->prev = prev;
+    if (prev)
+        prev->next = new_node;
+    else
+        *env = new_node;
+    if (cur)
+        cur->prev = new_node;
     return (SUCCESS);
 }

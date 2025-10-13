@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:25:23 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/10 14:07:42 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/11 18:25:34 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	free_shell(t_shell *shell, t_bool full_cleaning)
 			shell->current_dir = NULL;
 		}
 		if (shell->env_lst)
-			ft_lstclear(&shell->env_lst, free);
+			env_lst_clear(&shell->env_lst);
 		rl_clear_history();
 	}
 }

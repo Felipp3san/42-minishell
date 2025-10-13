@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_get_lst_test.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 19:17:22 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/06 19:24:17 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/11 13:53:12 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_list	*clone;
+	t_env	*clone;
 	char	*ft_val;
 
 	(void) argc;
