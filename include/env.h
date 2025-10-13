@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 16:56:06 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/13 19:16:52 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/13 19:52:35 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_env	*env_arr_to_lst(char **envp);
 char	**env_list_to_arr(t_env *envp);
 char	*env_get_arr(char **envp, const char *var);
 char	*env_get_lst(t_env *envp, const char *var);
+t_env	*copy_env_list(t_env *head);
 // ─────────────────────────────────────────────
 // Search & Deletion
 // ─────────────────────────────────────────────

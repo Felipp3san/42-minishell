@@ -6,14 +6,14 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:12:10 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/11 18:30:51 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/13 19:53:54 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "types.h"
 #include "./env_helpers/internal_helpers.h"
 
-static void	free_var(char *name, char *value)
+void	free_var(char *name, char *value)
 {
 	if (name)
 		free(name);

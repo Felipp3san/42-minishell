@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 14:32:14 by jfernand          #+#    #+#             */
-/*   Updated: 2025/10/11 18:30:44 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/13 19:49:25 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,6 @@ int	is_valid_name(char *name)
 
 /*int insert_in_list(t_env **env, t_env *new_node)
 {
-    t_env **cur = env;
-
-    while (*cur && name_cmp((char *)(*cur)->content, (char *)new_node->content) < 0)
-        cur = &(*cur)->next;
-    new_node->next = *cur;
-    *cur = new_node;
-    return (SUCCESS);
-}*/
-int insert_in_list(t_env **env, t_env *new_node)
-{
     t_env *prev;
     t_env *cur;
 
@@ -97,4 +87,4 @@ int insert_in_list(t_env **env, t_env *new_node)
     if (cur)
         cur->prev = new_node;
     return (SUCCESS);
-}
+}*/

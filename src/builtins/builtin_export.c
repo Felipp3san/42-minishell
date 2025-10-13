@@ -6,11 +6,12 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:03:55 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/11 19:07:37 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/13 21:16:33 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./env_helpers/internal_helpers.h"
+#include "builtins.h"
 
 t_env	*search_variable(t_env *env, char *name)
 {
@@ -69,12 +70,7 @@ static int	add_variable(t_env **env, char *name, char *value)
 		free(new_content);
 		return (ERR_MALLOC);
 	}
-	if (insert_in_list(env, new_node) != SUCCESS)
-	{
-		free(new_node->content);
-		free(new_node);
-		return (ERROR);
-	}
+	env_lst_add_back(env, new_node);
 	return (SUCCESS);
 }
 
@@ -88,13 +84,14 @@ int	builtin_export(t_env **env, const char *variable)
 
 	if (!env)
 		return (ERROR);
+	if (!variable)
+		ret_value = export_print_list(env);
 	ret_value = split_assignment(variable, &var_name, &var_value);
 	if (ret_value != SUCCESS)
 		return (ret_value);
 	if (is_valid_name(var_name) == ERROR)
 	{
-		free(var_name);
-		free(var_value);
+		free_var(var_name, var_value);
 		return (ERROR);
 	}
 	node_found = search_variable(*env, var_name);
@@ -102,7 +99,6 @@ int	builtin_export(t_env **env, const char *variable)
 		ret_value = replace_variable(node_found, var_value);
 	else
 		ret_value = add_variable(env, var_name, var_value);
-	free(var_name);
-	free(var_value);
+	free_var(var_name, var_value);
 	return (ret_value);
 }

@@ -8,6 +8,11 @@
 		"algorithm": "c",
 		"flat_map": "c",
 		"flat_set": "c",
-		"format": "c"
+		"format": "c",
+		"chrono": "c",
+		"text_encoding": "c",
+		"typeindex": "c",
+		"typeinfo": "c",
+		"random": "c"
 	}
 }
