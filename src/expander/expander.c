@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 16:45:36 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/13 23:50:52 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/14 18:46:34 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "buffer.h"
 #include "env.h"
 #include "parser.h"
+#include <stdio.h>
 
 extern int g_last_exit_code;
 

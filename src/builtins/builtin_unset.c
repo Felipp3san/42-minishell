@@ -6,12 +6,13 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:12:10 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/13 19:53:54 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/14 17:17:18 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "types.h"
 #include "./env_helpers/internal_helpers.h"
+#include "builtins.h"
 
 void	free_var(char *name, char *value)
 {

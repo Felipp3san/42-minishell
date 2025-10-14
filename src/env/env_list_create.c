@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_basics.c                                       :+:      :+:    :+:   */
+/*   env_list_create.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 13:59:58 by jfernand          #+#    #+#             */
-/*   Updated: 2025/10/11 13:59:58 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/14 18:13:16 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,12 @@ void env_lst_print(t_env *head)
 {
     while (head)
     {
-        ft_putstr_fd(head->name, 1);
-        ft_putchar_fd('=', 1);
-        ft_putendl_fd(head->value, 1);
+		if(head->value)
+		{
+        	ft_putstr_fd(head->name, 1);
+        	ft_putchar_fd('=', 1);
+       		ft_putendl_fd(head->value, 1);
+		}
         head = head->next;
     }
 }
