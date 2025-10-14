@@ -6,11 +6,12 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:12:38 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/12 19:27:36 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/14 18:00:38 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <limits.h>
 #include <stdlib.h>
 #include <errno.h>
 #include "types.h"
@@ -55,7 +56,7 @@ static int	update_env_pwd(t_env **env)
 int	builtin_cd(char *path, t_env **env)
 {
 	char	*target;
-	char	*oldcwd;
+	char	oldcwd[PATH_MAX];
 
 	if (!path || !*path)
 	{
@@ -65,8 +66,7 @@ int	builtin_cd(char *path, t_env **env)
 	}
 	else
 		target = path;
-	oldcwd = getcwd(NULL, 0);
-	if (!oldcwd)
+	if(!getcwd(oldcwd, PATH_MAX))
 		return (ERROR);
 	if (chdir(target) != 0)
 	{
