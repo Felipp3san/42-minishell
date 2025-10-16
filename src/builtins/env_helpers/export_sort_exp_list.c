@@ -16,18 +16,17 @@
 #include "builtins.h"
 #include "env.h"
 
-static void swap_content(t_env *a, t_env *b)
+static void	swap_content(t_env *a, t_env *b)
 {
-    char *tmp_name;
-    char *tmp_value;
+	char	*tmp_name;
+	char	*tmp_value;
 
-    tmp_name = a->name;
-    a->name = b->name;
-    b->name = tmp_name;
-
-    tmp_value = a->value;
-    a->value = b->value;
-    b->value = tmp_value;
+	tmp_name = a->name;
+	a->name = b->name;
+	b->name = tmp_name;
+	tmp_value = a->value;
+	a->value = b->value;
+	b->value = tmp_value;
 }
 
 int	check_cmp(t_env *cur)
@@ -49,7 +48,7 @@ int	check_cmp(t_env *cur)
 	return (cmp);
 }
 
-int sort_exp_list(t_env *head)
+int	sort_exp_list(t_env *head)
 {
 	bool	swapped;
 	t_env	*cur;
