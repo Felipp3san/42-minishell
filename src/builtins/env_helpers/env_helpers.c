@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_helpers.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 14:39:07 by jfernand          #+#    #+#             */
-/*   Updated: 2025/10/13 23:05:52 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/16 17:27:40 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./internal_helpers.h"
-
-/*static void	compute_name_value_len(const char *content, const char *value,
-	int *name_len, int *value_len)
-{
-	char	*sign;
-
-	sign = ft_strchr(content, '=');
-	if (sign)
-		*name_len = sign - content;
-	else
-		*name_len = ft_strlen(content);
-	if (value)
-		*value_len = ft_strlen(value);
-	else
-		*value_len = 0;
-}*/
 
 static size_t	get_content_len(const char *sign, const char *content)
 {
@@ -60,28 +44,3 @@ int	name_cmp(const char *a, const char *b)
 		return (1);
 	return (0);
 }
-
-/*char	*build_new_var_string(const char *content, const char *value)
-{
-	int		name_len;
-	int		value_len;
-	char	*new_str;
-
-	compute_name_value_len(content, value, &name_len, &value_len);
-	if (value_len > 0)
-		new_str = malloc(name_len + 1 + value_len + 1);
-	else
-		new_str = malloc(name_len + 1);
-	if (!new_str)
-		return (NULL);
-	ft_memcpy(new_str, content, name_len);
-	if (value_len > 0)
-	{
-		new_str[name_len] = '=';
-		ft_memcpy(new_str + name_len + 1, value, value_len);
-		new_str[name_len + 1 + value_len] = '\0';
-	}
-	else
-		new_str[name_len] = '\0';
-	return (new_str);
-}*/

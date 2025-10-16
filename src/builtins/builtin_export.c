@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:03:55 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/13 23:35:45 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/16 18:14:47 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./env_helpers/internal_helpers.h"
 #include "builtins.h"
+#include "utils.h"
 
 t_env	*search_variable(t_env *env, char *name)
 {
@@ -41,7 +42,7 @@ static int	add_variable(t_env **env, char *name, char *value)
 {
 	t_env	*new_node;
 
-	new_node  = env_lst_new(name, value);
+	new_node = env_lst_new(name, value);
 	if (!new_node)
 		return (ERROR);
 	env_lst_add_back(env, new_node);
@@ -59,13 +60,12 @@ int	builtin_export(t_env **env, const char *variable)
 		return (ERROR);
 	if (!variable)
 		ret_value = export_print_list(env);
-	ret_value = split_assignment(variable, &var_name, &var_value);
-	if (ret_value != SUCCESS)
-		return (ret_value);
+	if (split_assignment(variable, &var_name, &var_value) != SUCCESS)
+		return (print_err_exit("export", "not a valid identifier", 1));
 	if (is_valid_name(var_name) == ERROR)
 	{
 		free_var(var_name, var_value);
-		return (ERROR);
+		return (print_err_exit("export", "not a valid identifier", 1));
 	}
 	node_found = search_variable(*env, var_name);
 	if (node_found)

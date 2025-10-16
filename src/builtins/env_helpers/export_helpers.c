@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_helpers.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 14:32:14 by jfernand          #+#    #+#             */
-/*   Updated: 2025/10/14 17:40:58 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/16 17:29:21 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include "types.h"
 #include "env.h"
 
-static int	get_only_name(const char *variable, char **out_name, char **out_value)
+static int	get_only_name(const char *var, char **out_name, char **out_value)
 {
-	*out_name = ft_strdup(variable);
+	*out_name = ft_strdup(var);
 	if (!*out_name)
 		return (ERR_MALLOC);
 	*out_value = NULL;
@@ -32,7 +32,7 @@ int	split_assignment(const char *variable, char **out_name, char **out_value)
 		return (ERROR);
 	sign = ft_strchr(variable, '=');
 	if (!sign)
-		return(get_only_name(variable, out_name, out_value));
+		return (get_only_name(variable, out_name, out_value));
 	name_len = (size_t)(sign - variable);
 	if (name_len == 0)
 		return (ERROR);
@@ -67,29 +67,3 @@ int	is_valid_name(char *name)
 	}
 	return (SUCCESS);
 }
-
-/*int	insert_in_list(t_list **env, t_list *new_node)
-{
-    t_env *prev;
-    t_env *cur;
-
-	prev = NULL;
-	cur = NULL;
-    if (!env || !new_node)
-        return (ERROR);
-    cur = *env;
-    while (cur && name_cmp((char *)cur->content, (char *)new_node->content) < 0)
-    {
-        prev = cur;
-        cur = cur->next;
-    }
-    new_node->next = cur;
-    new_node->prev = prev;
-    if (prev)
-        prev->next = new_node;
-    else
-        *env = new_node;
-    if (cur)
-        cur->prev = new_node;
-    return (SUCCESS);
-}*/

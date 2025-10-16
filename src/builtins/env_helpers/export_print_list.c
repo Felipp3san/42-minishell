@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 19:57:54 by jfernand          #+#    #+#             */
-/*   Updated: 2025/10/14 17:18:56 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/16 16:47:52 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,32 @@
 #include "builtins.h"
 #include "env.h"
 
-static void print_exp_value(char *value)
+static void	print_exp_value(char *value)
 {
 	const char	*p;
 
-    if (!value)
-        return;
-    ft_putchar_fd('"', 1);
+	if (!value)
+		return ;
+	ft_putchar_fd('"', 1);
 	p = value;
-    while (*p)
-    {
-        if (*p == '"' || *p == '\\')
-            ft_putchar_fd('\\', 1);
-        ft_putchar_fd(*p, 1);
+	while (*p)
+	{
+		if (*p == '"' || *p == '\\')
+			ft_putchar_fd('\\', 1);
+		ft_putchar_fd(*p, 1);
 		p++;
-    }
-    ft_putchar_fd('"', 1);
+	}
+	ft_putchar_fd('"', 1);
 }
 
 static void	print_exp_list(t_env *exp_list)
 {
 	while (exp_list)
 	{
-		if(!exp_list->name)
+		if (!exp_list->name)
 		{
 			exp_list = exp_list->next;
-			continue;
+			continue ;
 		}
 		ft_putstr_fd("export ", 1);
 		ft_putstr_fd(exp_list->name, 1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:31:58 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/11 13:53:50 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/16 17:45:03 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ typedef struct s_shell
 	t_bool		should_exit;
 }	t_shell;
 
+//main.c
 void	free_shell(t_shell *shell, t_bool full_cleaning);
+//main_utils.c
+void    full_clean(t_shell *shell);
+int    get_commands(t_shell *shell);
 
 #endif
