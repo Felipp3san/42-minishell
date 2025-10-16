@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_internal.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 21:47:54 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/09 15:12:22 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/16 19:06:27 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <fcntl.h>
 
 # define CMD_NOT_FOUND 127
+# define CMD_NOT_EXEC 126
+# define CMD_NOT_DIR 
 
 typedef struct s_exec
 {

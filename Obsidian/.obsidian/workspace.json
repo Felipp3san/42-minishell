@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Minishell/functions/perror.md",
+                "file": "Minishell/functions/opendir.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "perror"
+              "title": "opendir"
             }
           }
         ]
@@ -171,6 +171,8 @@
   },
   "active": "718ac88b71542080",
   "lastOpenFiles": [
+    "Minishell/functions/open.md",
+    "Minishell/functions/perror.md",
     "Minishell/functions/getenv.md",
     "Minishell/functions/chdir.md",
     "Minishell/Allowed functions.md",
@@ -197,8 +199,6 @@
     "Minishell/functions/add_history.md",
     "Minishell/functions/access.md",
     "Minishell/functions/dup2.md",
-    "Minishell/functions/rl_redisplay.md",
-    "Minishell/functions/rl_on_new_line.md",
     "Minishell/tests"
   ]
 }
