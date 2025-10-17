@@ -13,11 +13,6 @@
 #include "expander_internal.h"
 #include "minishell.h"
 #include "buffer.h"
-#include "env.h"
-#include "parser.h"
-#include <stdio.h>
-
-extern int g_last_exit_code;
 
 char	*extract_var_name(char **arg)
 {

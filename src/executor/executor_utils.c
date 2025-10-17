@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "executor_internal.h"
-#include "parser.h"
+#include "command.h"
 #include <unistd.h>
 
 void	init_exec(t_exec *exec, t_shell *shell)

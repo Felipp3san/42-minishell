@@ -10,13 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
+#include <fcntl.h>
 #include <unistd.h>
 #include "executor_internal.h"
+#include "command.h"
+#include "types.h"
 #include "utils.h"
 
 static int	open_input(char *value);
-static int	open_output(char *value, t_bool append);
+static int	open_output(char *value, int append);
 
 static int	handle_output(t_redir *redir)
 {
@@ -96,7 +98,7 @@ static int	open_input(char *value)
 	return (fd);
 }
 
-static int	open_output(char *value, t_bool append)
+static int	open_output(char *value, int append)
 {
 	int	fd;
 
