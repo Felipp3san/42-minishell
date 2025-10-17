@@ -6,12 +6,14 @@
 /*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:36:20 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/16 18:47:03 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/17 12:42:37 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <unistd.h>
+#include <errno.h>
+#include <string.h>
 #include "executor_internal.h"
 #include "command.h"
 #include "types.h"

@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 14:15:56 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/17 11:06:04 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/17 12:38:17 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_token
 }	t_token;
 
 
-// token_utils.c
+// token_lst.c
 t_token	*token_lst_new(char *value, t_token_type type);
 t_token	*token_lst_last(t_token *token);
 void	token_lst_add_back(t_token **token_list, t_token *new_token);

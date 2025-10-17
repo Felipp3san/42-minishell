@@ -6,13 +6,13 @@
 /*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 14:32:14 by jfernand          #+#    #+#             */
-/*   Updated: 2025/10/16 17:29:21 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/17 12:49:30 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal_helpers.h"
+#include "libft.h"
 #include "types.h"
-#include "env.h"
 
 static int	get_only_name(const char *var, char **out_name, char **out_value)
 {

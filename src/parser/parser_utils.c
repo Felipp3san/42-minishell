@@ -6,12 +6,13 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 18:21:57 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/17 11:21:42 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/17 12:40:24 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser_internal.h"
 #include "utils.h"
+#include "libft.h"
 
 t_token	*syntax_check(t_token *token)
 {

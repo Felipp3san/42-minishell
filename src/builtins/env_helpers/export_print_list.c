@@ -6,13 +6,14 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 19:57:54 by jfernand          #+#    #+#             */
-/*   Updated: 2025/10/16 16:47:52 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/17 12:49:39 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./internal_helpers.h"
-#include "builtins.h"
+#include "internal_helpers.h"
+#include "libft.h"
 #include "env.h"
+#include "types.h"
 
 static void	print_exp_value(char *value)
 {
