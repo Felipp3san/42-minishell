@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <unistd.h>
 
 static char	*join_strs(char *s1, const char *s2)
 {
@@ -40,6 +41,6 @@ void	print_error(const char *cmd_name, const char *msg, const char *optional)
 		full_msg = join_strs(full_msg, ": ");
 		full_msg = join_strs(full_msg, optional);
 	}
-	ft_putendl_fd(full_msg, 2);
+	ft_putendl_fd(full_msg, STDERR_FILENO);
 	free (full_msg);
 }

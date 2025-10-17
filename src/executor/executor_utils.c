@@ -14,14 +14,14 @@
 #include "parser.h"
 #include <unistd.h>
 
-void	init_exec(t_exec *exec)
+void	init_exec(t_exec *exec, t_shell *shell)
 {
 	exec->input_fd = STDIN_FILENO;
 	exec->output_fd = STDOUT_FILENO;
 	exec->pipe_fd[READ] = -1;
 	exec->pipe_fd[WRITE] = -1;
 	exec->last = FALSE;
-	exec->cmd = NULL;
+	exec->cmd = shell->commands;
 }
 
 t_bool	is_builtin(char *cmd)

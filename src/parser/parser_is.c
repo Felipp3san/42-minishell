@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor.c                                         :+:      :+:    :+:   */
+/*   parser_is.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/06 21:41:51 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/17 11:24:47 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/17 11:15:24 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/17 11:16:49 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "executor_internal.h"
-#include "env.h"
+#include "token.h"
 
-int	execute(t_shell *shell)
+int	is_redir(t_token_type type)
 {
-	t_exec	exec;
+	return (type == OUTPUT || type == INPUT || type == APPEND
+		|| type == HEREDOC);
+}
 
-	init_exec(&exec, shell);
-	shell->env_arr = env_list_to_arr(shell->env_lst);
-	if (!shell->env_arr)
-		return (ERROR);
-	if (is_single_cmd(shell->commands)
-		&& is_builtin(exec.cmd->argv[0]))
-		return (execute_single_builtin(&exec, shell));
-	else
-		return (pipeline(&exec, shell));
+int	is_sep(t_token_type type)
+{
+	return (type == OUTPUT || type == INPUT || type == APPEND
+		|| type == HEREDOC || type == PIPE);
+}
+
+int	is_word(t_token_type type)
+{
+	return (type == WORD);
+}
+
+int	is_heredoc(t_token_type type)
+{
+	return (type == HEREDOC);
 }
