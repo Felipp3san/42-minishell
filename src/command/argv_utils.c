@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 11:09:53 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/17 11:10:14 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/17 18:39:58 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_command	*argv_realloc(t_command *cmd)
 		return (NULL);
 	ft_memcpy(new_argv, cmd->argv, sizeof(char *) * (cmd->size + 1));
 	free(cmd->argv);
-	cmd->argv = cmd->argv;
+	cmd->argv = new_argv;
 	cmd->capacity += 16;
 	return (cmd);
 }

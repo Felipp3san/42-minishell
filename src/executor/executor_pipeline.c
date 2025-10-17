@@ -55,16 +55,22 @@ void	parent_process(t_exec *exec)
 	}
 }
 
-int	wait_children(void)
+int	wait_children(pid_t last_pid)
 {
+	int	pid;
 	int	status;
 	int	saved;
 
 	saved = 0;
-	while (wait(&status) > 0)
+	pid = wait(&status);
+	while (pid > 0)
 	{
-		if (WIFEXITED(status))
-			saved = WEXITSTATUS(status);
+		if (pid == last_pid)
+		{
+			if (WIFEXITED(status))
+				saved = WEXITSTATUS(status);
+		}
+		pid = wait(&status);
 	}
 	return (saved);
 }
@@ -72,6 +78,7 @@ int	wait_children(void)
 int	pipeline(t_exec *exec, t_shell *shell)
 {
 	pid_t	pid;
+	pid_t	last_pid;
 
 	while (!shell->should_exit && exec->cmd)
 	{
@@ -85,7 +92,9 @@ int	pipeline(t_exec *exec, t_shell *shell)
 			child_process(exec, shell);
 		else
 			parent_process(exec);
+		if (exec->last)
+			last_pid = pid;
 		exec->cmd = exec->cmd->next;
 	}
-	return (wait_children());
+	return (wait_children(last_pid));
 }

@@ -55,12 +55,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "functions/dup2.md",
+                "file": "functions/fstat.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "dup2"
+              "title": "fstat"
             }
           }
         ],
@@ -214,6 +214,7 @@
   },
   "active": "2b829cf84a54142d",
   "lastOpenFiles": [
+    "functions/dup2.md",
     "functions/dup.md",
     "functions/isatty.md",
     "functions/ttyname.md",
@@ -241,7 +242,6 @@
     "functions/tgetent.md",
     "minishell/Allowed functions.md",
     "functions/tgetstr.md",
-    "functions/tputs.md",
     "minishell",
     "Untitled",
     "terms",
