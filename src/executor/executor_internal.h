@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   executor_internal.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 21:47:54 by fde-alme          #+#    #+#             */
 /*   Updated: 2025/10/17 11:25:14 by fde-alme         ###   ########.fr       */
@@ -16,6 +16,8 @@
 # include "minishell.h"
 
 # define CMD_NOT_FOUND 127
+# define CMD_NOT_EXEC 126
+# define CMD_NOT_DIR 
 
 typedef struct s_exec
 {
