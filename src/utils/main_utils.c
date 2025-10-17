@@ -6,13 +6,15 @@
 /*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 17:34:36 by jfernand          #+#    #+#             */
-/*   Updated: 2025/10/17 11:09:32 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/17 12:37:48 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include "minishell.h"
 #include "token.h"
 
@@ -34,7 +36,7 @@ void	free_shell(t_shell *shell, t_bool full_clean)
 	cmd_lst_clear(&shell->commands);
 	if (shell->env_arr)
 	{
-		env_free(shell->env_arr);
+		env_arr_free(shell->env_arr);
 		shell->env_arr = NULL;
 	}
 	if (!full_clean)

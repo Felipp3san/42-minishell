@@ -6,15 +6,14 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 20:01:42 by jfernand          #+#    #+#             */
-/*   Updated: 2025/10/13 20:01:42 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/17 12:50:08 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
-#include <string.h>
-#include "./internal_helpers.h"
-#include "builtins.h"
+#include "internal_helpers.h"
 #include "env.h"
+#include "libft.h"
+#include "types.h"
 
 static void	swap_content(t_env *a, t_env *b)
 {
@@ -50,16 +49,16 @@ int	check_cmp(t_env *cur)
 
 int	sort_exp_list(t_env *head)
 {
-	bool	swapped;
+	t_bool	swapped;
 	t_env	*cur;
 	int		cmp;
 
 	if (!head)
 		return (ERROR);
-	swapped = true;
+	swapped = TRUE;
 	while (swapped)
 	{
-		swapped = false;
+		swapped = FALSE;
 		cur = head;
 		while (cur && cur->next)
 		{
@@ -67,7 +66,7 @@ int	sort_exp_list(t_env *head)
 			if (cmp > 0)
 			{
 				swap_content(cur, cur->next);
-				swapped = true;
+				swapped = TRUE;
 			}
 			cur = cur->next;
 		}

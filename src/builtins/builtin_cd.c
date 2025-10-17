@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:12:38 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/16 18:30:30 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/17 12:48:11 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <string.h>
+#include "libft.h"
 #include "types.h"
 #include "utils.h"
-#include <string.h>
 #include "builtins.h"
 
 static int	update_env_oldpwd(t_env **env, const char *oldcwd)

@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 14:16:31 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/17 11:13:43 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/17 12:38:56 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ typedef struct s_command
 	struct s_command	*previous;
 }	t_command;
 
-// cmd_utils.c
+// cmd_lst.c
 t_command	*cmd_lst_new(void);
 void		cmd_lst_add_back(t_command **cmd_list, t_command *new_cmd);
 void		cmd_lst_clear(t_command **cmd);
 void		cmd_lst_delone(t_command **cmd);
 size_t		cmd_lst_size(t_command *cmd);
 
-// redir_utils.c
+// redir_lst.c
 t_redir		*redir_lst_new(t_redir_data *data, t_token_type type);
 void		redir_lst_add_back(t_redir **redir_list, t_redir *new_redir);
 void		redir_lst_clear(t_redir **redir);
