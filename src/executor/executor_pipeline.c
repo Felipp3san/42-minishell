@@ -70,29 +70,21 @@ int	wait_children(void)
 
 int	pipeline(t_exec *exec, t_shell *shell)
 {
-	t_command	*cmd;
-	pid_t		pid;
+	pid_t	pid;
 
-	cmd = shell->commands;
-	while (!shell->should_exit && cmd)
+	while (!shell->should_exit && exec->cmd)
 	{
-		exec->cmd = cmd;
-		exec->last = (cmd->next == NULL);
-		if (is_builtin(exec->cmd->argv[0]) && is_single_cmd(shell->commands))
-			return (execute_single_builtin(exec, shell));
+		exec->last = (exec->cmd->next == NULL);
+		if (!exec->last && pipe(exec->pipe_fd) == -1)
+			return (print_err_exit("pipe", strerror(errno), EXIT_FAILURE));
+		pid = fork();
+		if (pid == -1)
+			return (print_err_exit("fork", strerror(errno), EXIT_FAILURE));
+		else if (pid == 0)
+			child_process(exec, shell);
 		else
-		{
-			if (!exec->last && pipe(exec->pipe_fd) == -1)
-				return (print_err_exit("pipe", strerror(errno), EXIT_FAILURE));
-			pid = fork();
-			if (pid == -1)
-				return (print_err_exit("fork", strerror(errno), EXIT_FAILURE));
-			else if (pid == 0)
-				child_process(exec, shell);
-			else
-				parent_process(exec);
-		}
-		cmd = cmd->next;
+			parent_process(exec);
+		exec->cmd = exec->cmd->next;
 	}
 	return (wait_children());
 }

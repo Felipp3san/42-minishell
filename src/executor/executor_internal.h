@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 21:47:54 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/16 19:06:27 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/17 11:25:14 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 # define EXECUTOR_INTERNAL_H
 
 # include "minishell.h"
-# include "types.h"
-# include "command.h"
-# include <fcntl.h>
 
 # define CMD_NOT_FOUND 127
 # define CMD_NOT_EXEC 126
@@ -32,7 +29,7 @@ typedef struct s_exec
 }	t_exec;
 
 // executor_utils.c
-void	init_exec(t_exec *exec);
+void	init_exec(t_exec *exec, t_shell *shell);
 t_bool	is_builtin(char *cmd);
 t_bool	is_single_cmd(t_command *commands);
 

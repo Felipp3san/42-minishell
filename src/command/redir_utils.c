@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_redir_list.c                                :+:      :+:    :+:   */
+/*   redir_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/09 18:28:03 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/12 12:35:41 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/17 11:07:32 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/17 11:08:28 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser_internal.h"
+#include "command.h"
 #include <stdlib.h>
 #include <unistd.h>
 

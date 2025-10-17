@@ -6,25 +6,14 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 21:42:00 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/12 12:35:50 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/17 11:21:58 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "parser_internal.h"
-#include "libft.h"
 #include "types.h"
-#include "utils.h"
-
-static char	*get_redir_value(char *token_value, int *expand)
-{
-	if (ft_strchr(token_value, '\"') || ft_strchr(token_value, '\''))
-	{
-		*expand = FALSE;
-		return (remove_quotes(token_value));
-	}
-	*expand = TRUE;
-	return (ft_strdup(token_value));
-}
+#include "command.h"
 
 static int	handle_redir(t_token **token, t_command *command)
 {
@@ -69,23 +58,6 @@ static int	parse_token(t_token **token, t_command *command)
 	}
 	(*token) = (*token)->next;
 	return (SUCCESS);
-}
-
-t_token	*syntax_check(t_token *token)
-{
-	if (token->type == PIPE)
-		return (token);
-	while (token)
-	{
-		if (!token->next && is_sep(token->type))
-			break ;
-		if (is_redir(token->type) && is_sep(token->next->type))
-			break ;
-		if (token->type == PIPE && token->next->type == PIPE)
-			break ;
-		token = token->next;
-	}
-	return (token);
 }
 
 t_command	*parse(t_token *token)

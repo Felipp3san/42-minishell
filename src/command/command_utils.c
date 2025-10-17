@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_cmd_list.c                                  :+:      :+:    :+:   */
+/*   command_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/09 14:18:50 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/10 14:06:20 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/17 11:07:00 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/17 11:11:04 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser_internal.h"
 #include <stdlib.h>
+#include "command.h"
 
 t_command	*cmd_lst_new(void)
 {

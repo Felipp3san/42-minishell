@@ -6,12 +6,40 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 18:21:57 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/10 13:40:01 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/17 11:21:42 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser_internal.h"
-#include "libft.h"
+#include "utils.h"
+
+t_token	*syntax_check(t_token *token)
+{
+	if (token->type == PIPE)
+		return (token);
+	while (token)
+	{
+		if (!token->next && is_sep(token->type))
+			break ;
+		if (is_redir(token->type) && is_sep(token->next->type))
+			break ;
+		if (token->type == PIPE && token->next->type == PIPE)
+			break ;
+		token = token->next;
+	}
+	return (token);
+}
+
+char	*get_redir_value(char *token_value, int *expand)
+{
+	if (ft_strchr(token_value, '\"') || ft_strchr(token_value, '\''))
+	{
+		*expand = FALSE;
+		return (remove_quotes(token_value));
+	}
+	*expand = TRUE;
+	return (ft_strdup(token_value));
+}
 
 void	print_parser_err(t_token *error)
 {
@@ -21,26 +49,4 @@ void	print_parser_err(t_token *error)
 	else
 		ft_putstr_fd(error->value, 1);
 	ft_putendl_fd("'", 1);
-}
-
-t_bool	is_redir(t_token_type type)
-{
-	return (type == OUTPUT || type == INPUT || type == APPEND
-		|| type == HEREDOC);
-}
-
-t_bool	is_sep(t_token_type type)
-{
-	return (type == OUTPUT || type == INPUT || type == APPEND
-		|| type == HEREDOC || type == PIPE);
-}
-
-t_bool	is_word(t_token_type type)
-{
-	return (type == WORD);
-}
-
-t_bool	is_heredoc(t_token_type type)
-{
-	return (type == HEREDOC);
 }

@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:04:14 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/16 18:28:10 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/17 11:12:56 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include "minishell.h"
 
-int		builtin_exit(char **args, t_shell *shell);
+int		builtin_exit(t_command *cmd, t_shell *shell);
 int		builtin_echo(char **args);
 int		builtin_cd(char **args, t_env **env);
 int		builtin_pwd(void);

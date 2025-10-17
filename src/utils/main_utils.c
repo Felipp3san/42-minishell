@@ -6,54 +6,59 @@
 /*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 17:34:36 by jfernand          #+#    #+#             */
-/*   Updated: 2025/10/16 18:57:17 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/17 11:09:32 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <unistd.h>
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "minishell.h"
-#include "../parser/parser_internal.h"
-#include "signals.h"
-#include "tokenizer.h"
-#include "parser.h"
-#include "ui.h"
-#include "types.h"
-#include "env.h"
-#include "expander.h"
-#include "executor.h"
-#include "debug.h"
-#include "builtins.h"
+#include "token.h"
 
-void    full_clean(t_shell *shell)
+void	free_ptr(void **ptr)
 {
-    if (shell->current_dir)
+	if (ptr && *ptr)
 	{
-		free(shell->current_dir);
-		shell->current_dir = NULL;
+		free(*ptr);
+		*ptr = NULL;
 	}
-	if (shell->env_lst)
-		env_lst_clear(&shell->env_lst);
+}
+
+void	free_shell(t_shell *shell, t_bool full_clean)
+{
+	if (!shell)
+		return ;
+	free_ptr((void **) &shell->user_input);
+	token_lst_clear(&shell->tokens);
+	cmd_lst_clear(&shell->commands);
+	if (shell->env_arr)
+	{
+		env_free(shell->env_arr);
+		shell->env_arr = NULL;
+	}
+	if (!full_clean)
+		return ;
+	free_ptr((void **) &shell->current_dir);
+	env_lst_clear(&shell->env_lst);
 	rl_clear_history();
 }
-int    get_commands(t_shell *shell)
+
+int	init_shell(t_shell *shell, char **envp)
 {
-    shell->tokens = tokenize(shell->user_input);
-	if (!shell->tokens)
-	{
-		g_last_exit_code = 1;
-		free_shell(shell, FALSE);
+	char	*cwd;
+
+	cwd = getcwd(NULL, 0);
+	if (cwd == NULL)
 		return (ERROR);
-	}
-	shell->commands = parse(shell->tokens);
-	if (!shell->commands)
-	{
-		g_last_exit_code = 1;
-		free_shell(shell, FALSE);
+	shell->tokens = NULL;
+	shell->commands = NULL;
+	shell->current_dir = cwd;
+	shell->should_exit = FALSE;
+	shell->last_exit_code = 0;
+	shell->env_lst = env_arr_to_lst(envp);
+	if (!shell->env_lst)
 		return (ERROR);
-	}
-    return (SUCCESS);
+	shell->env_arr = NULL;
+	return (SUCCESS);
 }

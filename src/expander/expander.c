@@ -44,7 +44,7 @@ int	expand_var(t_shell *shell, char **arg, t_buffer *buffer)
 		return (ERROR);
 	if (ft_strcmp(var_name, "?") == 0)
 	{
-		var_value = ft_itoa(g_last_exit_code);
+		var_value = ft_itoa(shell->last_exit_code);
 		if (!var_value)
 			return (free(var_name), ERROR);
 	}

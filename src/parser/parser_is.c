@@ -1,20 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   parser_is.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/30 14:02:39 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/17 11:12:39 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/17 11:15:24 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/17 11:16:49 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include "token.h"
 
-#include "command.h"
+int	is_redir(t_token_type type)
+{
+	return (type == OUTPUT || type == INPUT || type == APPEND
+		|| type == HEREDOC);
+}
 
-t_command	*parse(t_token *token);
+int	is_sep(t_token_type type)
+{
+	return (type == OUTPUT || type == INPUT || type == APPEND
+		|| type == HEREDOC || type == PIPE);
+}
 
-#endif
+int	is_word(t_token_type type)
+{
+	return (type == WORD);
+}
+
+int	is_heredoc(t_token_type type)
+{
+	return (type == HEREDOC);
+}
