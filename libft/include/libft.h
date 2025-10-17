@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:42:34 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/11 13:32:56 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/17 20:10:29 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char		*ft_uitoa_base(unsigned int nbr, const char *base);
 char		*ft_strtrim(char const *s1, char const *set);
 char		*ft_strjoin(char const *s1, char const *s2);
+char		*ft_strjoin_safe(char *s1, char *s2);
+char		*ft_strjoin_free(char *s1, char *s2);
 char		*ft_strrchr(const char *s, int c);
 char		**ft_split_quotes(char const *s, char c);
 char		**ft_split(char const *s, char c);

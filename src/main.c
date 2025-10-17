@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:25:23 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/17 11:09:38 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/17 19:59:02 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #include "expander.h"
 #include "executor.h"
 #include "builtins.h"
+#include "debug.h"
 
 int	get_input(t_shell *shell)
 {
@@ -40,11 +41,14 @@ int	process_input(t_shell *shell)
 	shell->tokens = tokenize(shell->user_input);
 	if (!shell->tokens)
 		return (ERROR);
+	//print_token_list(shell->tokens);
 	shell->commands = parse(shell->tokens);
 	if (!shell->commands)
 		return (ERROR);
+	//print_command_list(shell->commands);
 	if (!expand(shell))
 		return (ERROR);
+	//print_command_list(shell->commands);
 	shell->last_exit_code = execute(shell);
 	return (SUCCESS);
 }
