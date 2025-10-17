@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 17:25:59 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/16 19:22:42 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/17 18:28:42 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ char	*path_find(const char *cmd, char **envp)
 	char	*full_path;
 	size_t	i;
 
-	if (!cmd)
-		cmd = " ";
+	if (!cmd || !*cmd)
+		return (NULL);
 	if (ft_strchr(cmd, '/'))
 		return (ft_strdup(cmd));
 	path_var = env_get_arr(envp, "PATH");
