@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 16:45:36 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/17 12:43:24 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/17 13:37:02 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,21 @@
 char	*extract_var_name(char **arg)
 {
 	char	*start;
-	char	*var_name;
 
+	if (!arg || !*arg)
+		return (NULL);
 	(*arg)++;
 	start = *arg;
-	while (**arg && (ft_isalnum(**arg) || **arg == '_' || **arg == '?'))
+	if (**arg == '?')
+	{
 		(*arg)++;
-	var_name = ft_substr(start, 0, (*arg) - start);
-	if (!var_name)
+		return (ft_strdup("?"));
+	}
+	while (**arg && (ft_isalnum(**arg) || **arg == '_'))
+		(*arg)++;
+	if (start == *arg)
 		return (NULL);
-	return (var_name);
+	return (ft_substr(start, 0, (*arg) - start));
 }
 
 int	expand_var(t_shell *shell, char **arg, t_buffer *buffer)
@@ -35,13 +40,12 @@ int	expand_var(t_shell *shell, char **arg, t_buffer *buffer)
 	char	*var_name;
 	char	*var_value;
 
+	if (!arg || !*arg)
+		return (ERROR);
 	var_name = extract_var_name(arg);
 	if (!var_name)
-		return (ERROR);
-	if (!*var_name)
 	{
 		buffer_append(buffer, '$');
-		free(var_name);
 		return (SUCCESS);
 	}
 	if (ft_strcmp(var_name, "?") == 0)
@@ -49,17 +53,15 @@ int	expand_var(t_shell *shell, char **arg, t_buffer *buffer)
 		var_value = ft_itoa(shell->last_exit_code);
 		if (!var_value)
 			return (free(var_name), ERROR);
+		buffer_append_str(buffer, var_value);
+		free(var_value);
 	}
 	else
-		var_value = env_get_lst(shell->env_lst, var_name);
-	if (var_value)
 	{
-		while (*var_value)
-			buffer_append(buffer, *var_value++);
+		var_value = env_get_lst(shell->env_lst, var_name);
+		buffer_append_str(buffer, var_value);
 	}
-	// TODO: Free var_value
-	free(var_name);
-	return (SUCCESS);
+	return (free(var_name), SUCCESS);
 }
 
 char	*expand_vars(t_shell *shell, char *arg)
