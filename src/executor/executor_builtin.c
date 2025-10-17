@@ -49,7 +49,9 @@ int	execute_single_builtin(t_exec *exec, t_shell *shell)
 	saved_out = dup(STDOUT_FILENO);
 	if (apply_redirections(exec) == ERROR)
 	{
+		dup2(saved_in, STDIN_FILENO);
 		close(saved_in);
+		dup2(saved_out, STDOUT_FILENO);
 		close(saved_out);
 		return (EXIT_FAILURE);
 	}

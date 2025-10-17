@@ -22,7 +22,7 @@ t_command	*argv_realloc(t_command *cmd)
 		return (NULL);
 	ft_memcpy(new_argv, cmd->argv, sizeof(char *) * (cmd->size + 1));
 	free(cmd->argv);
-	cmd->argv = cmd->argv;
+	cmd->argv = new_argv;
 	cmd->capacity += 16;
 	return (cmd);
 }

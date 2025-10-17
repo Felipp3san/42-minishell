@@ -13,34 +13,19 @@
 #include "libft.h"
 #include <unistd.h>
 
-static char	*join_strs(char *s1, const char *s2)
+void	print_error(char *cmd_name, char *msg, char *optional)
 {
-	char	*str;
-
-	if (!s1)
-		return (ft_strdup(s2));
-	if (!s2)
-		return (s1);
-	str = ft_strjoin(s1, s2);
-	free(s1);
-	return (str);
-}
-
-void	print_error(const char *cmd_name, const char *msg, const char *optional)
-{
-	char	*shell_name;
 	char	*full_msg;
 
-	shell_name = ft_strdup("minishell");
-	full_msg = join_strs(shell_name, ": ");
-	full_msg = join_strs(full_msg, cmd_name);
-	full_msg = join_strs(full_msg, ": ");
-	full_msg = join_strs(full_msg, msg);
+	full_msg = ft_strjoin_free(ft_strdup("minishell: "), NULL);
+	full_msg = ft_strjoin_free(full_msg, ft_strdup(cmd_name));
+	full_msg = ft_strjoin_free(full_msg, ft_strdup(": "));
+	full_msg = ft_strjoin_free(full_msg, ft_strdup(msg));
 	if (optional)
 	{
-		full_msg = join_strs(full_msg, ": ");
-		full_msg = join_strs(full_msg, optional);
+		full_msg = ft_strjoin_free(full_msg, ft_strdup(": "));
+		full_msg = ft_strjoin_free(full_msg, ft_strdup(optional));
 	}
 	ft_putendl_fd(full_msg, STDERR_FILENO);
-	free (full_msg);
+	free(full_msg);
 }
