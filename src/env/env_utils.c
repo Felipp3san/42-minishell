@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 12:32:46 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/17 12:34:00 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/17 22:42:35 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 #include "../builtins/env_helpers/internal_helpers.h"
 #include "types.h"
 
-int env_var_delete(t_env **head, const char *name)
+int	env_var_delete(t_env **head, const char *name)
 {
-	t_env *node;
+	t_env	*node;
 
 	if (!head || !name)
 		return (ERROR);
@@ -51,11 +51,11 @@ void	env_arr_free(char **envp)
 	free(envp);
 }
 
-void env_lst_print(t_env *head)
+void	env_lst_print(t_env *head)
 {
 	while (head)
 	{
-		if(head->value)
+		if (head->value)
 		{
 			ft_putstr_fd(head->name, 1);
 			ft_putchar_fd('=', 1);

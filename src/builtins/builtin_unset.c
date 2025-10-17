@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:12:10 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/17 12:47:50 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/17 22:39:13 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "types.h"
-#include "./env_helpers/internal_helpers.h"
 #include "builtins.h"
 #include "utils.h"
 

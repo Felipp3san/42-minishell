@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:03:55 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/17 12:47:29 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/17 22:39:05 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./env_helpers/internal_helpers.h"
 #include <stdlib.h>
 #include "libft.h"
 #include "builtins.h"
