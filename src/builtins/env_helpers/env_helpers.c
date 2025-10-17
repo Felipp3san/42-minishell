@@ -6,11 +6,12 @@
 /*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 14:39:07 by jfernand          #+#    #+#             */
-/*   Updated: 2025/10/16 17:27:40 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/17 12:49:21 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./internal_helpers.h"
+#include "internal_helpers.h"
+#include "libft.h"
 
 static size_t	get_content_len(const char *sign, const char *content)
 {

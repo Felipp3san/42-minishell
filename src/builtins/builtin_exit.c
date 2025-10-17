@@ -14,7 +14,6 @@
 #include "libft.h"
 #include "minishell.h"
 #include "utils.h"
-#include "parser.h"
 
 int	get_error_code(char *arg, t_bool *error)
 {
@@ -38,7 +37,7 @@ int	builtin_exit(t_command *cmd, t_shell *shell)
 	error_code = 0;
 	if (cmd_lst_size(shell->commands) <= 1)
 		ft_putendl_fd("exit", 1);
-	if (!cmd->argv || !cmd->argv[1])
+	if (!cmd || !cmd->argv || !cmd->argv[1])
 		error_code = shell->last_exit_code;
 	else
 	{

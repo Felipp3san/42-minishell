@@ -6,11 +6,13 @@
 /*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:03:55 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/16 18:14:47 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/17 12:47:29 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./env_helpers/internal_helpers.h"
+#include <stdlib.h>
+#include "libft.h"
 #include "builtins.h"
 #include "utils.h"
 

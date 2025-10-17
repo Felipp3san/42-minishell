@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_get_arr.c                                      :+:      :+:    :+:   */
+/*   env_get.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/06 18:32:39 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/13 22:59:17 by jfernand         ###   ########.fr       */
+/*   Created: 2025/10/17 12:28:27 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/17 12:28:32 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "env.h"
 
 char	*env_get_arr(char **envp, const char *var)
 {
@@ -27,6 +28,26 @@ char	*env_get_arr(char **envp, const char *var)
 			&& envp[i][len] == '=')
 			return (&envp[i][len + 1]);
 		i++;
+	}
+	return (NULL);
+}
+
+char	*env_get_lst(t_env *envp, const char *var)
+{
+	t_env	*node;
+	size_t	len;
+	char	*str;
+
+	if (!envp || !var)
+		return (NULL);
+	len = ft_strlen(var);
+	node = envp;
+	while (node)
+	{
+		str = node->name;
+		if (ft_strncmp(str, var, len) == 0)
+			return (node->value);
+		node = node->next;
 	}
 	return (NULL);
 }

@@ -6,10 +6,11 @@
 /*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:12:10 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/16 18:19:57 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/17 12:47:50 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "types.h"
 #include "./env_helpers/internal_helpers.h"
 #include "builtins.h"

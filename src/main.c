@@ -25,6 +25,16 @@
 #include "executor.h"
 #include "builtins.h"
 
+int	get_input(t_shell *shell)
+{
+	shell->user_input = readline(PROMPT);
+	if (!shell->user_input)
+		builtin_exit(NULL, shell);
+	if (!*shell->user_input)
+		return (ERROR);
+	return (SUCCESS);
+}
+
 int	process_input(t_shell *shell)
 {
 	shell->tokens = tokenize(shell->user_input);
@@ -43,15 +53,7 @@ int	minishell_loop(t_shell	*shell)
 {
 	while (shell->should_exit == FALSE)
 	{
-		shell->user_input = readline(PROMPT);
-		if (!shell->user_input)
-			builtin_exit(NULL, shell);
-		if (!*shell->user_input)
-		{
-			free_shell(shell, FALSE);
-			continue ;
-		}
-		else if (*shell->user_input)
+		if (get_input(shell) == SUCCESS)
 		{
 			add_history(shell->user_input);
 			if (process_input(shell) == ERROR)
@@ -59,7 +61,6 @@ int	minishell_loop(t_shell	*shell)
 				free_shell(shell, FALSE);
 				continue ;
 			}
-			shell->last_exit_code = execute(shell);
 		}
 		free_shell(shell, FALSE);
 	}

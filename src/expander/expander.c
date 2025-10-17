@@ -6,18 +6,14 @@
 /*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 16:45:36 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/16 17:55:30 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/17 12:43:24 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander_internal.h"
 #include "minishell.h"
 #include "buffer.h"
-#include "env.h"
-#include "parser.h"
-#include <stdio.h>
-
-extern int g_last_exit_code;
+#include "libft.h"
 
 char	*extract_var_name(char **arg)
 {
@@ -42,6 +38,12 @@ int	expand_var(t_shell *shell, char **arg, t_buffer *buffer)
 	var_name = extract_var_name(arg);
 	if (!var_name)
 		return (ERROR);
+	if (!*var_name)
+	{
+		buffer_append(buffer, '$');
+		free(var_name);
+		return (SUCCESS);
+	}
 	if (ft_strcmp(var_name, "?") == 0)
 	{
 		var_value = ft_itoa(shell->last_exit_code);

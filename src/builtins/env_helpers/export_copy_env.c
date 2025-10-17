@@ -6,12 +6,13 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 19:42:54 by jfernand          #+#    #+#             */
-/*   Updated: 2025/10/16 17:03:55 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/17 12:49:26 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./internal_helpers.h"
-#include "builtins.h"
+#include "internal_helpers.h"
+#include "libft.h"
+#include "types.h"
 #include "env.h"
 
 static int	copy_name(t_env *node, t_env *new_node)

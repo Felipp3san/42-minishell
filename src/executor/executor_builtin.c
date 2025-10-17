@@ -6,13 +6,14 @@
 /*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:34:24 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/16 18:46:56 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/17 12:42:55 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "executor_internal.h"
 #include "builtins.h"
-#include <unistd.h>
+#include "libft.h"
 
 int	execute_builtin(t_exec *exec, t_shell *shell)
 {

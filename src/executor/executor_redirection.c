@@ -6,17 +6,21 @@
 /*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:36:20 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/16 18:47:03 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/17 12:42:37 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
+#include <fcntl.h>
 #include <unistd.h>
+#include <errno.h>
+#include <string.h>
 #include "executor_internal.h"
+#include "command.h"
+#include "types.h"
 #include "utils.h"
 
 static int	open_input(char *value);
-static int	open_output(char *value, t_bool append);
+static int	open_output(char *value, int append);
 
 static int	handle_output(t_redir *redir)
 {
@@ -96,7 +100,7 @@ static int	open_input(char *value)
 	return (fd);
 }
 
-static int	open_output(char *value, t_bool append)
+static int	open_output(char *value, int append)
 {
 	int	fd;
 

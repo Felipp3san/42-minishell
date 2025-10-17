@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_free.c                                         :+:      :+:    :+:   */
+/*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: lalex-ku <lalex-ku@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/06 17:31:42 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/11 14:00:33 by jfernand         ###   ########.fr       */
+/*   Created: 2022/06/22 17:32:45 by lalex-ku          #+#    #+#             */
+/*   Updated: 2022/06/22 17:32:50 by lalex-ku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <unistd.h>
 
-void	env_free(char **envp)
+int	main(int argc, char const *argv[])
 {
-	size_t	i;
+	int	pid;
 
-	if (!envp)
-		return ;
-	i = 0;
-	while (envp[i])
+	pid = fork();
+	open("infile", O_RDONLY);
+	while (1)
 	{
-		free(envp[i]);
-		i++;
+		printf("Helloo miniHELL %i\n", pid);
+		sleep(1);
 	}
-	free(envp);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:42:55 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/09 15:15:05 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/17 12:41:44 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <string.h>
+#include <errno.h>
 
 void	child_process(t_exec *exec, t_shell *shell)
 {
