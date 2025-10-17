@@ -31,10 +31,10 @@ typedef struct s_shell
 	int			last_exit_code;
 }	t_shell;
 
-//main.c
-void	free_shell(t_shell *shell, t_bool full_cleaning);
-
 //main_utils.c
+int		init_shell(t_shell *shell, char **envp);
+void	free_shell(t_shell *shell, t_bool full_cleaning);
 void	full_clean(t_shell *shell);
+void	free_ptr(void **ptr);
 
 #endif

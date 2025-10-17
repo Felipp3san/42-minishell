@@ -49,6 +49,7 @@ t_command	*cmd_lst_new(void);
 void		cmd_lst_add_back(t_command **cmd_list, t_command *new_cmd);
 void		cmd_lst_clear(t_command **cmd);
 void		cmd_lst_delone(t_command **cmd);
+size_t		cmd_lst_size(t_command *cmd);
 
 // redir_utils.c
 t_redir		*redir_lst_new(t_redir_data *data, t_token_type type);
@@ -58,5 +59,6 @@ void		redir_lst_clear(t_redir **redir);
 // argv_utils.c
 t_command	*argv_append(t_command *command, const char *str);
 t_command	*argv_realloc(t_command *command);
+void		argv_remove_index(t_command *cmd, size_t idx);
 
 #endif
