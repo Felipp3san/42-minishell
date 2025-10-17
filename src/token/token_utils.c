@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer_list.c                                   :+:      :+:    :+:   */
+/*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/09 10:47:08 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/09 14:23:19 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/17 11:04:36 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/17 11:05:25 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenizer.h"
+#include "token.h"
 #include <stdlib.h>
 
 t_token	*token_lst_new(char *value, t_token_type type)

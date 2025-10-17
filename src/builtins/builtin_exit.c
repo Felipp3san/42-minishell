@@ -39,7 +39,7 @@ int	builtin_exit(t_command *cmd, t_shell *shell)
 	if (cmd_lst_size(shell->commands) <= 1)
 		ft_putendl_fd("exit", 1);
 	if (!cmd->argv || !cmd->argv[1])
-		error_code = g_last_exit_code;
+		error_code = shell->last_exit_code;
 	else
 	{
 		if (ft_strcmp(cmd->argv[1], "--") == 0)

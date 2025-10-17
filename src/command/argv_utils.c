@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_argv.c                                      :+:      :+:    :+:   */
+/*   argv_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/09 14:48:38 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/12 18:46:48 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/17 11:09:53 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/17 11:10:14 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser_internal.h"
+#include "command.h"
 #include "libft.h"
 
 t_command	*argv_realloc(t_command *cmd)

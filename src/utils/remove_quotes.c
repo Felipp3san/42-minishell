@@ -6,13 +6,16 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 12:04:06 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/12 12:27:44 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/17 11:23:36 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include "utils.h"
 
+/*
+Gets string size without quotes
+*/
 static size_t	size_without_quotes(const char *str)
 {
 	size_t	i;
@@ -29,7 +32,9 @@ static size_t	size_without_quotes(const char *str)
 	return (size);
 }
 
-/* replaces the argument string with a new str unquoted */
+/* 
+Creates a new unquoted version of the string. (must free previous manually)
+*/
 char	*remove_quotes(char *str)
 {
 	char	*new_str;
