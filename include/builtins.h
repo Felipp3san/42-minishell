@@ -15,7 +15,7 @@
 
 #include "minishell.h"
 
-int		builtin_exit(char **args, t_shell *shell);
+int		builtin_exit(t_command *cmd, t_shell *shell);
 int		builtin_echo(char **args);
 int		builtin_cd(char *path, t_env **env);
 int		builtin_pwd(void);

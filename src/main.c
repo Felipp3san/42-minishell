@@ -103,7 +103,7 @@ int	minishell_loop(t_shell	*shell)
 				continue ;
 			}
 			expand(shell);
-			//print_command_list(shell->commands);
+			print_command_list(shell->commands);
 			g_last_exit_code = execute(shell);
 		}
 		free_shell(shell, FALSE);

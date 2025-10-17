@@ -22,7 +22,7 @@ int	execute_builtin(t_exec *exec, t_shell *shell)
 	if (!cmd && !cmd->argv[0])
 		return (ERROR);
 	if (ft_strcmp(cmd->argv[0], "exit") == 0)
-		return (builtin_exit(cmd->argv, shell));
+		return (builtin_exit(cmd, shell));
 	if (ft_strcmp(cmd->argv[0], "echo") == 0)
 		return (builtin_echo(cmd->argv));
 	if (ft_strcmp(cmd->argv[0], "cd") == 0)

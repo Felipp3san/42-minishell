@@ -24,13 +24,12 @@ int	get_error_code(char *arg, t_bool *error)
 	error_code = ft_strtoll(arg, &out, 10);
 	if (ft_strcmp(arg, out) == 0)
 		*error = TRUE;
-	if (error_code < 0)
-		return (0);
-	else
-		return (error_code);
+	if (errno == ERANGE)
+		*error = TRUE;
+	return (error_code);
 }
 
-int	builtin_exit(char **args, t_shell *shell)
+int	builtin_exit(t_command *cmd, t_shell *shell)
 {
 	unsigned char	error_code;
 	t_bool			error;
@@ -39,18 +38,20 @@ int	builtin_exit(char **args, t_shell *shell)
 	error_code = 0;
 	if (cmd_lst_size(shell->commands) <= 1)
 		ft_putendl_fd("exit", 1);
-	if (!args || !args[1])
+	if (!cmd->argv || !cmd->argv[1])
 		error_code = g_last_exit_code;
 	else
 	{
-		if (args[2])
+		if (ft_strcmp(cmd->argv[1], "--") == 0)
+			argv_remove_index(cmd,1);
+		if (cmd->argv[2])
 		{
 			print_error("exit", "too many arguments", 0);
 			return (2);
 		}
-		else if (args[1])
+		else if (cmd->argv[1])
 		{
-			error_code = get_error_code(args[1], &error);
+			error_code = get_error_code(cmd->argv[1], &error);
 			if (error)
 			{
 				print_error("exit", "numeric argument required", 0);
