@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 19:42:54 by jfernand          #+#    #+#             */
-/*   Updated: 2025/10/13 19:42:54 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/16 17:03:55 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 #include "builtins.h"
 #include "env.h"
 
-
-int	copy_content(t_env *node, t_env *new_node)
+static int	copy_name(t_env *node, t_env *new_node)
 {
 	if (node->name)
 	{
@@ -25,9 +24,13 @@ int	copy_content(t_env *node, t_env *new_node)
 			free(new_node);
 			return (ERR_MALLOC);
 		}
+		return (SUCCESS);
 	}
-	else
-		return (ERR_MALLOC);
+	return (ERR_MALLOC);
+}
+
+static int	copy_value(t_env *node, t_env *new_node)
+{
 	if (node->value)
 	{
 		new_node->value = ft_strdup(node->value);
@@ -39,7 +42,22 @@ int	copy_content(t_env *node, t_env *new_node)
 			return (ERR_MALLOC);
 		}
 	}
+	else
+		new_node->value = NULL;
 	return (SUCCESS);
+}
+
+static int	copy_content(t_env *node, t_env *new_node)
+{
+	int	ret;
+
+	ret = copy_name(node, new_node);
+	if (ret != SUCCESS)
+		return (ret);
+	ret = copy_value(node, new_node);
+	if (ret != SUCCESS)
+		return (ret);
+	return (ret);
 }
 
 static t_env	*copy_env_node(t_env *node)
@@ -72,7 +90,7 @@ t_env	*copy_env_list(t_env *head)
 		if (!node_copy)
 		{
 			env_lst_clear(&copy);
-			return NULL;
+			return (NULL);
 		}
 		env_lst_add_back(&copy, node_copy);
 		cur = cur->next;

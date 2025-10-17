@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:25:23 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/13 21:59:34 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/16 17:51:01 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,8 @@ void	free_shell(t_shell *shell, t_bool full_cleaning)
 		shell->env_arr = NULL;
 	}
 	if (full_cleaning)
-	{
-		if (shell->current_dir)
-		{
-			free(shell->current_dir);
-			shell->current_dir = NULL;
-		}
-		if (shell->env_lst)
-			env_lst_clear(&shell->env_lst);
-		rl_clear_history();
-	}
+		full_clean(shell);
+
 }
 
 int	init_shell(t_shell *shell, char **envp)
@@ -87,23 +79,9 @@ int	minishell_loop(t_shell	*shell)
 		else if (*shell->user_input)
 		{
 			add_history(shell->user_input);
-			shell->tokens = tokenize(shell->user_input);
-			if (!shell->tokens)
-			{
-				g_last_exit_code = 1;
-				free_shell(shell, FALSE);
+			if (get_commands(shell) != SUCCESS)
 				continue ;
-			}
-			//print_token_list(shell->tokens);
-			shell->commands = parse(shell->tokens);
-			if (!shell->commands)
-			{
-				g_last_exit_code = 1;
-				free_shell(shell, FALSE);
-				continue ;
-			}
 			expand(shell);
-			print_command_list(shell->commands);
 			g_last_exit_code = execute(shell);
 		}
 		free_shell(shell, FALSE);
