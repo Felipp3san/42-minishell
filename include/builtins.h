@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:04:14 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/18 01:38:22 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/18 02:03:11 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		builtin_cd(char **args, t_env **env);
 int		builtin_pwd(void);
 int		builtin_export(t_env **env, char **variable);
 int		builtin_env(t_env *env);
-int		builtin_unset(t_env **env, char *variable);
+int		builtin_unset(t_env **env, char **variable);
 
 // helpers
 void	free_var(char *name, char *value);
