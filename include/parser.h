@@ -13,7 +13,7 @@
 #ifndef PARSER_H
 # define PARSER_H
 
-#include "command.h"
+# include "command.h"
 
 t_command	*parse(t_token *token);
 

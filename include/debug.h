@@ -13,7 +13,7 @@
 #ifndef DEBUG_H
 # define DEBUG_H
 
-#include "command.h"
+# include "command.h"
 
 void	print_token_list(t_token *token);
 void	print_command_list(t_command *command);

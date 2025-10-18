@@ -15,9 +15,9 @@
 
 t_env	*env_lst_new(char *name, char *value)
 {
-	t_env *node;
+	t_env	*node;
 
-	node= malloc(sizeof(t_env));
+	node = malloc(sizeof(t_env));
 	if (!node)
 		return (NULL);
 	node->name = name;
@@ -27,12 +27,12 @@ t_env	*env_lst_new(char *name, char *value)
 	return (node);
 }
 
-void env_lst_add_back(t_env **head, t_env *new_node)
+void	env_lst_add_back(t_env **head, t_env *new_node)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
 	if (!head || !new_node)
-		return;
+		return ;
 	if (*head == NULL)
 	{
 		*head = new_node;
@@ -46,10 +46,10 @@ void env_lst_add_back(t_env **head, t_env *new_node)
 	new_node->prev = tmp;
 }
 
-void env_lst_add_front(t_env **head, t_env *new_node)
+void	env_lst_add_front(t_env **head, t_env *new_node)
 {
 	if (!head || !new_node)
-		return;
+		return ;
 	if (*head == NULL)
 	{
 		*head = new_node;

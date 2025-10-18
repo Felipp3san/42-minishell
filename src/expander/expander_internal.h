@@ -31,7 +31,7 @@ int		is_valid_var_char(char ch);
 // expander_handle.c
 char	*handle_squote(const char *str, size_t *i);
 char	*handle_dquote(t_shell *shell, const char *str, size_t *i);
-char	*handle_dollar(t_shell *shell, const char *str, size_t *i);
+char	*handle_dollar(t_shell *shell, const char *str, size_t *i, int dquotes);
 char	*handle_normal(const char *str, size_t *i);
 
 // expander_heredoc.c

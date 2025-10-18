@@ -23,7 +23,6 @@ typedef struct s_env
 	struct s_env	*prev;
 }	t_env;
 
-
 // env_lst.c
 t_env	*env_lst_new(char *name, char *value);
 void	env_lst_add_back(t_env **head, t_env *new_node);
@@ -45,4 +44,3 @@ void	env_arr_free(char **envp);
 void	env_lst_print(t_env *head);
 
 #endif
-

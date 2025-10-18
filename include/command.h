@@ -13,8 +13,8 @@
 #ifndef COMMAND_H
 # define COMMAND_H
 
-#include <stddef.h>
-#include "token.h"
+# include <stddef.h>
+# include "token.h"
 
 typedef struct s_redir
 {
