@@ -15,8 +15,6 @@
 #include "utils.h"
 #include "env.h"
 
-/* Looks for the command in the system, using paths extracted from the PATH 
- * variable from envp, or return it directly if cmd is a fullpath */
 char	*path_find(const char *cmd, char **envp)
 {
 	char	**paths;
