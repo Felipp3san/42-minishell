@@ -14,6 +14,18 @@
 		"typeindex": "c",
 		"typeinfo": "c",
 		"random": "c",
-		"complex": "c"
+		"complex": "c",
+		"system_error": "c",
+		"charconv": "cpp",
+		"expected": "cpp",
+		"optional": "cpp",
+		"ranges": "cpp",
+		"ratio": "cpp",
+		"array": "cpp",
+		"functional": "cpp",
+		"regex": "cpp",
+		"tuple": "cpp",
+		"type_traits": "cpp",
+		"utility": "cpp"
 	}
 }

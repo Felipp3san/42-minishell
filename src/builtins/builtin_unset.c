@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:12:10 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/17 22:39:13 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/18 12:13:37 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,16 @@ void	free_var(char *name, char *value)
 		free(value);
 }
 
-int	builtin_unset(t_env **env, char *variable)
+static int	proccess_unset(t_env **env, char *variable)
 {
 	char	*var_name;
 	char	*var_value;
 	int		ret_value;
 
-	if (!env || !*env)
-		return (ERROR);
-	if (!variable)
-		return (SUCCESS);
 	ret_value = split_assignment(variable, &var_name, &var_value);
 	if (ret_value != SUCCESS)
 		return (ERROR);
-	if (is_valid_name(var_name) == ERROR)
+	if (is_valid_name(var_name, 0) == ERROR)
 	{
 		free_var(var_name, var_value);
 		return (ERROR);
@@ -51,4 +47,22 @@ int	builtin_unset(t_env **env, char *variable)
 	}
 	free_var(var_name, var_value);
 	return (ret_value);
+}
+
+int	builtin_unset(t_env **env, char **variable)
+{
+	int	i;
+
+	i = 1;
+	if (!env || !*env)
+		return (ERROR);
+	if (!variable[1])
+		return (SUCCESS);
+	while (variable[i])
+	{
+		if(proccess_unset(env, variable[i]) != SUCCESS)
+			return (1);
+		i++;
+	}
+	return (SUCCESS);
 }

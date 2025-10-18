@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 14:32:14 by jfernand          #+#    #+#             */
-/*   Updated: 2025/10/17 22:38:39 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/18 00:07:34 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	split_assignment(const char *variable, char **out_name, char **out_value)
 	return (SUCCESS);
 }
 
-int	is_valid_name(char *name)
+int	is_valid_name(char *name, int *plus)
 {
 	int	i;
 
@@ -94,6 +94,12 @@ int	is_valid_name(char *name)
 	i = 1;
 	while (name[i])
 	{
+		if (name[i] == '+' && name[i + 1] == '\0')
+		{
+			*plus = 1;
+			i++;
+			continue ;
+		}
 		if (!ft_isalnum(name[i]) && name[i] != '_')
 			return (ERROR);
 		i++;

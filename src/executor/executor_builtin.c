@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_builtin.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:34:24 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/17 12:42:55 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/18 02:03:18 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int	execute_builtin(t_exec *exec, t_shell *shell)
 	if (ft_strcmp(cmd->argv[0], "env") == 0)
 		return (builtin_env(shell->env_lst));
 	if (ft_strcmp(cmd->argv[0], "export") == 0)
-		return (builtin_export(&shell->env_lst, cmd->argv[1]));
+		return (builtin_export(&shell->env_lst, cmd->argv));
 	if (ft_strcmp(cmd->argv[0], "unset") == 0)
-		return (builtin_unset(&shell->env_lst, cmd->argv[1]));
+		return (builtin_unset(&shell->env_lst, cmd->argv));
 	return (CMD_NOT_FOUND);
 }
 

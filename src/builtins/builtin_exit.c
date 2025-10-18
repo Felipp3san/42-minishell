@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:30:19 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/16 17:46:18 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/17 23:00:49 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	builtin_exit(t_command *cmd, t_shell *shell)
 		if (cmd->argv[2])
 		{
 			print_error("exit", "too many arguments", 0);
-			return (2);
+			return (1);
 		}
 		else if (cmd->argv[1])
 		{
@@ -59,5 +59,5 @@ int	builtin_exit(t_command *cmd, t_shell *shell)
 		}
 	}
 	exit_shell(shell, error_code);
-	return (2);
+	return (error_code);
 }

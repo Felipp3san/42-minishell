@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_to.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 12:29:03 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/17 12:36:33 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/18 00:56:39 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_env	*env_arr_to_lst(char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		split_assignment(ft_strdup(envp[i]), &name, &value);
+		split_assignment(envp[i], &name, &value);
 		if (!name)
 			return (env_lst_clear(&clone), NULL);
 		node = env_lst_new(name, value);
@@ -77,7 +77,7 @@ static char	*get_clone(char *name, char *value)
 	char	*clone;
 	char	*temp;
 
-	if (value)
+	if (value && name)
 	{
 		temp = ft_strjoin(name, "=");
 		if (!temp)
