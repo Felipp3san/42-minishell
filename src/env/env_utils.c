@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 12:32:46 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/17 23:45:56 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/18 02:11:46 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 #include "builtins.h"
 #include "types.h"
 
-int	env_var_delete(t_env **head, const char *name)
+int	env_var_delete(t_env **head, char *name)
 {
 	t_env	*node;
 
 	if (!head || !name)
 		return (ERROR);
-	node = search_variable(*head, (char *)name, 0);
+	node = search_variable(*head, name, 0);
 	if (!node)
-		return (SUCCESS);
+		return (1);
 	if (node->prev)
 		node->prev->next = node->next;
 	else

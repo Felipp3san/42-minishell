@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:12:10 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/18 02:04:02 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/18 02:11:42 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	proccess_unset(t_env **env, char *variable)
 		return (ERROR);
 	}
 	free_var(var_name, var_value);
-	return (SUCCESS);
+	return (ret_value);
 }
 
 int	builtin_unset(t_env **env, char **variable)

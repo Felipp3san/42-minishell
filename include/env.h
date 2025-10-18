@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 16:56:06 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/17 12:36:51 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/18 02:12:26 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_env	*env_arr_to_lst(char **envp);
 char	**env_list_to_arr(t_env *envp);
 
 // env_utils.c
-int		env_var_delete(t_env **head, const char *name);
+int		env_var_delete(t_env **head, char *name);
 void	env_arr_free(char **envp);
 void	env_lst_print(t_env *head);
 
