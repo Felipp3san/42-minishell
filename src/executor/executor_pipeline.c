@@ -84,10 +84,10 @@ int	pipeline(t_exec *exec, t_shell *shell)
 	{
 		exec->last = (exec->cmd->next == NULL);
 		if (!exec->last && pipe(exec->pipe_fd) == -1)
-			return (print_err_exit("pipe", strerror(errno), EXIT_FAILURE));
+			return (print_error_return("pipe", strerror(errno), EXIT_FAILURE));
 		pid = fork();
 		if (pid == -1)
-			return (print_err_exit("fork", strerror(errno), EXIT_FAILURE));
+			return (print_error_return("fork", strerror(errno), EXIT_FAILURE));
 		else if (pid == 0)
 			child_process(exec, shell);
 		else

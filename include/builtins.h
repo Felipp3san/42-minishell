@@ -36,5 +36,4 @@ int		append_to_variable(t_env *node, char *value);
 char	*get_new_name(char *name, char *value);
 int		process_variable(t_env **env, char *variable);
 
-
 #endif

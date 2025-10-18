@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include <unistd.h>
+#include "libft.h"
 
-void	print_error(char *cmd_name, char *msg, char *optional)
+void	print_error(const char *cmd_name, const char *msg, char *optional)
 {
 	char	*full_msg;
 
@@ -28,4 +28,10 @@ void	print_error(char *cmd_name, char *msg, char *optional)
 	}
 	ft_putendl_fd(full_msg, STDERR_FILENO);
 	free(full_msg);
+}
+
+int	print_error_return(const char *cmd_name, const char *msg, int code)
+{
+	print_error(cmd_name, msg, 0);
+	return (code);
 }

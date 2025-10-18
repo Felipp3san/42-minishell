@@ -33,7 +33,6 @@ typedef struct s_token
 	struct s_token	*previous;
 }	t_token;
 
-
 // token_lst.c
 t_token	*token_lst_new(char *value, t_token_type type);
 t_token	*token_lst_last(t_token *token);

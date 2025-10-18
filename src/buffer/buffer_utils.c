@@ -12,7 +12,7 @@
 
 #include "buffer.h"
 
-void buffer_append_str(t_buffer *buffer, const char *str)
+void	buffer_append_str(t_buffer *buffer, const char *str)
 {
 	if (!buffer || !str)
 		return ;

@@ -10,11 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include <stdlib.h>
 #include "libft.h"
 #include "builtins.h"
-#include "utils.h"
 #include "types.h"
 
 int	append_to_variable(t_env *node, char *value)
@@ -73,4 +71,3 @@ t_env	*search_variable(t_env *env, char *name, int plus)
 	}
 	return (NULL);
 }
-

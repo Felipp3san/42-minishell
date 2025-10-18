@@ -19,4 +19,3 @@
 t_command	*expand(t_shell *shell);
 
 #endif
-

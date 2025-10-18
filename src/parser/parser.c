@@ -56,8 +56,28 @@ static int	parse_token(t_token **token, t_command *command)
 		if (status != SUCCESS)
 			return (status);
 	}
-	(*token) = (*token)->next;
 	return (SUCCESS);
+}
+
+static t_command	*tokens_to_command(t_token **token)
+{
+	t_command	*new_cmd;
+
+	new_cmd = cmd_lst_new();
+	if (!new_cmd)
+		return (NULL);
+	while (*token && (*token)->type != PIPE)
+	{
+		if (parse_token(token, new_cmd) != SUCCESS)
+		{
+			cmd_lst_delone(&new_cmd);
+			return (NULL);
+		}
+		*token = (*token)->next;
+	}
+	if (*token && (*token)->type == PIPE)
+		*token = (*token)->next;
+	return (new_cmd);
 }
 
 t_command	*parse(t_token *token)
@@ -72,19 +92,9 @@ t_command	*parse(t_token *token)
 		return (print_parser_err(error), NULL);
 	while (token)
 	{
-		new_cmd = cmd_lst_new();
+		new_cmd = tokens_to_command(&token);
 		if (!new_cmd)
 			return (cmd_lst_clear(&cmd_list), NULL);
-		while (token && token->type != PIPE)
-		{
-			if (parse_token(&token, new_cmd) != SUCCESS)
-			{
-				cmd_lst_delone(&new_cmd);
-				return (cmd_lst_clear(&cmd_list), NULL);
-			}
-		}
-		if (token)
-			token = token->next;
 		if (!new_cmd->argv[0])
 			cmd_lst_delone(&new_cmd);
 		else
