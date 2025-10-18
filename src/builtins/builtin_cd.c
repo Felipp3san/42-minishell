@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:12:38 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/17 12:48:11 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/18 01:38:50 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	update_env_oldpwd(t_env **env, const char *oldcwd)
 	oldpwd_str = ft_strjoin("OLDPWD=", oldcwd);
 	if (!oldpwd_str)
 		return (ERR_MALLOC);
-	builtin_export(env, oldpwd_str);
+	process_variable(env, oldpwd_str);
 	free(oldpwd_str);
 	return (SUCCESS);
 }
@@ -48,7 +48,7 @@ static int	update_env_pwd(t_env **env)
 		free(cwd);
 		return (ERR_MALLOC);
 	}
-	builtin_export(env, tmp);
+	process_variable(env, tmp);
 	free(cwd);
 	free(tmp);
 	return (SUCCESS);
@@ -60,7 +60,7 @@ int	builtin_cd(char **args, t_env **env)
 	char	oldcwd[PATH_MAX];
 
 	if (!args || args[2])
-		return (print_err_exit("cd", "too many arguments", 2));
+		return (print_err_exit("cd", "too many arguments", 1));
 	if (!args[1])
 	{
 		target = getenv("HOME");

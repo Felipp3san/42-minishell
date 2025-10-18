@@ -6,13 +6,13 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 12:32:46 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/17 22:42:35 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/17 23:45:56 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "libft.h"
-#include "../builtins/env_helpers/internal_helpers.h"
+#include "builtins.h"
 #include "types.h"
 
 int	env_var_delete(t_env **head, const char *name)
@@ -21,7 +21,7 @@ int	env_var_delete(t_env **head, const char *name)
 
 	if (!head || !name)
 		return (ERROR);
-	node = search_variable(*head, (char *)name);
+	node = search_variable(*head, (char *)name, 0);
 	if (!node)
 		return (SUCCESS);
 	if (node->prev)

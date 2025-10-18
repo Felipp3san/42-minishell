@@ -42,7 +42,7 @@ static void	print_exp_list(t_env *exp_list)
 			exp_list = exp_list->next;
 			continue ;
 		}
-		ft_putstr_fd("export ", 1);
+		ft_putstr_fd("declare -x ", 1);
 		ft_putstr_fd(exp_list->name, 1);
 		if (exp_list->value)
 		{

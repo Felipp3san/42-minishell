@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:12:10 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/17 22:39:13 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/17 23:46:40 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	builtin_unset(t_env **env, char *variable)
 	ret_value = split_assignment(variable, &var_name, &var_value);
 	if (ret_value != SUCCESS)
 		return (ERROR);
-	if (is_valid_name(var_name) == ERROR)
+	if (is_valid_name(var_name, 0) == ERROR)
 	{
 		free_var(var_name, var_value);
 		return (ERROR);
