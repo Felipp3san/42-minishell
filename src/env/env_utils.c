@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 12:32:46 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/18 02:11:46 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/18 12:13:20 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	env_var_delete(t_env **head, char *name)
 		return (ERROR);
 	node = search_variable(*head, name, 0);
 	if (!node)
-		return (1);
+		return (0);
 	if (node->prev)
 		node->prev->next = node->next;
 	else
