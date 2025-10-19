@@ -13,8 +13,9 @@
 #include "expander_internal.h"
 #include "minishell.h"
 #include "libft.h"
+#include "types.h"
 
-char	*handle_dollar(t_shell *shell, const char *str, size_t *i)
+char	*handle_dollar(t_shell *shell, const char *str, size_t *i, int dquotes)
 {
 	size_t	start;
 	char	*var;
@@ -26,6 +27,8 @@ char	*handle_dollar(t_shell *shell, const char *str, size_t *i)
 		(*i)++;
 		return (ft_itoa(shell->last_exit_code));
 	}
+	else if (!dquotes && (str[*i] == '"' || str[*i] == '\''))
+		return (NULL);
 	if (!is_valid_var_char(str[*i]))
 		return (ft_strdup("$"));
 	else
@@ -82,9 +85,9 @@ char	*handle_dquote(t_shell *shell, const char *str, size_t *i)
 	while (str[*i] != '\"')
 	{
 		if (str[*i] == '$')
-			ret = ft_strjoin_safe(ret, handle_dollar(shell, str, i));
-		else 
-			ret = ft_strjoin_safe(ret, handle_dquote_str(str, i));
+			ret = ft_strjoin_free(ret, handle_dollar(shell, str, i, TRUE));
+		else
+			ret = ft_strjoin_free(ret, handle_dquote_str(str, i));
 	}
 	(*i)++;
 	return (ret);

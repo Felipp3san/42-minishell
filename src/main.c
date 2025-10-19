@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:25:23 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/18 12:26:16 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/19 12:57:11 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 #include "executor.h"
 #include "builtins.h"
 #include "debug.h"
+#include "heredoc.h"
 
 int	get_input(t_shell *shell)
 {
@@ -46,6 +47,9 @@ int	process_input(t_shell *shell)
 	if (!shell->commands)
 		return (ERROR);
 	//print_command_list(shell->commands);
+	if (heredoc_handle(shell) != SUCCESS)
+		return (ERROR);
+	//print_command_list(shell->commands);
 	if (!expand(shell))
 		return (ERROR);
 	//print_command_list(shell->commands);
@@ -55,16 +59,14 @@ int	process_input(t_shell *shell)
 
 int	minishell_loop(t_shell	*shell)
 {
-	while (shell->should_exit == FALSE)
+	while (TRUE)
 	{
+		g_signal = 0;
+		set_signal_mode(PROMPT_MODE);
 		if (get_input(shell) == SUCCESS)
 		{
 			add_history(shell->user_input);
-			if (process_input(shell) == ERROR)
-			{
-				free_shell(shell, FALSE);
-				continue ;
-			}
+			process_input(shell);
 		}
 		free_shell(shell, FALSE);
 	}
@@ -78,8 +80,6 @@ int	main(int argc, char **argv, char **envp)
 	(void) argc;
 	(void) argv;
 	if (init_shell(&shell, envp) != SUCCESS)
-		return (free_shell(&shell, TRUE), EXIT_FAILURE);
-	if (init_parent_signals() != SUCCESS)
 		return (free_shell(&shell, TRUE), EXIT_FAILURE);
 	//print_banner();
 	minishell_loop(&shell);

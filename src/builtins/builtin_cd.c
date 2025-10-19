@@ -60,7 +60,7 @@ int	builtin_cd(char **args, t_env **env)
 	char	oldcwd[PATH_MAX];
 
 	if (!args || args[2])
-		return (print_err_exit("cd", "too many arguments", 1));
+		return (print_error_return("cd", "too many arguments", EXIT_FAILURE));
 	if (!args[1])
 	{
 		target = getenv("HOME");

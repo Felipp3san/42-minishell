@@ -15,6 +15,8 @@
 #include <readline/history.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include "libft.h"
+#include "env.h"
 #include "minishell.h"
 #include "token.h"
 
@@ -46,6 +48,21 @@ void	free_shell(t_shell *shell, t_bool full_clean)
 	rl_clear_history();
 }
 
+static void	initialize_env(t_shell *shell)
+{
+	const char	*env_root = "/usr/bin/env";
+	char		*cwd;
+	t_env		*node;
+
+	cwd = shell->current_dir;
+	node = env_lst_new(ft_strdup("PWD"), ft_strdup(cwd));
+	env_lst_add_back(&shell->env_lst, node);
+	node = env_lst_new(ft_strdup("SHLVL"), ft_strdup("1"));
+	env_lst_add_back(&shell->env_lst, node);
+	node = env_lst_new(ft_strdup("_"), ft_strdup(env_root));
+	env_lst_add_back(&shell->env_lst, node);
+};
+
 int	init_shell(t_shell *shell, char **envp)
 {
 	char	*cwd;
@@ -60,7 +77,7 @@ int	init_shell(t_shell *shell, char **envp)
 	shell->last_exit_code = 0;
 	shell->env_lst = env_arr_to_lst(envp);
 	if (!shell->env_lst)
-		return (ERROR);
+		initialize_env(shell);
 	shell->env_arr = NULL;
 	return (SUCCESS);
 }

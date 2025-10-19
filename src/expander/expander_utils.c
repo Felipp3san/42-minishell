@@ -13,10 +13,9 @@
 #include "libft.h"
 #include "types.h"
 
-int		is_valid_var_char(char ch)
+int	is_valid_var_char(char ch)
 {
 	if (ft_isalnum(ch) || ch == '_')
 		return (TRUE);
 	return (FALSE);
 }
-

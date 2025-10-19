@@ -30,7 +30,7 @@ char	*expand_str(t_shell *shell, char *str)
 		else if (str[i] == '\"')
 			temp = handle_dquote(shell, str, &i);
 		else if (str[i] == '$')
-			temp = handle_dollar(shell, str, &i);
+			temp = handle_dollar(shell, str, &i, FALSE);
 		else
 			temp = handle_normal(str, &i);
 		if (!temp)

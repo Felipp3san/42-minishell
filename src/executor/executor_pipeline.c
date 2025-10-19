@@ -6,22 +6,24 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:42:55 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/17 12:41:44 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/19 13:04:09 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "executor_internal.h"
-#include "utils.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
 #include <string.h>
 #include <errno.h>
+#include "executor_internal.h"
+#include "signals.h"
+#include "utils.h"
 
 void	child_process(t_exec *exec, t_shell *shell)
 {
 	int	ret;
 
+	set_signal_mode(EXEC_MODE_CHILD);
 	if (exec->input_fd != STDIN_FILENO)
 	{
 		dup2(exec->input_fd, STDIN_FILENO);
@@ -80,14 +82,14 @@ int	pipeline(t_exec *exec, t_shell *shell)
 	pid_t	pid;
 	pid_t	last_pid;
 
-	while (!shell->should_exit && exec->cmd)
+	while (exec->cmd)
 	{
 		exec->last = (exec->cmd->next == NULL);
 		if (!exec->last && pipe(exec->pipe_fd) == -1)
-			return (print_err_exit("pipe", strerror(errno), EXIT_FAILURE));
+			return (print_error_return("pipe", strerror(errno), EXIT_FAILURE));
 		pid = fork();
 		if (pid == -1)
-			return (print_err_exit("fork", strerror(errno), EXIT_FAILURE));
+			return (print_error_return("fork", strerror(errno), EXIT_FAILURE));
 		else if (pid == 0)
 			child_process(exec, shell);
 		else

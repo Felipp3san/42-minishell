@@ -55,12 +55,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "functions/fstat.md",
+                "file": "functions/waitpid.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "fstat"
+              "title": "waitpid"
             }
           }
         ],
@@ -214,6 +214,15 @@
   },
   "active": "2b829cf84a54142d",
   "lastOpenFiles": [
+    "functions/wait.md",
+    "functions/waitpid.md",
+    "functions/rl_on_new_line.md",
+    "functions/rl_clear_history.md",
+    "functions/rl_replace_line.md",
+    "functions/rl_redisplay.md",
+    "functions/signal.md",
+    "functions/stat.md",
+    "functions/fstat.md",
     "functions/dup2.md",
     "functions/dup.md",
     "functions/isatty.md",
@@ -221,8 +230,6 @@
     "functions/ttyslot.md",
     "functions/unlink.md",
     "Untitled.md",
-    "functions/wait.md",
-    "functions/waitpid.md",
     "functions/execve.md",
     "Executor.md",
     "functions/pipe.md",
@@ -235,13 +242,6 @@
     "functions/getcwd.md",
     "functions/readline.md",
     "minishell/Subject.pdf",
-    "functions/malloc.md",
-    "functions/fork.md",
-    "functions/chdir.md",
-    "terms/termcap.md",
-    "functions/tgetent.md",
-    "minishell/Allowed functions.md",
-    "functions/tgetstr.md",
     "minishell",
     "Untitled",
     "terms",
