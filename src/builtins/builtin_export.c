@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:03:55 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/18 01:54:02 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/19 22:03:12 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int	replace_variable(t_env *node, char *value)
 {
 	if (!node)
 		return (ERROR);
+	if (!value)
+		return (SUCCESS);
 	if (node->value)
 		free(node->value);
 	node->value = value;
