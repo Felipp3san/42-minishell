@@ -60,7 +60,7 @@ int	builtin_unset(t_env **env, char **variable)
 		return (SUCCESS);
 	while (variable[i])
 	{
-		if(proccess_unset(env, variable[i]) != SUCCESS)
+		if (proccess_unset(env, variable[i]) != SUCCESS)
 			return (1);
 		i++;
 	}

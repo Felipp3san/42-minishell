@@ -13,17 +13,27 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <errno.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <fcntl.h>
 #include "executor_internal.h"
 #include "utils.h"
 #include "path.h"
-#include <sys/types.h>
-#include <dirent.h>
-#include <errno.h>
+
+int	is_dir(char *path)
+{
+	struct stat	st;
+
+	if (stat(path, &st) != 0)
+		return (0);
+	return (S_ISDIR(st.st_mode));
+}
 
 void	execute_external(t_exec *exec, t_shell *shell)
 {
 	char	*path;
-	DIR		*dir;
 
 	path = path_find(exec->cmd->argv[0], shell->env_arr);
 	if (!path)
@@ -31,10 +41,8 @@ void	execute_external(t_exec *exec, t_shell *shell)
 		print_error(exec->cmd->argv[0], "command not found", NULL);
 		exit_shell(shell, CMD_NOT_FOUND);
 	}
-	dir = opendir(path);
-	if (dir)
+	if (is_dir(path))
 	{
-		closedir(dir);
 		free(path);
 		print_error(exec->cmd->argv[0], "Is a directory", NULL);
 		exit_shell(shell, CMD_NOT_EXEC);

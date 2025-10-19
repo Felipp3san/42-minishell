@@ -82,5 +82,5 @@ ___
     - **`EACCES`** → Permission denied to access the file.
     - **`ENOENT`** → File does not exist.
     - **`ELOOP`** → Too many symbolic links encountered while traversing the path.
-    - **`ENAMETOOLONG`** → Pathname is too long.
+    - **`ENAMETOOLONG`** → pathname is too long.
     - **`EFAULT`** → `buf` points outside accessible memory.

@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_error.c                                      :+:      :+:    :+:   */
+/*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/03 17:03:13 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/03 17:04:20 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/19 10:42:04 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/19 12:10:13 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "libft.h"
 
-int	main(void)
+void	print_err_heredoc(const char *delimiter)
 {
-	print_error("exit", "too many arguments");
-
-	return (0);
+	ft_dprintf(2, "minishell: warning:"
+		"here-document delimited by end-of-file: wanted(`%s')\n",
+		delimiter);
 }

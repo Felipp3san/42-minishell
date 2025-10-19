@@ -11,12 +11,9 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "libft.h"
 #include "builtins.h"
 #include "utils.h"
 #include "types.h"
-
-
 
 static int	replace_variable(t_env *node, char *value)
 {
@@ -66,7 +63,7 @@ static int	append_or_replace(t_env *node_found, int plus, char *var_name, char *
 		}
 		else
 		{
-			if(replace_variable(node_found, var_value) != SUCCESS)
+			if (replace_variable(node_found, var_value) != SUCCESS)
 			{
 				free_var(var_name, var_value);
 				return (ERROR);
@@ -88,11 +85,11 @@ int	process_variable(t_env **env, char *variable)
 	plus = 0;
 	node_found = NULL;
 	if (split_assignment(variable, &var_name, &var_value) != SUCCESS)
-		return (print_err_exit("export", "not a valid identifier", 1));
+		return (print_error_return("export", "not a valid identifier", 1));
 	if (is_valid_name(var_name, &plus) == ERROR)
 	{
 		free_var(var_name, var_value);
-		return (print_err_exit("export", "not a valid identifier", 1));
+		return (print_error_return("export", "not a valid identifier", 1));
 	}
 	node_found = search_variable(*env, var_name, plus);
 	if (node_found)
@@ -112,10 +109,10 @@ int	builtin_export(t_env **env, char **variable)
 	if (!env)
 		return (ERROR);
 	if (!variable[1])
-		return(export_print_list(env));
+		return (export_print_list(env));
 	while (variable[i])
 	{
-		if(process_variable(env, variable[i]) != SUCCESS)
+		if (process_variable(env, variable[i]) != SUCCESS)
 			return (1);
 		i++;
 	}

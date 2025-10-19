@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.h                                            :+:      :+:    :+:   */
+/*   heredoc.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/09 11:11:14 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/09 15:09:50 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/19 11:21:06 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/19 13:05:52 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEBUG_H
-# define DEBUG_H
+#ifndef HEREDOC_H
+# define HEREDOC_H
 
-# include "command.h"
+# include "minishell.h"
 
-void	print_token_list(t_token *token);
-void	print_command_list(t_command *command);
+int	heredoc_handle(t_shell *shell);
 
 #endif
