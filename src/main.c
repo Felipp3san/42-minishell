@@ -66,11 +66,7 @@ int	minishell_loop(t_shell	*shell)
 		if (get_input(shell) == SUCCESS)
 		{
 			add_history(shell->user_input);
-			if (process_input(shell) == ERROR)
-			{
-				free_shell(shell, FALSE);
-				continue ;
-			}
+			process_input(shell);
 		}
 		free_shell(shell, FALSE);
 	}

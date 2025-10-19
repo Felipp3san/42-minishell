@@ -88,11 +88,9 @@ void	env_lst_clear(t_env **env)
 	{
 		next = current->next;
 		if (current->name)
-		{
 			free(current->name);
-			if (current->value)
-				free(current->value);
-		}
+		if (current->value)
+			free(current->value);
 		free(current);
 		current = next;
 	}

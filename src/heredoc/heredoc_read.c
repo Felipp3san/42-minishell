@@ -49,7 +49,6 @@ static int	child_heredoc(t_shell *shell, int pipe_fd[], char *delimiter)
 			free(line);
 			break ;
 		}
-		add_history(line);
 		ft_putendl_fd(line, pipe_fd[WRITE]);
 		free(line);
 	}

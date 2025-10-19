@@ -87,5 +87,5 @@ char	*remove_quotes(char *str)
 
 int	should_expand_heredoc(char *value)
 {
-	return (ft_strchr(value, '\"') || ft_strchr(value, '\''));
+	return (!ft_strchr(value, '\"') && !ft_strchr(value, '\''));
 }
