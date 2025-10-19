@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:42:55 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/19 12:36:28 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/19 13:04:09 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 void	child_process(t_exec *exec, t_shell *shell)
 {
 	int	ret;
+
 	set_signal_mode(EXEC_MODE_CHILD);
 	if (exec->input_fd != STDIN_FILENO)
 	{

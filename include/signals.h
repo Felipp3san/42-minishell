@@ -6,12 +6,12 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 18:39:19 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/19 12:36:33 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/19 13:05:35 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNAL_H
-# define SIGNAL_H
+#ifndef SIGNALS_H
+# define SIGNALS_H
 
 # include <signal.h>
 
