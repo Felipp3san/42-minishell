@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 18:21:57 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/19 12:09:15 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/19 13:03:50 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	print_parser_err(t_token *error)
 	ft_putendl_fd("'", 1);
 }
 
-static size_t	size_without_quotes(const char *str) {
+static size_t	size_without_quotes(const char *str)
+{
 	size_t	i;
 	size_t	size;
 

@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 10:48:01 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/19 12:10:08 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/19 13:05:03 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 
 int	heredoc_handle(t_shell *shell)
 {
-	t_command *command;
-	t_redir	*redir;
+	t_command	*command;
+	t_redir		*redir;
 
 	command = shell->commands;
 	while (command)

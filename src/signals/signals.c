@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 19:08:26 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/19 12:47:12 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/19 13:03:34 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include <readline/readline.h>
 
-volatile sig_atomic_t g_signal = 0;
+volatile sig_atomic_t	g_signal = 0;
 
 void	handle_sigint_sigquit_exec(int sig)
 {
