@@ -29,10 +29,7 @@ t_token	*append_operator(char **line, t_token **token_list, t_token_type type)
 		return (NULL);
 	new_token = token_lst_new(value, type);
 	if (!new_token)
-	{
-		free(value);
-		return (NULL);
-	}
+		return (free(value), NULL);
 	token_lst_add_back(token_list, new_token);
 	*line = *line + offset;
 	return (new_token);
@@ -72,10 +69,7 @@ t_token	*append_word(char **line, t_token **token_list)
 		return (NULL);
 	new_token = token_lst_new(word, WORD);
 	if (!new_token)
-	{
-		free(word);
-		return (NULL);
-	}
+		return (free(word), NULL);
 	token_lst_add_back(token_list, new_token);
 	return (new_token);
 }
