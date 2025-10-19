@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 21:42:00 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/17 11:21:58 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/19 12:11:47 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,17 @@
 
 static int	handle_redir(t_token **token, t_command *command)
 {
-	t_redir_data	data;
-	t_redir			*redir;
+	t_redir	*redir;
+	char	*value;
+	int		expand;
 
 	if (!(*token) || !(*token)->next)
 		return (ERROR);
-	data.expand_heredoc = TRUE;
-	data.heredoc_fd = -1;
-	data.value = get_redir_value((*token)->next->value, &data.expand_heredoc);
-	if (!data.value)
-		return (ERR_MALLOC);
-	if (is_heredoc((*token)->type))
-	{
-		data.heredoc_fd = parser_heredoc(data.value);
-		if (data.heredoc_fd == -1)
-			return (free(data.value), ERROR);
-	}
-	redir = redir_lst_new(&data, (*token)->type);
+	expand = should_expand_heredoc((*token)->next->value);
+	value = remove_quotes((*token)->next->value);
+	redir = redir_lst_new(value, expand, (*token)->type);
 	if (!redir)
-		return (free(data.value), ERR_MALLOC);
+		return (free(value), ERR_MALLOC);
 	redir_lst_add_back(&command->redirs, redir);
 	*token = (*token)->next;
 	return (SUCCESS);
@@ -43,19 +35,13 @@ static int	handle_redir(t_token **token, t_command *command)
 
 static int	parse_token(t_token **token, t_command *command)
 {
-	int	status;
-
 	if (is_word((*token)->type))
 	{
 		if (!argv_append(command, (*token)->value))
 			return (ERR_MALLOC);
 	}
 	else if (is_redir((*token)->type))
-	{
-		status = handle_redir(token, command);
-		if (status != SUCCESS)
-			return (status);
-	}
+		return (handle_redir(token, command));
 	return (SUCCESS);
 }
 
@@ -95,10 +81,7 @@ t_command	*parse(t_token *token)
 		new_cmd = tokens_to_command(&token);
 		if (!new_cmd)
 			return (cmd_lst_clear(&cmd_list), NULL);
-		if (!new_cmd->argv[0])
-			cmd_lst_delone(&new_cmd);
-		else
-			cmd_lst_add_back(&cmd_list, new_cmd);
+		cmd_lst_add_back(&cmd_list, new_cmd);
 	}
 	return (cmd_list);
 }
