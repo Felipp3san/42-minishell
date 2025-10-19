@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.h                                          :+:      :+:    :+:   */
+/*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/18 18:39:19 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/19 12:36:33 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/19 10:42:04 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/19 12:10:13 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNAL_H
-# define SIGNAL_H
+#include "libft.h"
 
-# include <signal.h>
-
-extern volatile sig_atomic_t	g_signal;
-
-typedef enum e_sig_modes
+void	print_err_heredoc(const char *delimiter)
 {
-	PROMPT_MODE,
-	HEREDOC_MODE,
-	EXEC_MODE_CHILD,
-	EXEC_MODE_PARENT,
-	IGNORE_MODE,
-}	t_sig_modes;
-
-void	set_signal_mode(int mode);
-
-#endif
+	ft_dprintf(2, "minishell: warning:"
+		"here-document delimited by end-of-file: wanted(`%s')\n",
+		delimiter);
+}

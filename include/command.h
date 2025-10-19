@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 14:16:31 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/17 12:38:56 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/19 12:11:56 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,6 @@ typedef struct s_redir
 	struct s_redir		*previous;
 }	t_redir;
 
-typedef struct s_redir_data
-{
-	char				*value;
-	int					heredoc_fd;
-	int					expand_heredoc;
-	t_token_type		type;
-}	t_redir_data;
-
 typedef struct s_command
 {
 	char				**argv;
@@ -52,7 +44,7 @@ void		cmd_lst_delone(t_command **cmd);
 size_t		cmd_lst_size(t_command *cmd);
 
 // redir_lst.c
-t_redir		*redir_lst_new(t_redir_data *data, t_token_type type);
+t_redir		*redir_lst_new(char *value, int expand, t_token_type type);
 void		redir_lst_add_back(t_redir **redir_list, t_redir *new_redir);
 void		redir_lst_clear(t_redir **redir);
 

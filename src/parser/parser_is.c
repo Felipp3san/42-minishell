@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 11:15:24 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/17 11:16:49 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/19 10:38:32 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,4 @@ int	is_sep(t_token_type type)
 int	is_word(t_token_type type)
 {
 	return (type == WORD);
-}
-
-int	is_heredoc(t_token_type type)
-{
-	return (type == HEREDOC);
 }

@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redir_utils.c                                      :+:      :+:    :+:   */
+/*   redir_lst.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 11:07:32 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/17 11:08:28 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/19 12:11:29 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "command.h"
 #include <stdlib.h>
 #include <unistd.h>
+#include "command.h"
 
-t_redir	*redir_lst_new(t_redir_data *data, t_token_type type)
+t_redir	*redir_lst_new(char *value, int expand, t_token_type type)
 {
 	t_redir	*redir;
 
 	redir = (t_redir *) malloc(sizeof(t_redir));
 	if (!redir)
 		return (NULL);
-	redir->value = data->value;
-	redir->heredoc_fd = data->heredoc_fd;
-	redir->expand_heredoc = data->expand_heredoc;
+	redir->value = value;
+	redir->heredoc_fd = -1;
+	redir->expand_heredoc = expand;
 	redir->type = type;
 	redir->next = NULL;
 	redir->previous = NULL;

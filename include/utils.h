@@ -6,7 +6,7 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:30:02 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/12 12:27:49 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/19 10:42:19 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 
 void	free_split(char **arr);
 void	exit_shell(t_shell *shell, int err_code);
-char	*remove_quotes(char *str);
 
 // print_error.c
 void	print_error(const char *cmd_name, const char *msg, char *optional);

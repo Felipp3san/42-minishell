@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.h                                          :+:      :+:    :+:   */
+/*   heredoc.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/18 18:39:19 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/19 12:36:33 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/19 11:21:06 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/19 12:10:01 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNAL_H
-# define SIGNAL_H
+#ifndef HEREDOC_H
+# define HEREDOC_H
 
-# include <signal.h>
+#include "minishell.h"
 
-extern volatile sig_atomic_t	g_signal;
-
-typedef enum e_sig_modes
-{
-	PROMPT_MODE,
-	HEREDOC_MODE,
-	EXEC_MODE_CHILD,
-	EXEC_MODE_PARENT,
-	IGNORE_MODE,
-}	t_sig_modes;
-
-void	set_signal_mode(int mode);
+int	heredoc_handle(t_shell *shell);
 
 #endif

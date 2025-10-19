@@ -6,13 +6,13 @@
 /*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 18:21:57 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/17 12:40:24 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/19 12:09:15 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser_internal.h"
-#include "utils.h"
 #include "libft.h"
+#include "utils.h"
 
 t_token	*syntax_check(t_token *token)
 {
@@ -31,17 +31,6 @@ t_token	*syntax_check(t_token *token)
 	return (token);
 }
 
-char	*get_redir_value(char *token_value, int *expand)
-{
-	if (ft_strchr(token_value, '\"') || ft_strchr(token_value, '\''))
-	{
-		*expand = FALSE;
-		return (remove_quotes(token_value));
-	}
-	*expand = TRUE;
-	return (ft_strdup(token_value));
-}
-
 void	print_parser_err(t_token *error)
 {
 	ft_putstr_fd("minishell: syntax error near unexpected token `", 1);
@@ -50,4 +39,52 @@ void	print_parser_err(t_token *error)
 	else
 		ft_putstr_fd(error->value, 1);
 	ft_putendl_fd("'", 1);
+}
+
+static size_t	size_without_quotes(const char *str) {
+	size_t	i;
+	size_t	size;
+
+	i = 0;
+	size = 0;
+	while (str[i])
+	{
+		if (!is_single_quote(str[i]) && !is_double_quote(str[i]))
+			size++;
+		i++;
+	}
+	return (size);
+}
+
+char	*remove_quotes(char *str)
+{
+	char	*new_str;
+	size_t	i;
+	size_t	j;
+	size_t	size;
+
+	if (!str || !*str)
+		return (NULL);
+	size = size_without_quotes(str);
+	new_str = (char *) malloc(sizeof(char) * (size + 1));
+	if (!new_str)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (!is_single_quote(str[i]) && !is_double_quote(str[i]))
+		{
+			new_str[j] = str[i];
+			j++;
+		}
+		i++;
+	}
+	new_str[j] = '\0';
+	return (new_str);
+}
+
+int	should_expand_heredoc(char *value)
+{
+	return (ft_strchr(value, '\"') || ft_strchr(value, '\''));
 }
