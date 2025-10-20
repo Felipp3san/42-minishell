@@ -59,7 +59,7 @@ int	builtin_cd(char **args, t_env **env)
 	char	*target;
 	char	oldcwd[PATH_MAX];
 
-	if (!args || args[2])
+	if (!args || (args[1] && args[2]))
 		return (print_error_return("cd", "too many arguments", EXIT_FAILURE));
 	if (!args[1])
 	{
