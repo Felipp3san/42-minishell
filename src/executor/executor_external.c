@@ -33,23 +33,24 @@ int	is_dir(char *path)
 
 void	execute_external(t_exec *exec, t_shell *shell)
 {
-	char	*path;
+	char		*path;
+	t_command	*cmd;
 
-	path = path_find(exec->cmd->argv[0], shell->env_arr);
+	cmd = exec->cmd;
+	shell->env_arr = env_list_to_arr(shell->env_lst);
+	if (!shell->env_arr)
+		print_exit(shell, "env_list_to_arr", "copy failed", EXIT_FAILURE);
+	path = path_find(cmd->argv[0], shell->env_arr);
 	if (!path)
-	{
-		print_error(exec->cmd->argv[0], "command not found", NULL);
-		exit_shell(shell, CMD_NOT_FOUND);
-	}
+		print_exit(shell, cmd->argv[0], "command not found", CMD_NOT_FOUND);
 	if (is_dir(path))
 	{
 		free(path);
-		print_error(exec->cmd->argv[0], "Is a directory", NULL);
-		exit_shell(shell, CMD_NOT_EXEC);
+		print_exit(shell, cmd->argv[0], "Is a directory", CMD_NOT_EXEC);
 	}
-	if (execve(path, exec->cmd->argv, shell->env_arr) == -1)
+	if (execve(path, cmd->argv, shell->env_arr) == -1)
 	{
-		print_error(exec->cmd->argv[0], strerror(errno), NULL);
+		print_error(cmd->argv[0], strerror(errno), NULL);
 		free(path);
 		if (errno == ENOENT)
 			exit_shell(shell, CMD_NOT_FOUND);

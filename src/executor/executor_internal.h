@@ -32,6 +32,7 @@ typedef struct s_exec
 void	init_exec(t_exec *exec, t_shell *shell);
 t_bool	is_builtin(char *cmd);
 t_bool	is_single_cmd(t_command *commands);
+void	update_env(t_exec *exec, t_shell *shell, int last);
 
 // executor_heredoc.c
 int		heredoc(char *delimiter);

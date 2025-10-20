@@ -15,7 +15,7 @@
 #include "utils.h"
 #include "types.h"
 
-static int	replace_variable(t_env *node, char *value)
+int	replace_variable(t_env *node, char *value)
 {
 	if (!node)
 		return (ERROR);
@@ -25,7 +25,7 @@ static int	replace_variable(t_env *node, char *value)
 	return (SUCCESS);
 }
 
-static int	add_variable(t_env **env, char *name, char *value, int plus)
+int	add_variable(t_env **env, char *name, char *value, int plus)
 {
 	t_env	*new_node;
 	char	*new_name;
