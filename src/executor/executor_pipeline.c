@@ -71,6 +71,8 @@ int	wait_children(pid_t last_pid)
 		{
 			if (WIFEXITED(status))
 				saved = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+				saved = 128 + WTERMSIG(status);
 		}
 		pid = wait(&status);
 	}
