@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include "command.h"
 #include "executor_internal.h"
 #include "builtins.h"
 #include "libft.h"

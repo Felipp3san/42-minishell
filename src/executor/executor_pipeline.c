@@ -37,6 +37,7 @@ void	child_process(t_exec *exec, t_shell *shell)
 	}
 	if (apply_redirections(exec) == ERROR)
 		exit_shell(shell, EXIT_FAILURE);
+	update_env(exec, shell, FALSE);
 	if (is_builtin(exec->cmd->argv[0]))
 	{
 		ret = execute_builtin(exec, shell);
@@ -89,13 +90,18 @@ int	pipeline(t_exec *exec, t_shell *shell)
 		exec->last = (exec->cmd->next == NULL);
 		if (!exec->last && pipe(exec->pipe_fd) == -1)
 			return (print_error_return("pipe", strerror(errno), EXIT_FAILURE));
+		if (is_single_cmd(shell->commands))
+		{
+			update_env(exec, shell, TRUE);
+			if (is_builtin(exec->cmd->argv[0]))
+				return (execute_single_builtin(exec, shell));
+		}
 		pid = fork();
 		if (pid == -1)
 			return (print_error_return("fork", strerror(errno), EXIT_FAILURE));
 		else if (pid == 0)
 			child_process(exec, shell);
-		else
-			parent_process(exec);
+		parent_process(exec);
 		if (exec->last)
 			last_pid = pid;
 		exec->cmd = exec->cmd->next;

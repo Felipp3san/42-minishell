@@ -21,6 +21,7 @@ void	exit_shell(t_shell *shell, int err_code);
 // print_error.c
 void	print_error(const char *cmd_name, const char *msg, char *optional);
 int		print_error_return(const char *cmd_name, const char *msg, int code);
+int		print_exit(t_shell *shell, char *cmd_name, char *msg, int code);
 
 // ft_is.c
 int		is_separator(char ch);
