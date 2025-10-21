@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_helpers.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 14:32:14 by jfernand          #+#    #+#             */
-/*   Updated: 2025/10/19 22:10:36 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/21 16:52:54 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	get_only_name(const char *var, char **out_name, char **out_value)
 	return (SUCCESS);
 }
 
-int	split_assignment(const char *variable, char **out_name, char **out_value)
+int	split_assignment(char *variable, char **out_name, char **out_value)
 {
 	char	*sign;
 	size_t	name_len;

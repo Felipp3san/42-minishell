@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:12:38 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/21 16:42:56 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/21 16:50:39 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static int	update_env_pwd(t_env **env)
 	free(tmp);
 	return (SUCCESS);
 }
+
 static void	handle_no_dir(char *target, t_env *env)
 {
 	target = env_get_lst(env, "HOME");
@@ -65,8 +66,9 @@ static void	handle_no_dir(char *target, t_env *env)
 		"error retrieving current directory: getcwd: "
 		"cannot access parent directories",
 		strerror(errno)
-	);
+		);
 }
+
 int	builtin_cd(char **args, t_env **env)
 {
 	char	*target;

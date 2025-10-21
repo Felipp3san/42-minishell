@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:04:14 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/18 02:03:11 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/21 16:54:06 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		builtin_unset(t_env **env, char **variable);
 int		add_variable(t_env **env, char *name, char *value, int plus);
 int		replace_variable(t_env *node, char *value);
 void	free_var(char *name, char *value);
-int		split_assignment(const char *variable, char **out_name, char **out_value);
+int		split_assignment(char *variable, char **out_name, char **out_value);
 int		is_valid_name(char *name, int *plus);
 int		name_cmp(const char *a, const char *b);
 int		sort_exp_list(t_env *head);
