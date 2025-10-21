@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:03:55 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/19 22:03:12 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/21 16:33:52 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "utils.h"
 #include "types.h"
 
-static int	replace_variable(t_env *node, char *value)
+int	replace_variable(t_env *node, char *value)
 {
 	if (!node)
 		return (ERROR);
@@ -27,7 +27,7 @@ static int	replace_variable(t_env *node, char *value)
 	return (SUCCESS);
 }
 
-static int	add_variable(t_env **env, char *name, char *value, int plus)
+int	add_variable(t_env **env, char *name, char *value, int plus)
 {
 	t_env	*new_node;
 	char	*new_name;
@@ -51,7 +51,7 @@ static int	add_variable(t_env **env, char *name, char *value, int plus)
 	return (SUCCESS);
 }
 
-static int	append_or_replace(t_env *node_found, int plus, char *var_name, char *var_value)
+int	append_or_replace(t_env *node, int plus, char *var_name, char *var_value)
 {
 	if (node_found)
 	{

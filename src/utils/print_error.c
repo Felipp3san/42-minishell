@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include "minishell.h"
 #include "libft.h"
 
 void	print_error(const char *cmd_name, const char *msg, char *optional)
@@ -34,4 +35,12 @@ int	print_error_return(const char *cmd_name, const char *msg, int code)
 {
 	print_error(cmd_name, msg, 0);
 	return (code);
+}
+
+int	print_exit(t_shell *shell, char *cmd_name, char *msg, int code)
+{
+	print_error(cmd_name, msg, 0);
+	if (shell)
+		free_shell(shell, TRUE);
+	exit(code);
 }

@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stddef.h>
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -19,6 +20,7 @@
 #include "env.h"
 #include "minishell.h"
 #include "token.h"
+#include "builtins.h"
 
 void	free_ptr(void **ptr)
 {
@@ -48,20 +50,47 @@ void	free_shell(t_shell *shell, t_bool full_clean)
 	rl_clear_history();
 }
 
-static void	initialize_env(t_shell *shell)
+static int	initialize_env(t_shell *shell)
 {
-	const char	*env_root = "/usr/bin/env";
-	char		*cwd;
-	t_env		*node;
+	char	*pwd;
+	char	*cwd;
+	t_env	*node;
 
-	cwd = shell->current_dir;
-	node = env_lst_new(ft_strdup("PWD"), ft_strdup(cwd));
+	pwd = ft_strdup("PWD");
+	if (!pwd)
+		return (ERROR);
+	cwd = ft_strdup(shell->current_dir);
+	if (!cwd)
+		return (free(pwd), ERROR);
+	node = env_lst_new(pwd, cwd);
 	env_lst_add_back(&shell->env_lst, node);
-	node = env_lst_new(ft_strdup("SHLVL"), ft_strdup("1"));
-	env_lst_add_back(&shell->env_lst, node);
-	node = env_lst_new(ft_strdup("_"), ft_strdup(env_root));
-	env_lst_add_back(&shell->env_lst, node);
-};
+	return (SUCCESS);
+}
+
+void	increment_shlvl(t_shell *shell)
+{
+	t_env	*env_node;
+	int		new_value;
+	char	*tmp;
+
+	env_node = search_variable(shell->env_lst, "SHLVL", 0);
+	if (!env_node)
+	{
+		add_variable(&shell->env_lst, ft_strdup("SHLVL"),
+			ft_strdup("1"), 0);
+		return ;
+	}
+	if (env_node->value)
+		new_value = ft_atoi(env_node->value) + 1;
+	else
+		new_value = 0;
+	if (new_value < 0)
+		new_value = 0;
+	else if (new_value >= 1000)
+		new_value = 1;
+	tmp = ft_itoa(new_value);
+	replace_variable(env_node, tmp);
+}
 
 int	init_shell(t_shell *shell, char **envp)
 {
@@ -77,7 +106,9 @@ int	init_shell(t_shell *shell, char **envp)
 	shell->last_exit_code = 0;
 	shell->env_lst = env_arr_to_lst(envp);
 	if (!shell->env_lst)
-		initialize_env(shell);
+		if (initialize_env(shell) == ERROR)
+			return (ERROR);
+	increment_shlvl(shell);
 	shell->env_arr = NULL;
 	return (SUCCESS);
 }

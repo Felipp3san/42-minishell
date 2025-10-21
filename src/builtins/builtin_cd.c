@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:12:38 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/18 01:38:50 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/21 16:33:04 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include "types.h"
 #include "utils.h"
 #include "builtins.h"
+#include "env.h"
 
 static int	update_env_oldpwd(t_env **env, const char *oldcwd)
 {
@@ -59,22 +60,31 @@ int	builtin_cd(char **args, t_env **env)
 	char	*target;
 	char	oldcwd[PATH_MAX];
 
-	if (!args || args[2])
+	if (!args || (args[1] && args[2]))
 		return (print_error_return("cd", "too many arguments", EXIT_FAILURE));
 	if (!args[1])
 	{
-		target = getenv("HOME");
+		target = env_get_lst(*env, "HOME");
 		if (!target)
 			return (ERROR);
 	}
 	else
 		target = args[1];
 	if (!getcwd(oldcwd, PATH_MAX))
-		return (ERROR);
-	if (chdir(target) != 0)
+		oldcwd[0] = '\0';
+	if (chdir(target) == 0)
 	{
-		print_error("cd", target, strerror(errno));
-		return (EXIT_FAILURE);
+		if (!getcwd(NULL, 0))
+		{
+			target = env_get_lst(*env, "HOME");
+			if (!target)
+				target = "/";
+			chdir(target);
+			print_error("cd",
+				"error retrieving current directory: getcwd: "
+				"cannot access parent directories",
+				strerror(errno));
+		}
 	}
 	if (update_env_oldpwd(env, oldcwd) != SUCCESS)
 		return (ERROR);

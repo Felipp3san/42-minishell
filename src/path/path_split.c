@@ -24,7 +24,7 @@ char	**path_split(char *path)
 	skip_var = ft_strchr(path, '=');
 	if (skip_var)
 		path = skip_var + 1;
-	paths = ft_split(path + 1, ':');
+	paths = ft_split(path, ':');
 	if (!paths)
 		return (NULL);
 	return (paths);

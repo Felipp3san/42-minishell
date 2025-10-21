@@ -24,6 +24,8 @@ int		builtin_env(t_env *env);
 int		builtin_unset(t_env **env, char **variable);
 
 // helpers
+int		add_variable(t_env **env, char *name, char *value, int plus);
+int		replace_variable(t_env *node, char *value);
 void	free_var(char *name, char *value);
 int		split_assignment(const char *variable, char **out_name, char **out_value);
 int		is_valid_name(char *name, int *plus);

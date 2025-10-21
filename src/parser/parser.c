@@ -36,13 +36,11 @@ static int	handle_redir(t_token **token, t_command *command)
 static int	parse_token(t_token **token, t_command *command)
 {
 	if (is_word((*token)->type))
-	{
-		if (!argv_append(command, (*token)->value))
-			return (ERR_MALLOC);
-	}
+		return (!argv_append(command, (*token)->value));
 	else if (is_redir((*token)->type))
 		return (handle_redir(token, command));
-	return (SUCCESS);
+	else
+		return (ERROR);
 }
 
 static t_command	*tokens_to_command(t_token **token)
@@ -55,10 +53,7 @@ static t_command	*tokens_to_command(t_token **token)
 	while (*token && (*token)->type != PIPE)
 	{
 		if (parse_token(token, new_cmd) != SUCCESS)
-		{
-			cmd_lst_delone(&new_cmd);
-			return (NULL);
-		}
+			return (cmd_lst_delone(&new_cmd), NULL);
 		*token = (*token)->next;
 	}
 	if (*token && (*token)->type == PIPE)
