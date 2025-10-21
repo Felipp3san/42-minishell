@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:25:23 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/19 21:47:33 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/21 16:47:49 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,13 @@ int	process_input(t_shell *shell)
 	shell->tokens = tokenize(shell->user_input);
 	if (!shell->tokens)
 		return (ERROR);
-	//print_token_list(shell->tokens);
 	shell->commands = parse(shell->tokens);
 	if (!shell->commands)
 		return (ERROR);
-	//print_command_list(shell->commands);
 	if (heredoc_handle(shell) != SUCCESS)
 		return (ERROR);
-	//print_command_list(shell->commands);
 	if (!expand(shell))
 		return (ERROR);
-	//print_command_list(shell->commands);
 	shell->last_exit_code = execute(shell);
 	return (SUCCESS);
 }
