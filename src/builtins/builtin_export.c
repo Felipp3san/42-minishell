@@ -19,6 +19,8 @@ int	replace_variable(t_env *node, char *value)
 {
 	if (!node)
 		return (ERROR);
+	if (!value)
+		return (SUCCESS);
 	if (node->value)
 		free(node->value);
 	node->value = value;

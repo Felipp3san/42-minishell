@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 11:25:23 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/19 12:57:11 by fde-alme         ###   ########.fr       */
+/*   Updated: 2025/10/19 21:47:33 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	main(int argc, char **argv, char **envp)
 	(void) argv;
 	if (init_shell(&shell, envp) != SUCCESS)
 		return (free_shell(&shell, TRUE), EXIT_FAILURE);
-	//print_banner();
+	print_banner();
 	minishell_loop(&shell);
 	free_shell(&shell, TRUE);
 	return (shell.last_exit_code);
