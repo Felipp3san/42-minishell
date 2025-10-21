@@ -62,6 +62,27 @@ void	expand_args(t_shell *shell, t_command *cmd)
 	}
 }
 
+void	expand_redirs(t_shell *shell, t_command *cmd)
+{
+	t_redir	*redir;
+	char	*expanded;
+
+	redir = cmd->redirs;
+	while (redir)
+	{
+		if (redir->type != HEREDOC)
+		{
+			expanded = expand_str(shell, redir->value);
+			if (expanded)
+			{
+				free(redir->value);
+				redir->value = expanded;
+			}
+		}
+		redir = redir->next;
+	}
+}
+
 t_command	*expand(t_shell *shell)
 {
 	t_command	*cmd_node;
@@ -72,6 +93,7 @@ t_command	*expand(t_shell *shell)
 	while (cmd_node)
 	{
 		expand_args(shell, cmd_node);
+		expand_redirs(shell, cmd_node);
 		if (expand_heredoc(shell, cmd_node) == ERROR)
 			return (NULL);
 		cmd_node = cmd_node->next;
