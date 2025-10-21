@@ -39,7 +39,7 @@ static int	parse_token(t_token **token, t_command *command)
 		return (!argv_append(command, (*token)->value));
 	else if (is_redir((*token)->type))
 		return (handle_redir(token, command));
-	else 
+	else
 		return (ERROR);
 }
 

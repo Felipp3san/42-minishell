@@ -19,7 +19,7 @@ int	execute(t_shell *shell)
 
 	set_signal_mode(EXEC_MODE_PARENT);
 	init_exec(&exec, shell);
-	if (is_single_cmd(shell->commands) && !shell->commands->argv[0])
+	if (!shell->commands)
 		return (SUCCESS);
 	else
 		return (pipeline(&exec, shell));

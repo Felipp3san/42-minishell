@@ -37,7 +37,8 @@ void	child_process(t_exec *exec, t_shell *shell)
 	}
 	if (apply_redirections(exec) == ERROR)
 		exit_shell(shell, EXIT_FAILURE);
-	update_env(exec, shell, FALSE);
+	if (exec->cmd->size == 0)
+		exit_shell(shell, 0);
 	if (is_builtin(exec->cmd->argv[0]))
 	{
 		ret = execute_builtin(exec, shell);

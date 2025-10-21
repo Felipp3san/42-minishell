@@ -65,7 +65,7 @@ static int	initialize_env(t_shell *shell)
 	node = env_lst_new(pwd, cwd);
 	env_lst_add_back(&shell->env_lst, node);
 	return (SUCCESS);
-};
+}
 
 void	increment_shlvl(t_shell *shell)
 {
@@ -77,7 +77,7 @@ void	increment_shlvl(t_shell *shell)
 	if (!env_node)
 	{
 		add_variable(&shell->env_lst, ft_strdup("SHLVL"),
-				ft_strdup("1"), 0);
+			ft_strdup("1"), 0);
 		return ;
 	}
 	if (env_node->value)

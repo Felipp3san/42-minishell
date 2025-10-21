@@ -62,7 +62,7 @@ t_bool	is_builtin(char *cmd)
 	};
 	size_t		i;
 
-	if (!cmd)
+	if (!cmd || !*cmd)
 		return (FALSE);
 	i = 0;
 	while (builtins[i])
