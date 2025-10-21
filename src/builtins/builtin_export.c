@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:03:55 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/21 16:33:52 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/21 16:39:04 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ int	add_variable(t_env **env, char *name, char *value, int plus)
 
 int	append_or_replace(t_env *node, int plus, char *var_name, char *var_value)
 {
-	if (node_found)
+	if (node)
 	{
-		if (plus == 1 && node_found->value)
+		if (plus == 1 && node->value)
 		{
-			if (append_to_variable(node_found, var_value) != SUCCESS)
+			if (append_to_variable(node, var_value) != SUCCESS)
 			{
 				free_var(var_name, var_value);
 				return (ERROR);
@@ -65,7 +65,7 @@ int	append_or_replace(t_env *node, int plus, char *var_name, char *var_value)
 		}
 		else
 		{
-			if (replace_variable(node_found, var_value) != SUCCESS)
+			if (replace_variable(node, var_value) != SUCCESS)
 			{
 				free_var(var_name, var_value);
 				return (ERROR);
