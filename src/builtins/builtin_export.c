@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 13:03:55 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/18 01:54:02 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/21 16:33:52 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	add_variable(t_env **env, char *name, char *value, int plus)
 	return (SUCCESS);
 }
 
-static int	append_or_replace(t_env *node_found, int plus, char *var_name, char *var_value)
+int	append_or_replace(t_env *node, int plus, char *var_name, char *var_value)
 {
 	if (node_found)
 	{
