@@ -86,6 +86,5 @@ make clean
 - Remove all binaries and rebuild:
 
 ```bash
-make fclean
-make
+make re
 ```
