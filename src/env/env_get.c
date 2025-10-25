@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_get.c                                          :+:      :+:    :+:   */
+/*   env_get_arr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fde-alme <fde-alme@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/17 12:28:27 by fde-alme          #+#    #+#             */
-/*   Updated: 2025/10/17 12:28:32 by fde-alme         ###   ########.fr       */
+/*   Created: 2025/10/06 18:32:39 by fde-alme          #+#    #+#             */
+/*   Updated: 2025/10/17 12:28:06 by fde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,15 @@ char	*env_get_arr(char **envp, const char *var)
 char	*env_get_lst(t_env *envp, const char *var)
 {
 	t_env	*node;
-	size_t	len;
 	char	*str;
 
 	if (!envp || !var)
 		return (NULL);
-	len = ft_strlen(var);
 	node = envp;
 	while (node)
 	{
 		str = node->name;
-		if (ft_strncmp(str, var, len) == 0)
+		if (ft_strcmp(str, var) == 0)
 			return (node->value);
 		node = node->next;
 	}
