@@ -88,3 +88,7 @@ make clean
 ```bash
 make re
 ```
+
+## License
+
+Educational project under 42 School academic policy.
