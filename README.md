@@ -89,6 +89,30 @@ make clean
 make re
 ```
 
+## Project Structure
+
+```
+.
+├── include/             # Header files
+├── src/                 # Source files
+│    ├── builtins/       # Built-in shell commands
+│    ├── command/        # Command structures
+│    ├── debug/          # Debugging utilities
+│    ├── env/            # Environment variable management
+│    ├── executor/       # Command executor logic
+│    ├── expander/       # Variable and wildcard expansion
+│    ├── heredoc/        # Here-document handling
+│    ├── parser/         # Parsing logic for commands
+│    ├── path/           # Path resolution and management
+│    ├── signals/        # Signal handling (e.g., SIGINT)
+│    ├── token/          # Token structures
+│    ├── tokenizer/      # Lexical analysis
+│    ├── ui/             # User interface components
+│    ├── utils/          # Utility functions
+│    └── main.c          # Program entry point
+└── libft/               # Custom Libft library
+```
+
 ## License
 
 Educational project under 42 School academic policy.
