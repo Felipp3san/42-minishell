@@ -25,8 +25,8 @@ It provides a complete interactive shell experience with built-in commands, envi
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/Felipp3san/minishell.git
-cd minishell
+git clone https://github.com/Felipp3san/42-minishell
+cd 42-minishell
 ```
 
 2. Compile the project:
